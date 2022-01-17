@@ -56,7 +56,7 @@ function App() {
   // otherwise, we're ready to render the app
   return (
     <ToggleStorybook>
-      <RootStoreProvider value={rootStore}>
+      {/* <RootStoreProvider value={rootStore}>
         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
           <ErrorBoundary catchErrors={"always"}>
             <AppNavigator
@@ -65,7 +65,7 @@ function App() {
             />
           </ErrorBoundary>
         </SafeAreaProvider>
-      </RootStoreProvider>
+      </RootStoreProvider> */}
     </ToggleStorybook>
   )
 }
