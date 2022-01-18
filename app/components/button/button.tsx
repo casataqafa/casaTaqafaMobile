@@ -23,6 +23,7 @@ export function Button(props: ButtonProps) {
 
   const viewStyle = viewPresets[preset] || viewPresets.primary
   const viewStyles = [viewStyle, styleOverride]
+
   const textStyle = textPresets[preset] || textPresets.primary
   const textStyles = [textStyle, textStyleOverride]
 
