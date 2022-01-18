@@ -77,7 +77,6 @@ const CONTINUE: ViewStyle = {
 const CONTINUE_TEXT: TextStyle = {
   ...TEXT,
   ...BOLD,
-
   letterSpacing: 0,
 }
 const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
@@ -114,6 +113,7 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
             <Button
+              preset="disabled"
               testID="next-screen-button"
               style={CONTINUE}
               textStyle={CONTINUE_TEXT}

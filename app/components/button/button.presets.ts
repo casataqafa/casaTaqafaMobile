@@ -29,6 +29,12 @@ export const viewPresets: Record<string, ViewStyle> = {
   primary: { ...BASE_VIEW, backgroundColor: color.palette.red } as ViewStyle,
 
   /**
+   * A Disabled Version of the button
+   */
+
+  disabled: { ...BASE_VIEW, backgroundColor: color.palette.lighterGrey } as ViewStyle,
+
+  /**
    * A button without extras.
    */
   link: {
@@ -41,6 +47,8 @@ export const viewPresets: Record<string, ViewStyle> = {
 
 export const textPresets: Record<ButtonPresetNames, TextStyle> = {
   primary: { ...BASE_TEXT, fontSize: 16, color: color.palette.white } as TextStyle,
+  disabled: { ...BASE_TEXT, fontSize: 16, color: color.palette.disabled } as TextStyle,
+
   link: {
     ...BASE_TEXT,
     color: color.text,
