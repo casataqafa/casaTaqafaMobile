@@ -1,11 +1,12 @@
 export const palette = {
-  black: "#1d1d1d",
+  red: "FE5850",
+  redDarker: "D02C24",
+  lighterRed: "FEABA7",
+  black: "#090A0A",
   white: "#ffffff",
-  offWhite: "#e6e6e6",
-  orange: "#FBA928",
-  orangeDarker: "#EB9918",
-  lightGrey: "#939AA4",
-  lighterGrey: "#CDD4DA",
-  angry: "#dd3333",
-  deepPurple: "#5D2555",
+  offWhite: "E3E5E5",
+  lightGrey: "#6C7072", // small paragraphs
+  lighterGrey: "#F7F9FA", // Favorte card component
+  darkestGrey: "979C9E", // Icon stroke
+  angry: "D02C24",
 }
