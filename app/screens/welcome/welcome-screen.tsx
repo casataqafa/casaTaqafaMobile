@@ -24,7 +24,7 @@ const TEXT: TextStyle = {
   color: color.palette.white,
   fontFamily: typography.primary,
 }
-const BOLD: TextStyle = { fontWeight: "bold" }
+const BOLD: TextStyle = { fontWeight: "normal" }
 const HEADER: TextStyle = {
   paddingTop: spacing[3],
   paddingBottom: spacing[4] + spacing[1],
@@ -70,15 +70,14 @@ const CONTENT: TextStyle = {
   marginBottom: spacing[5],
 }
 const CONTINUE: ViewStyle = {
-  paddingVertical: spacing[4],
+  paddingVertical: spacing[3],
   paddingHorizontal: spacing[4],
-  backgroundColor: color.palette.deepPurple,
+  backgroundColor: color.palette.red,
 }
 const CONTINUE_TEXT: TextStyle = {
   ...TEXT,
   ...BOLD,
-  fontSize: 13,
-  letterSpacing: 2,
+  letterSpacing: 0,
 }
 const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
 const FOOTER_CONTENT: ViewStyle = {

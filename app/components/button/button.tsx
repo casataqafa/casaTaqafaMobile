@@ -21,15 +21,18 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props
 
+  const disabled = preset === "disabled"
   const viewStyle = viewPresets[preset] || viewPresets.primary
+
   const viewStyles = [viewStyle, styleOverride]
+
   const textStyle = textPresets[preset] || textPresets.primary
   const textStyles = [textStyle, textStyleOverride]
 
   const content = children || <Text tx={tx} text={text} style={textStyles} />
 
   return (
-    <TouchableOpacity style={viewStyles} {...rest}>
+    <TouchableOpacity style={viewStyles} {...rest} disabled={disabled}>
       {content}
     </TouchableOpacity>
   )
