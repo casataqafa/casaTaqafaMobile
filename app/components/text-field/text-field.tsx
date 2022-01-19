@@ -2,19 +2,19 @@ import React from "react"
 import { StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native"
 import { color, spacing, typography } from "../../theme"
 import { translate, TxKeyPath } from "../../i18n"
-import { Text } from "../text/text"
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
-  paddingVertical: spacing[1],
+  paddingVertical: spacing[4],
   backgroundColor: color.palette.white,
   borderRadius: 8,
-  paddingTop: 10,
+  paddingTop: spacing[3],
   borderStyle: "solid",
   borderWidth: 1,
   borderColor: "#e3e5e5",
   width: 327,
   height: 48,
+  padding: 16,
 }
 
 // the base styling for the TextInput
@@ -22,26 +22,24 @@ const INPUT: TextStyle = {
   fontFamily: typography.primary,
   color: color.palette.black,
   width: 295,
-  height: 16,
-
+  height: spacing[5],
+  textAlignVertical: "top",
   fontSize: 16,
   fontWeight: "normal",
   fontStyle: "normal",
-  lineHeight: 16,
+  lineHeight: spacing[4],
   letterSpacing: 0,
   textAlign: "left",
-  paddingLeft: 10,
-  marginTop: 5,
 }
-
-// const LABELSTYLE: TextStyle = {
-//   paddingLeft: 10,
-
-// }
 
 // currently we have no presets, but that changes quickly when you build your app.
 const PRESETS: { [name: string]: ViewStyle } = {
   default: {},
+
+  /**
+   * A preset for text password text fields
+   */
+  password: { ...INPUT, ...CONTAINER } as ViewStyle,
 }
 
 export interface TextFieldProps extends TextInputProps {
@@ -54,16 +52,6 @@ export interface TextFieldProps extends TextInputProps {
    * The Placeholder text if no placeholderTx is provided.
    */
   placeholder?: string
-
-  /**
-   * The label i18n key.
-   */
-  labelTx?: TxKeyPath
-
-  /**
-   * The label text if no labelTx is provided.
-   */
-  label?: string
 
   /**
    * Optional container style overrides useful for margins & padding.
@@ -90,9 +78,6 @@ export function TextField(props: TextFieldProps) {
   const {
     placeholderTx,
     placeholder,
-    labelTx,
-    label,
-    secureTextEntry,
     preset = "default",
     style: styleOverride,
     inputStyle: inputStyleOverride,
@@ -101,12 +86,12 @@ export function TextField(props: TextFieldProps) {
   } = props
 
   const containerStyles = [CONTAINER, PRESETS[preset], styleOverride]
+  const secureTextEntry = preset === "password"
   const inputStyles = [INPUT, inputStyleOverride]
   const actualPlaceholder = placeholderTx ? translate(placeholderTx) : placeholder
 
   return (
     <View style={containerStyles}>
-      {/* <Text preset="fieldLabel" style={LABELSTYLE} tx={labelTx} text={label} /> */}
       <TextInput
         placeholder={actualPlaceholder}
         placeholderTextColor={color.palette.lightGrey}
