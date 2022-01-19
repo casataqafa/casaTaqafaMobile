@@ -113,7 +113,6 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
             <Button
-              preset="disabled"
               testID="next-screen-button"
               style={CONTINUE}
               textStyle={CONTINUE_TEXT}

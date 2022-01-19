@@ -9,5 +9,5 @@ export const palette = {
   lighterGrey: "#F7F9FA", // Favorte card component
   darkestGrey: "#979C9E", // Icon stroke
   angry: "#D02C24",
-  disabled: "#666666",
+  disabled: "#FFE5E5",
 }
