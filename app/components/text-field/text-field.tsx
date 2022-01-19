@@ -6,17 +6,38 @@ import { Text } from "../text/text"
 
 // the base styling for the container
 const CONTAINER: ViewStyle = {
-  paddingVertical: spacing[3],
+  paddingVertical: spacing[1],
+  backgroundColor: color.palette.white,
+  borderRadius: 8,
+  paddingTop: 10,
+  borderStyle: "solid",
+  borderWidth: 1,
+  borderColor: "#e3e5e5",
+  width: 327,
+  height: 48,
 }
 
 // the base styling for the TextInput
 const INPUT: TextStyle = {
   fontFamily: typography.primary,
-  color: color.text,
-  minHeight: 44,
-  fontSize: 18,
-  backgroundColor: color.palette.white,
+  color: color.palette.black,
+  width: 295,
+  height: 16,
+
+  fontSize: 16,
+  fontWeight: "normal",
+  fontStyle: "normal",
+  lineHeight: 16,
+  letterSpacing: 0,
+  textAlign: "left",
+  paddingLeft: 10,
+  marginTop: 5,
 }
+
+// const LABELSTYLE: TextStyle = {
+//   paddingLeft: 10,
+
+// }
 
 // currently we have no presets, but that changes quickly when you build your app.
 const PRESETS: { [name: string]: ViewStyle } = {
@@ -71,6 +92,7 @@ export function TextField(props: TextFieldProps) {
     placeholder,
     labelTx,
     label,
+    secureTextEntry,
     preset = "default",
     style: styleOverride,
     inputStyle: inputStyleOverride,
@@ -84,11 +106,12 @@ export function TextField(props: TextFieldProps) {
 
   return (
     <View style={containerStyles}>
-      <Text preset="fieldLabel" tx={labelTx} text={label} />
+      {/* <Text preset="fieldLabel" style={LABELSTYLE} tx={labelTx} text={label} /> */}
       <TextInput
         placeholder={actualPlaceholder}
-        placeholderTextColor={color.palette.lighterGrey}
+        placeholderTextColor={color.palette.lightGrey}
         underlineColorAndroid={color.transparent}
+        secureTextEntry={secureTextEntry}
         {...rest}
         style={inputStyles}
         ref={forwardedRef}
