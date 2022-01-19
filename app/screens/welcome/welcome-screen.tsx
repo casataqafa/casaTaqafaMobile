@@ -9,9 +9,11 @@ import {
   Text,
   GradientBackground,
   AutoImage as Image,
+  SelectButton,
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
+import { ButtonFlatList } from "../../components/button-flat-list/button-flat-list"
 
 const bowserLogo = require("./bowser.png")
 
@@ -79,7 +81,7 @@ const CONTINUE_TEXT: TextStyle = {
   ...BOLD,
   letterSpacing: 0,
 }
-const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
+const FOOTER: ViewStyle = { backgroundColor: " " }
 const FOOTER_CONTENT: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
@@ -91,7 +93,9 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
 
     return (
       <View testID="WelcomeScreen" style={FULL}>
-        <GradientBackground colors={["#422443", "#281b34"]} />
+        <ButtonFlatList />
+
+        {/* <GradientBackground colors={["#422443", "#281b34"]} />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
           <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
           <Text style={TITLE_WRAPPER}>
@@ -120,7 +124,7 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
               onPress={nextScreen}
             />
           </View>
-        </SafeAreaView>
+        </SafeAreaView> */}
       </View>
     )
   },
