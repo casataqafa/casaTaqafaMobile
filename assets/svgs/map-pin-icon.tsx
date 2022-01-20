@@ -1,11 +1,37 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+import { StyleProp, ViewStyle } from "react-native"
 
-const MapPinIcon = (props) => (
-  <Svg width={20} height={20} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+export interface IconProps {
+  /**
+   * Option define the width as a string
+   */
+  width?: number
+
+  /**
+   * Option define the height as a string
+   */
+  height?: number
+
+  /**
+   * Optional define the stroke color as a string
+   */
+  stroke?: string
+
+  style?: StyleProp<ViewStyle>
+}
+
+const MapPinIcon = (props: IconProps) => (
+  <Svg
+    style={props.style}
+    width={props.width}
+    height={props.height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <Path
       d="M19 8.364C19 14.09 10 19 10 19S1 14.09 1 8.364c0-1.953.948-3.826 2.636-5.207C5.324 1.776 7.613 1 10 1s4.676.776 6.364 2.157C18.052 4.537 19 6.41 19 8.364Z"
-      stroke="#fff"
+      stroke={props.stroke}
       strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"

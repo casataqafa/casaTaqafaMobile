@@ -1,11 +1,36 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
+import { StyleProp, ViewStyle } from "react-native"
 
-const SettingIcon = (props) => (
-  <Svg width={24} height={24} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+export interface IconProps {
+  /**
+   * Option define the width as a string
+   */
+  width?: number
+
+  /**
+   * Option define the height as a string
+   */
+  height?: number
+
+  /**
+   * Optional define the stroke color as a string
+   */
+  stroke?: string
+
+  style?: StyleProp<ViewStyle>
+}
+const SettingIcon = (props: IconProps) => (
+  <Svg
+    style={props.style}
+    width={props.width}
+    height={props.height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <Path
       d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-      stroke="#090A0A"
+      stroke={props.stroke}
       strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
