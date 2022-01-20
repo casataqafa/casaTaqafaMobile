@@ -9,5 +9,5 @@ export interface SelectButtonProps extends ButtonProps {
 
   interest: Interests
 
-  index: number
+  interestIndex: number
 }

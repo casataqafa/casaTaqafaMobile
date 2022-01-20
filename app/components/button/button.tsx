@@ -22,8 +22,8 @@ export function Button(props: ButtonProps) {
   } = props
 
   const disabled = preset === "disabled"
-  const viewStyle = viewPresets[preset] || viewPresets.primary
 
+  const viewStyle = viewPresets[preset] || viewPresets.primary
   const viewStyles = [viewStyle, styleOverride]
 
   const textStyle = textPresets[preset] || textPresets.primary

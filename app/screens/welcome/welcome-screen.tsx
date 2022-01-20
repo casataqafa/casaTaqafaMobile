@@ -9,11 +9,9 @@ import {
   Text,
   GradientBackground,
   AutoImage as Image,
-  SelectButton,
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
-import { ButtonFlatList } from "../../components/button-flat-list/button-flat-list"
 
 const bowserLogo = require("./bowser.png")
 
@@ -93,9 +91,7 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
 
     return (
       <View testID="WelcomeScreen" style={FULL}>
-        <ButtonFlatList />
-
-        {/* <GradientBackground colors={["#422443", "#281b34"]} />
+        <GradientBackground colors={["#422443", "#281b34"]} />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
           <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
           <Text style={TITLE_WRAPPER}>
@@ -114,6 +110,7 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
             using Ignite.
           </Text>
         </Screen>
+
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
             <Button
@@ -124,7 +121,7 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
               onPress={nextScreen}
             />
           </View>
-        </SafeAreaView> */}
+        </SafeAreaView>
       </View>
     )
   },

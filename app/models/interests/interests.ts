@@ -11,7 +11,7 @@ export const InterestsModel = types
     selected: types.boolean,
   })
   .actions((self) => ({
-    setSelection: () => {
+    toggleSelection: () => {
       self.selected = !self.selected
     },
   }))

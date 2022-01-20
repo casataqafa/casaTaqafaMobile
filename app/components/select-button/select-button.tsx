@@ -18,16 +18,16 @@ export const SelectButton = observer(function SelectButton(props: SelectButtonPr
     style: styleOverride,
     textStyle: textStyleOverride,
     interest,
-    index,
+    interestIndex,
     ...rest
   } = props
 
   const viewStyle =
-    interests[index].selected === false ? viewPresets.primary : viewPresets.secondary
+    interests[interestIndex].selected === false ? viewPresets.primary : viewPresets.secondary
   const viewStyles = [viewStyle, styleOverride]
 
   const textStyle =
-    interests[index].selected === false ? textPresets.primary : textPresets.secondary
+    interests[interestIndex].selected === false ? textPresets.primary : textPresets.secondary
   const textStyles = [textStyle, textStyleOverride]
 
   return (
@@ -35,7 +35,7 @@ export const SelectButton = observer(function SelectButton(props: SelectButtonPr
       style={viewStyles}
       textStyle={textStyles}
       text={text}
-      onPress={() => interest.setSelection()}
+      onPress={() => interest.toggleSelection()}
       {...rest}
     />
   )

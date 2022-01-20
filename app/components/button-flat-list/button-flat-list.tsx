@@ -1,26 +1,20 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, View, FlatList } from "react-native"
+import { View, FlatList } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color } from "../../theme"
-import { flatten } from "ramda"
 import { useStores } from "../../models"
 import { SelectButton } from ".."
 import { ButtonFlatListProps } from "./button-flat-list.props"
-
-const CONTAINER: ViewStyle = {
-  flex: 1,
-  backgroundColor: color.background,
-}
+import { viewPresets } from "./button-flat-list.presets"
 
 /**
- * Describe your component here
+ * List of selectable buttons specific for the selection of use interest,
+ * Do not use for other cases unless you are willing to fiddle with the mst store
  */
 export const ButtonFlatList = observer(function ButtonFlatList(props: ButtonFlatListProps) {
+  const { preset = "primary", style: styleOverride } = props
   const { interestsStore } = useStores()
 
   const { interests } = interestsStore
-
-  // const styles = flatten([CONTAINER, style])
 
   React.useEffect(() => {
     async function fetchData() {
@@ -28,16 +22,17 @@ export const ButtonFlatList = observer(function ButtonFlatList(props: ButtonFlat
     }
 
     fetchData()
-  }, [interestsStore])
+  }, [])
 
-  const styles = flatten([CONTAINER])
+  const viewStyle = viewPresets[preset] || viewPresets.primary
+  const viewStyles = [viewStyle, styleOverride]
 
   return (
-    <View style={styles}>
+    <View style={viewStyles}>
       <FlatList
         data={[...interests]}
         renderItem={({ index, item }) => (
-          <SelectButton key={item.id} text={item.name} index={index} interest={item} />
+          <SelectButton key={item.id} text={item.name} interestIndex={index} interest={item} />
         )}
       />
     </View>
