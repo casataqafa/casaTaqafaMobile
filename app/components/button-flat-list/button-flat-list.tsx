@@ -1,46 +1,45 @@
 import * as React from "react"
-import { StyleProp, TextStyle, View, ViewStyle, SafeAreaView, FlatList } from "react-native"
+import { StyleProp, ViewStyle, View, FlatList } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography } from "../../theme"
-import { Text } from "../text/text"
+import { color } from "../../theme"
 import { flatten } from "ramda"
+import { useStores } from "../../models"
 import { SelectButton } from ".."
+import { ButtonFlatListProps } from "./button-flat-list.props"
 
 const CONTAINER: ViewStyle = {
   flex: 1,
   backgroundColor: color.background,
 }
 
-export interface ButtonFlatListProps {
-  /**
-   * An optional style override useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-}
-
 /**
  * Describe your component here
  */
 export const ButtonFlatList = observer(function ButtonFlatList(props: ButtonFlatListProps) {
-  //const { style } = props
+  const { interestsStore } = useStores()
 
-  const data = [
-    { interest: "Cinema", id: "1", selected: false },
-    { interest: "Cinema", id: "2", selected: false },
-    { interest: "Cinema", id: "3", selected: false },
-    { interest: "Cinema", id: "4", selected: false },
-  ]
+  const { interests } = interestsStore
+
   // const styles = flatten([CONTAINER, style])
+
+  React.useEffect(() => {
+    async function fetchData() {
+      await interestsStore.getInterests()
+    }
+
+    fetchData()
+  }, [interestsStore])
 
   const styles = flatten([CONTAINER])
 
   return (
-    <SafeAreaView style={styles}>
+    <View style={styles}>
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <SelectButton text={item.interest} isClicked={item.selected} />}
+        data={[...interests]}
+        renderItem={({ index, item }) => (
+          <SelectButton key={item.id} text={item.name} index={index} interest={item} />
+        )}
       />
-    </SafeAreaView>
+    </View>
   )
 })

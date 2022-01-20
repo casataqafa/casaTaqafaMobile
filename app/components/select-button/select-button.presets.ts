@@ -30,13 +30,13 @@ export const viewPresets: Record<string, ViewStyle> = {
   /**
    * When the button is clicked
    */
-  secodnary: { ...BASE_VIEW, backgroundColor: color.palette.lighterRed } as ViewStyle,
+  secondary: { ...BASE_VIEW, backgroundColor: color.palette.lighterRed } as ViewStyle,
 }
 
 export const textPresets: Record<SelectButtonPresetNames, TextStyle> = {
   primary: { ...BASE_TEXT, fontSize: 16, color: color.palette.black } as TextStyle,
 
-  secodnary: { ...BASE_TEXT, backgroundColor: color.palette.white } as TextStyle,
+  secondary: { ...BASE_TEXT, color: color.palette.white } as TextStyle,
 }
 
 /**
