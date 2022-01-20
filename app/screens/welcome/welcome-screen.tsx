@@ -79,7 +79,7 @@ const CONTINUE_TEXT: TextStyle = {
   ...BOLD,
   letterSpacing: 0,
 }
-const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
+const FOOTER: ViewStyle = { backgroundColor: " " }
 const FOOTER_CONTENT: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
@@ -110,6 +110,7 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
             using Ignite.
           </Text>
         </Screen>
+
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
             <Button
