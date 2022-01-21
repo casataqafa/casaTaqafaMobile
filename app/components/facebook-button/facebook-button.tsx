@@ -1,7 +1,7 @@
 import * as React from "react"
 import { StyleProp, TextStyle, View, ViewStyle, TouchableOpacity } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography, spacing } from "../../theme"
+import { color, typography } from "../../theme"
 import { Text } from "../text/text"
 import { flatten } from "ramda"
 import FacebookIcon from "../../../assets/svgs/social/facebook-icon"
@@ -43,7 +43,7 @@ const TEXT: TextStyle = {
   textAlign: "center",
 }
 
-export interface GoogleButtonProps {
+export interface FacebookButtonProps {
   /**
    * An optional style override useful for padding & margin.
    */
@@ -53,7 +53,7 @@ export interface GoogleButtonProps {
 /**
  * Describe your component here
  */
-export const FacebookButton = observer(function GoogleButton(props: GoogleButtonProps) {
+export const FacebookButton = observer(function GoogleButton(props: FacebookButtonProps) {
   const { style } = props
   const styles = flatten([btnClickContain, style])
 
