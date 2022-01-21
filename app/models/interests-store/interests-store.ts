@@ -1,12 +1,11 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { InterestApi } from "../../services/api/interest-api"
-import { InterestsModel, InterestsSnapshot } from "../interests/interests"
+import { InterestsModel } from "../interests/interests"
 
 /**
  * Model description here for TypeScript hints.
  */
 
-// InterestsSnapshot[]
 export const InterestsStoreModel = types
   .model("InterestsStore")
   .props({
