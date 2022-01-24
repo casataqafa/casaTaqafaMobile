@@ -1,37 +1,29 @@
 import * as React from "react"
-import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { color, typography } from "../../theme"
-import { Text } from "../text/text"
-import { flatten } from "ramda"
 
-const CONTAINER: ViewStyle = {
-  justifyContent: "center",
-}
+import { TouchableOpacity } from "react-native"
 
-const TEXT: TextStyle = {
-  fontFamily: typography.primary,
-  fontSize: 14,
-  color: color.primary,
-}
-
-export interface CardProps {
-  /**
-   * An optional style override useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-}
+import { viewPresets } from "./card.presets"
+import { CardProps } from "./card.props"
 
 /**
  * Describe your component here
  */
-export const Card = observer(function Card(props: CardProps) {
-  const { style } = props
-  const styles = flatten([CONTAINER, style])
+export function Card(props: CardProps) {
+  const {
+    preset = "primary",
+
+    style: styleOverride,
+
+    children,
+    ...rest
+  } = props
+
+  const viewStyle = viewPresets[preset] || viewPresets.primary
+  const viewStyles = [viewStyle, styleOverride]
 
   return (
-    <View style={styles}>
-      <Text style={TEXT}>Hello</Text>
-    </View>
+    <TouchableOpacity style={viewStyles} {...rest}>
+      {children}
+    </TouchableOpacity>
   )
-})
+}
