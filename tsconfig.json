@@ -25,6 +25,7 @@
   "include": [
     "App.js",
     "app",
+    "assets",
     "test",
     "storybook"
   ],
