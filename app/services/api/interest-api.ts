@@ -1,8 +1,8 @@
 const baseInterests = [
-  { name: "Cinema", id: 1, selected: false },
-  { name: "Cinema", id: 2, selected: false },
-  { name: "Cinema", id: 3, selected: false },
-  { name: "Cinema", id: 4, selected: false },
+  { name: "Cinéma", id: 1, selected: false },
+  { name: "Music", id: 2, selected: false },
+  { name: "Opéra", id: 3, selected: false },
+  { name: "Exposition", id: 4, selected: false },
 ]
 
 export class InterestApi {

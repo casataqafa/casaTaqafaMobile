@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react"
-import { StyleProp, TextStyle, View, ViewStyle, TouchableOpacity } from "react-native"
+import { TextStyle, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography, spacing } from "../../theme"
+import { color, typography } from "../../theme"
 import { Text } from "../text/text"
 import { flatten } from "ramda"
 import GoogleIcon from "../../../assets/svgs/social/google-icon"
+import { Button } from ".."
 
 const btnClickContain: ViewStyle = {
   width: 327,
@@ -15,6 +17,7 @@ const btnClickContain: ViewStyle = {
   borderWidth: 1,
   borderColor: "#e3e5e5",
 
+  paddingHorizontal: 16,
   padding: 16,
 
   flexDirection: "row",
@@ -39,7 +42,7 @@ const TEXT: TextStyle = {
   width: 166,
   height: 16,
 
-  fontWeight: "400",
+  fontWeight: "500",
   fontStyle: "normal",
   lineHeight: 16,
   letterSpacing: 0,
@@ -50,26 +53,22 @@ export interface GoogleButtonProps {
   /**
    * An optional style override useful for padding & margin.
    */
-  style?: StyleProp<ViewStyle>
 }
 
 /**
  * Describe your component here
  */
 export const GoogleButton = observer(function GoogleButton(props: GoogleButtonProps) {
-  const { style } = props
-  const styles = flatten([btnClickContain, style])
+  const styles = flatten([btnClickContain])
 
   return (
-    // <View style={styles}>
-    <TouchableOpacity style={styles}>
+    <Button style={styles}>
       <View style={iconWrapper}>
         <GoogleIcon />
       </View>
       <View style={btnContainer}>
         <Text style={TEXT}>Continue with google</Text>
       </View>
-    </TouchableOpacity>
-    // </View>
+    </Button>
   )
 })

@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, View } from "rea
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { ScreenProps } from "./screen.props"
 import { isNonScrolling, offsets, presets } from "./screen.presets"
+import { color } from "../../theme"
 
 const isIos = Platform.OS === "ios"
 
@@ -11,6 +12,9 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   const preset = presets.fixed
   const style = props.style || {}
   const backgroundStyle = props.backgroundColor ? { backgroundColor: props.backgroundColor } : {}
+  const statustBarbackgroundColor = props.statusBarBackgroundColor
+    ? props.statusBarBackgroundColor
+    : color.transparent
   const insetStyle = { paddingTop: props.unsafe ? 0 : insets.top }
 
   return (
@@ -19,7 +23,10 @@ function ScreenWithoutScrolling(props: ScreenProps) {
       behavior={isIos ? "padding" : undefined}
       keyboardVerticalOffset={offsets[props.keyboardOffset || "none"]}
     >
-      <StatusBar barStyle={props.statusBar || "light-content"} />
+      <StatusBar
+        backgroundColor={statustBarbackgroundColor}
+        barStyle={props.statusBar || "dark-content"}
+      />
       <View style={[preset.inner, style, insetStyle]}>{props.children}</View>
     </KeyboardAvoidingView>
   )
@@ -30,6 +37,9 @@ function ScreenWithScrolling(props: ScreenProps) {
   const preset = presets.scroll
   const style = props.style || {}
   const backgroundStyle = props.backgroundColor ? { backgroundColor: props.backgroundColor } : {}
+  const statustBarbackgroundColor = props.statusBarBackgroundColor
+    ? props.statusBarBackgroundColor
+    : color.transparent
   const insetStyle = { paddingTop: props.unsafe ? 0 : insets.top }
 
   return (
@@ -38,7 +48,10 @@ function ScreenWithScrolling(props: ScreenProps) {
       behavior={isIos ? "padding" : undefined}
       keyboardVerticalOffset={offsets[props.keyboardOffset || "none"]}
     >
-      <StatusBar barStyle={props.statusBar || "light-content"} />
+      <StatusBar
+        backgroundColor={statustBarbackgroundColor}
+        barStyle={props.statusBar || "dark-content"}
+      />
       <View style={[preset.outer, backgroundStyle, insetStyle]}>
         <ScrollView
           style={[preset.outer, backgroundStyle]}
