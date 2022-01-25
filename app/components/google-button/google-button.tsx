@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography } from "../../theme"
+import { color, spacing, typography } from "../../theme"
 import { Text } from "../text/text"
 import { flatten } from "ramda"
 import GoogleIcon from "../../../assets/svgs/social/google-icon"
@@ -17,8 +17,9 @@ const btnClickContain: ViewStyle = {
   borderWidth: 1,
   borderColor: "#e3e5e5",
 
-  paddingHorizontal: 16,
-  padding: 16,
+  paddingHorizontal: spacing[4],
+  marginBottom: spacing[4],
+  padding: spacing[4],
 
   flexDirection: "row",
 }
@@ -53,13 +54,15 @@ export interface GoogleButtonProps {
   /**
    * An optional style override useful for padding & margin.
    */
+  style?: StyleProp<ViewStyle>
 }
 
 /**
  * Describe your component here
  */
 export const GoogleButton = observer(function GoogleButton(props: GoogleButtonProps) {
-  const styles = flatten([btnClickContain])
+  const { style } = props
+  const styles = flatten([btnClickContain, style])
 
   return (
     <Button style={styles}>

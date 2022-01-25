@@ -12,7 +12,7 @@ const CONTAINER: ViewStyle = {
   borderStyle: "solid",
   borderWidth: 1,
   borderColor: "#e3e5e5",
-  width: 327,
+  width: "100%",
   height: 48,
   padding: 16,
 }
