@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography } from "../../theme"
+import { color, spacing, typography } from "../../theme"
 import { Text } from "../text/text"
 import { flatten } from "ramda"
 import FacebookIcon from "../../../assets/svgs/social/facebook-icon"
@@ -14,8 +14,8 @@ const btnClickContain: ViewStyle = {
   borderRadius: 48,
   backgroundColor: "#0078ff",
 
-  paddingHorizontal: 16,
-  padding: 16,
+  paddingHorizontal: spacing[4],
+  padding: spacing[4],
 
   flexDirection: "row",
 }
@@ -50,13 +50,15 @@ export interface FacebookButtonProps {
   /**
    * An optional style override useful for padding & margin.
    */
+  style?: StyleProp<ViewStyle>
 }
 
 /**
  * Describe your component here
  */
 export const FacebookButton = observer(function FacebookButton(props: FacebookButtonProps) {
-  const styles = flatten([btnClickContain])
+  const { style } = props
+  const styles = flatten([btnClickContain, style])
 
   return (
     <Button style={styles}>
