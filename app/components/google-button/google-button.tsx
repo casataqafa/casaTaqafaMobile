@@ -9,8 +9,6 @@ import GoogleIcon from "../../../assets/svgs/social/google-icon"
 import { Button } from ".."
 
 const btnClickContain: ViewStyle = {
-  width: 327,
-  height: 48,
   borderRadius: 48,
   backgroundColor: "#ffffff",
   borderStyle: "solid",
@@ -40,10 +38,7 @@ const TEXT: TextStyle = {
   fontSize: 16,
   color: color.palette.black,
 
-  width: 166,
-  height: 16,
-
-  fontWeight: "500",
+  fontWeight: "normal",
   fontStyle: "normal",
   lineHeight: 16,
   letterSpacing: 0,

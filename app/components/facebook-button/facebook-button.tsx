@@ -9,8 +9,6 @@ import FacebookIcon from "../../../assets/svgs/social/facebook-icon"
 import { Button } from ".."
 
 const btnClickContain: ViewStyle = {
-  width: 327,
-  height: 48,
   borderRadius: 48,
   backgroundColor: "#0078ff",
 
@@ -36,10 +34,7 @@ const TEXT: TextStyle = {
   fontSize: 16,
   color: color.palette.white,
 
-  width: 186,
-  height: 16,
-
-  fontWeight: "500",
+  fontWeight: "normal",
   fontStyle: "normal",
   lineHeight: 16,
   letterSpacing: 0,

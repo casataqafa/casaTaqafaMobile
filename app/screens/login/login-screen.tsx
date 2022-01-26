@@ -30,7 +30,7 @@ const TEXTSTYLE: TextStyle = {
   marginTop: spacing[4],
   color: color.primary,
   fontSize: 16,
-  fontWeight: "500",
+  fontWeight: "normal",
 }
 
 const SOCIALMEDIASECTION: TextStyle = {
@@ -41,12 +41,16 @@ const DEVIDER: ViewStyle = {
   marginBottom: spacing[5],
 }
 
-const FOOTER: ViewStyle = { backgroundColor: " " }
+const FOOTER: ViewStyle = {
+  flex: 1,
+  flexDirection: "column",
+  justifyContent: "flex-end",
+  marginBottom: spacing[8],
+}
 const FOOTER_CONTENT: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
-  marginVertical: spacing[8],
 }
 
 const FOOTERTEXTSTYLE: TextStyle = {
@@ -85,6 +89,7 @@ export const LoginScreen = observer(function LoginScreen() {
             <Text text="Don't have an account? " />
             <Text style={FOOTERTEXTSTYLE} text="Register" />
           </View>
+          <View></View>
         </SafeAreaView>
       </Screen>
     </View>

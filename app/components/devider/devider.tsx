@@ -19,11 +19,11 @@ const DEVIDER: ViewStyle = {
   borderBottomWidth: 1,
 }
 
-const tt: TextStyle = {
+const TEXT: TextStyle = {
   marginHorizontal: spacing[4],
   color: color.primary,
   fontSize: 16,
-  fontWeight: "500",
+  fontWeight: "normal",
 }
 
 export interface DeviderProps {
@@ -43,7 +43,7 @@ export const Devider = observer(function Devider(props: DeviderProps) {
   return (
     <View style={styles}>
       <View style={DEVIDER} />
-      <Text style={tt} text="Or" />
+      <Text style={TEXT} text="Or" />
       <View style={DEVIDER} />
     </View>
   )
