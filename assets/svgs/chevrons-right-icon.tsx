@@ -6,7 +6,7 @@ const ChevronsRightIcon = (props: IconProps) => {
   const { size, stroke, fill, style: styleOverride } = props
 
   const iconSize = size || 24
-  const iconStroke = stroke || 1.0
+  const iconStroke = stroke || 1.5
   const iconFill = fill || "none"
   const iconStyle = styleOverride || {}
   return (
