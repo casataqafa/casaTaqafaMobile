@@ -9,7 +9,7 @@ export interface IconProps {
   /**
    * Optional define the stroke color as a string
    */
-  stroke?: number
+  stroke?: any
 
   /**
    * Optional defien the fill color as a string
