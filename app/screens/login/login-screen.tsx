@@ -11,10 +11,12 @@ import {
   GoogleButton,
   FacebookButton,
 } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { NavigatorParamList } from "../../navigators"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -66,10 +68,13 @@ export const LoginScreen = observer(function LoginScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
+
+  const goToRegistration = () => navigation.navigate("register")
+
   return (
     <View style={FULL}>
-      <Screen style={ROOT} preset="fixed">
+      <Screen style={ROOT} preset="scroll">
         <Header headerText="Login" />
         <View>
           <View>
@@ -87,7 +92,7 @@ export const LoginScreen = observer(function LoginScreen() {
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
             <Text text="Don't have an account? " />
-            <Text style={FOOTERTEXTSTYLE} text="Register" />
+            <Text style={FOOTERTEXTSTYLE} text="Register" onPress={goToRegistration} />
           </View>
           <View></View>
         </SafeAreaView>
