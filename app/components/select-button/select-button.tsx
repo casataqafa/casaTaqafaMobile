@@ -11,7 +11,12 @@ import { useStores } from "../../models"
 export const SelectButton = observer(function SelectButton(props: SelectButtonProps) {
   const { interestsStore } = useStores()
 
-  const { interests } = interestsStore
+  const { interests, interestsStatus } = interestsStore
+
+  const toggleButton = (interest) => {
+    interest.toggleSelection()
+    // interestsStore.validateInterestStatus()
+  }
 
   const {
     text,
@@ -35,7 +40,7 @@ export const SelectButton = observer(function SelectButton(props: SelectButtonPr
       style={viewStyles}
       textStyle={textStyles}
       text={text}
-      onPress={() => interest.toggleSelection()}
+      onPress={() => toggleButton(interest)}
       {...rest}
     />
   )

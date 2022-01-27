@@ -12,6 +12,7 @@ import { WelcomeScreen, DemoScreen, DemoListScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import { LoginScreen } from "../screens/login/login-screen"
 import { RegisterScreen } from "../screens/register/register-screen"
+import { PersonalizationScreen } from "../screens/personalization/personalization-screen"
 import { LaunchScreen } from "../screens/launch/launch-screen"
 import { HomeScreen } from "../screens/home/home-screen"
 
@@ -33,8 +34,10 @@ export type NavigatorParamList = {
   demoList: undefined
   login: undefined
   register: undefined
+  personalization: undefined
   homescreen: undefined
   launchscreen: undefined
+
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -51,6 +54,7 @@ const AppStack = () => {
       <Stack.Screen name="homescreen" component={HomeScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
       <Stack.Screen name="register" component={RegisterScreen} />
+      <Stack.Screen name="personalization" component={PersonalizationScreen} />
       <Stack.Screen name="launchscreen" component={LaunchScreen} />
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />

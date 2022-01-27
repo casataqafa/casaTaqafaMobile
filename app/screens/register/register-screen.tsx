@@ -11,11 +11,12 @@ import {
   Text,
   TextField,
 } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { goBack } from "../../navigators"
+import { goBack, NavigatorParamList } from "../../navigators"
+import { StackNavigationProp } from "@react-navigation/stack"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -72,7 +73,9 @@ export const RegisterScreen = observer(function RegisterScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
+
+  const goToPersonalization = () => navigation.navigate("personalization")
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -83,7 +86,7 @@ export const RegisterScreen = observer(function RegisterScreen() {
             <TextField style={TEXTFIELDSTYLE} placeholder="Email" />
             <TextField style={TEXTFIELDSTYLE} placeholder="Password" preset="password" />
             <Text style={TEXTSTYLE} text="Must be at least 8 characters." />
-            <Button text="Register" />
+            <Button text="Register" onPress={goToPersonalization} />
           </View>
           <View style={SOCIALMEDIASECTION}>
             <Devider style={DEVIDER} />
