@@ -3,9 +3,9 @@ import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, ButtonFlatList, Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"
+import { SafeAreaProvider } from "react-native-safe-area-context"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -41,7 +41,13 @@ const CONTINUEBUTTON_STYLE: ViewStyle = {
 
 export const PersonalizationScreen = observer(function PersonalizationScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { interestsStore } = useStores()
+
+  const { interests } = interestsStore
+
+  const filteredInterests = interests.filter((interest) => interest.selected !== false)
+
+  const value = filteredInterests.length !== 0 ? "default" : "disabled"
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
@@ -53,7 +59,7 @@ export const PersonalizationScreen = observer(function PersonalizationScreen() {
       </View>
       <SafeAreaProvider style={LISTVIEW_STYLE}>
         <ButtonFlatList />
-        <Button style={CONTINUEBUTTON_STYLE} preset="disabled" text="Continue" />
+        <Button style={CONTINUEBUTTON_STYLE} preset={value} text="Continue" />
       </SafeAreaProvider>
     </Screen>
   )

@@ -2,7 +2,7 @@ import * as React from "react"
 import { FlatList, View } from "react-native"
 import { observer } from "mobx-react-lite"
 import { useStores } from "../../models"
-import { Button, SelectButton } from ".."
+import { SelectButton } from ".."
 import { ButtonFlatListProps } from "./button-flat-list.props"
 import { viewPresets } from "./button-flat-list.presets"
 
