@@ -71,6 +71,7 @@ export const LoginScreen = observer(function LoginScreen() {
   const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
 
   const goToRegistration = () => navigation.navigate("register")
+  const goToForgotPassword = () => navigation.navigate("forgotPassword")
 
   return (
     <View style={FULL}>
@@ -81,7 +82,7 @@ export const LoginScreen = observer(function LoginScreen() {
             <TextField style={TEXTFIELDSTYLE} placeholder="Email" />
             <TextField style={TEXTFIELDSTYLE} placeholder="Password" preset="password" />
             <Button text="Login" />
-            <Text style={TEXTSTYLE} text="Forgot Password?" />
+            <Text style={TEXTSTYLE} text="Forgot Password?" onPress={goToForgotPassword} />
           </View>
           <View style={SOCIALMEDIASECTION}>
             <Devider style={DEVIDER} />

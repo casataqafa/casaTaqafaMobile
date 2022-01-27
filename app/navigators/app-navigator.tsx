@@ -8,7 +8,7 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, DemoScreen, DemoListScreen } from "../screens"
+import { WelcomeScreen, DemoScreen, DemoListScreen, ForgotPasswordScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import { LoginScreen } from "../screens/login/login-screen"
 import { RegisterScreen } from "../screens/register/register-screen"
@@ -34,10 +34,10 @@ export type NavigatorParamList = {
   demoList: undefined
   login: undefined
   register: undefined
+  forgotPassword: undefined
   personalization: undefined
   homescreen: undefined
   launchscreen: undefined
-
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -51,10 +51,11 @@ const AppStack = () => {
       }}
       initialRouteName="login"
     >
-      <Stack.Screen name="homescreen" component={HomeScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
       <Stack.Screen name="register" component={RegisterScreen} />
+      <Stack.Screen name="forgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="personalization" component={PersonalizationScreen} />
+      <Stack.Screen name="homescreen" component={HomeScreen} />
       <Stack.Screen name="launchscreen" component={LaunchScreen} />
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />

@@ -11,7 +11,7 @@ import { useStores } from "../../models"
 export const SelectButton = observer(function SelectButton(props: SelectButtonProps) {
   const { interestsStore } = useStores()
 
-  const { interests, interestsStatus } = interestsStore
+  const { interests } = interestsStore
 
   const toggleButton = (interest) => {
     interest.toggleSelection()
