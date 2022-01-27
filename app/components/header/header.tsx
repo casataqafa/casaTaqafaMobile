@@ -10,12 +10,11 @@ import { translate } from "../../i18n/"
 // static styles
 const ROOT: ViewStyle = {
   flexDirection: "row",
-  paddingHorizontal: spacing[4],
+  paddingHorizontal: spacing[0],
   alignItems: "center",
   paddingTop: spacing[5],
   paddingBottom: spacing[5],
   justifyContent: "flex-start",
-
   width: "100%",
 }
 const TITLE: TextStyle = { textAlign: "center", fontSize: 18, fontWeight: "normal" }
