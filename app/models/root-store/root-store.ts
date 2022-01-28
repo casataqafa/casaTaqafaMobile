@@ -1,7 +1,6 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { CharacterStoreModel } from "../character-store/character-store"
 import { InterestsStoreModel } from "../interests-store/interests-store"
-import { InterestsModel } from "../interests/interests"
 
 /**
  * A RootStore model.

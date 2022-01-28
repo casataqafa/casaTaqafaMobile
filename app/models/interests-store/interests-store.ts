@@ -10,7 +10,6 @@ export const InterestsStoreModel = types
   .model("InterestsStore")
   .props({
     interests: types.optional(types.array(InterestsModel), []),
-    interestsStatus: types.optional(types.boolean, true),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
