@@ -9,14 +9,6 @@ const BASE_VIEW: ViewStyle = {
   marginRight: spacing[4],
 }
 
-const BASE_IMAGE_VIEW: ImageStyle = {
-  width: 141,
-  height: 141,
-  borderRadius: 16,
-  aspectRatio: 1,
-  marginBottom: spacing[3],
-}
-
 const BASE_TEXT: TextStyle = {
   fontWeight: "bold",
 
@@ -67,10 +59,6 @@ export const textPresets: Record<CardPresetNames, TextStyle> = {
     color: color.palette.lightGrey,
     fontWeight: "normal",
   } as TextStyle,
-}
-
-export const imagePresets: Record<CardPresetNames, ImageStyle> = {
-  primary: { ...BASE_IMAGE_VIEW } as ImageStyle,
 }
 
 /**

@@ -15,6 +15,7 @@ import { RegisterScreen } from "../screens/register/register-screen"
 import { PersonalizationScreen } from "../screens/personalization/personalization-screen"
 import { LaunchScreen } from "../screens/launch/launch-screen"
 import { HomeScreen } from "../screens/home/home-screen"
+import { EventsScreen } from "../screens/events/events-screen"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -36,8 +37,9 @@ export type NavigatorParamList = {
   register: undefined
   forgotPassword: undefined
   personalization: undefined
-  homescreen: undefined
-  launchscreen: undefined
+  home: undefined
+  launch: undefined
+  events: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -49,17 +51,20 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="login"
+      initialRouteName="launch"
     >
+
+     
+      <Stack.Screen name="launch" component={LaunchScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
       <Stack.Screen name="register" component={RegisterScreen} />
       <Stack.Screen name="forgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="personalization" component={PersonalizationScreen} />
-      <Stack.Screen name="homescreen" component={HomeScreen} />
-      <Stack.Screen name="launchscreen" component={LaunchScreen} />
+      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="events" component={EventsScreen} />
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} />
+      <Stack.Screen name="demoList" component={DemoListScreen} /> 
     </Stack.Navigator>
   )
 }
