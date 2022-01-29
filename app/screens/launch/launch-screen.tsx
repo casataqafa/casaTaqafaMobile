@@ -1,13 +1,10 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, StyleProp, ImageStyle, TextStyle } from "react-native"
-import { Text } from "../../components"
-import { ImageBackground } from "react-native"
-import { spacing } from "../../theme"
+import { ViewStyle, View, StyleProp, ImageStyle, TextStyle, ImageBackground } from "react-native"
+import { Text, Button } from "../../components"
+import { spacing, color } from "../../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
-import { color } from "../../theme"
-import { Button } from "../../components"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -15,9 +12,11 @@ const ROOT: ViewStyle = {
 }
 
 const imageWrapper: StyleProp<ImageStyle> = {
-  flex: 1,
-  width: "100%",
-  height: "100%",
+  position: "absolute",
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
 }
 
 const TextStyling: TextStyle = {
@@ -56,8 +55,13 @@ const firstTextWrapper: ViewStyle = {
   flexDirection: "row",
 }
 
+const ButtonWrapper: ViewStyle = {
+  marginTop: spacing[8],
+  width: "100%",
+}
+
 const ButtonStyle: ViewStyle = {
-  width: 279,
+  marginHorizontal: spacing[5],
 }
 
 const imageSource = require("../../../assets/images/launch.png")
@@ -81,8 +85,8 @@ export const LaunchScreen = observer(function LaunchScreen() {
             <Text style={TextStyling} text="surroundings" />
           </View>
 
-          <View style={subTextWrapper}>
-            <Button style={ButtonStyle} text="Next"></Button>
+          <View style={ButtonWrapper}>
+            <Button style={ButtonStyle} text="Next" />
           </View>
         </View>
       </ImageBackground>

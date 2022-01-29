@@ -53,8 +53,6 @@ const AppStack = () => {
       }}
       initialRouteName="launch"
     >
-
-     
       <Stack.Screen name="launch" component={LaunchScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
       <Stack.Screen name="register" component={RegisterScreen} />
@@ -64,7 +62,7 @@ const AppStack = () => {
       <Stack.Screen name="events" component={EventsScreen} />
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} /> 
+      <Stack.Screen name="demoList" component={DemoListScreen} />
     </Stack.Navigator>
   )
 }
