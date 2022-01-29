@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, FlatList } from "react-native"
+import { FlatList, View } from "react-native"
 import { observer } from "mobx-react-lite"
 import { useStores } from "../../models"
 import { SelectButton } from ".."
@@ -30,6 +30,7 @@ export const ButtonFlatList = observer(function ButtonFlatList(props: ButtonFlat
   return (
     <View style={viewStyles}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={[...interests]}
         renderItem={({ index, item }) => (
           <SelectButton key={item.id} text={item.name} interestIndex={index} interest={item} />

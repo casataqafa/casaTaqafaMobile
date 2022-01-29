@@ -8,10 +8,11 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { WelcomeScreen, DemoScreen, DemoListScreen } from "../screens"
+import { WelcomeScreen, DemoScreen, DemoListScreen, ForgotPasswordScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import { LoginScreen } from "../screens/login/login-screen"
 import { RegisterScreen } from "../screens/register/register-screen"
+import { PersonalizationScreen } from "../screens/personalization/personalization-screen"
 import { LaunchScreen } from "../screens/launch/launch-screen"
 import { HomeScreen } from "../screens/home/home-screen"
 import { EventsScreen } from "../screens/events/events-screen"
@@ -34,9 +35,11 @@ export type NavigatorParamList = {
   demoList: undefined
   login: undefined
   register: undefined
-  homescreen: undefined
-  launchscreen: undefined
-  eventsscreen: undefined
+  forgotPassword: undefined
+  personalization: undefined
+  home: undefined
+  launch: undefined
+  events: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -48,17 +51,20 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="eventsscreen"
+      initialRouteName="launch"
     >
-      <Stack.Screen name="eventsscreen" component={EventsScreen} />
-      
-      {/* <Stack.Screen name="homescreen" component={HomeScreen} />
+
+     
+      <Stack.Screen name="launch" component={LaunchScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
       <Stack.Screen name="register" component={RegisterScreen} />
-      <Stack.Screen name="launchscreen" component={LaunchScreen} />
+      <Stack.Screen name="forgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen name="personalization" component={PersonalizationScreen} />
+      <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="events" component={EventsScreen} />
       <Stack.Screen name="welcome" component={WelcomeScreen} />
       <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} /> */}
+      <Stack.Screen name="demoList" component={DemoListScreen} /> 
     </Stack.Navigator>
   )
 }

@@ -3,6 +3,7 @@ import { color } from "../../theme"
 
 const BASE_VIEW: ViewStyle = {
   flex: 1,
+
   backgroundColor: color.palette.white,
 }
 

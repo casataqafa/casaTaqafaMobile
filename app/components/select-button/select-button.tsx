@@ -13,6 +13,11 @@ export const SelectButton = observer(function SelectButton(props: SelectButtonPr
 
   const { interests } = interestsStore
 
+  const toggleButton = (interest) => {
+    interest.toggleSelection()
+    // interestsStore.validateInterestStatus()
+  }
+
   const {
     text,
     style: styleOverride,
@@ -35,7 +40,7 @@ export const SelectButton = observer(function SelectButton(props: SelectButtonPr
       style={viewStyles}
       textStyle={textStyles}
       text={text}
-      onPress={() => interest.toggleSelection()}
+      onPress={() => toggleButton(interest)}
       {...rest}
     />
   )
