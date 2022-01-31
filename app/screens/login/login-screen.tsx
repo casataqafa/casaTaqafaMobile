@@ -18,6 +18,8 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
 
+import { getAuth, signOut } from "firebase/auth"
+
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
   paddingHorizontal: spacing[5],
@@ -72,7 +74,7 @@ export const LoginScreen = observer(function LoginScreen() {
 
   const goToRegistration = () => navigation.navigate("register")
   const goToForgotPassword = () => navigation.navigate("forgotPassword")
-
+  const auth = getAuth()
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -81,7 +83,12 @@ export const LoginScreen = observer(function LoginScreen() {
           <View>
             <TextField style={TEXTFIELDSTYLE} placeholder="Email" />
             <TextField style={TEXTFIELDSTYLE} placeholder="Password" preset="password" />
-            <Button text="Login" />
+            <Button
+              text="Login"
+              onPress={() => {
+                signOut(auth)
+              }}
+            />
             <Text style={TEXTSTYLE} text="Forgot Password?" onPress={goToForgotPassword} />
           </View>
           <View style={SOCIALMEDIASECTION}>

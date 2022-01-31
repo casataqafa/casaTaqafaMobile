@@ -17,6 +17,22 @@ import { LaunchScreen } from "../screens/launch/launch-screen"
 import { HomeScreen } from "../screens/home/home-screen"
 import { EventsScreen } from "../screens/events/events-screen"
 
+import { initializeApp } from "firebase/app"
+// import { getAuth, onAuthStateChanged, User } from "firebase/auth"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDsp7jDAG_Pp2wulplj1Ci3Nlswrd6aNN8",
+  authDomain: "casataqafa-d235c.firebaseapp.com",
+  projectId: "casataqafa-d235c",
+  storageBucket: "casataqafa-d235c.appspot.com",
+  messagingSenderId: "989341446856",
+  appId: "1:989341446856:web:f531cca289ed0625b7ebfd",
+  measurementId: "G-BVXGGBN5BG",
+}
+
+// Initialize Firebase
+initializeApp(firebaseConfig)
+
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
