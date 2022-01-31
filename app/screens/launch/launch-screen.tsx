@@ -3,7 +3,9 @@ import { observer } from "mobx-react-lite"
 import { ViewStyle, View, StyleProp, ImageStyle, TextStyle, ImageBackground } from "react-native"
 import { Text, Button } from "../../components"
 import { spacing, color } from "../../theme"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { NavigatorParamList } from "../../navigators"
 // import { useStores } from "../../models"
 
 const ROOT: ViewStyle = {
@@ -71,7 +73,9 @@ export const LaunchScreen = observer(function LaunchScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
+
+  const goToLogin = () => navigation.navigate("login")
   return (
     <View style={ROOT}>
       <ImageBackground source={imageSource} style={imageWrapper}>
@@ -86,7 +90,7 @@ export const LaunchScreen = observer(function LaunchScreen() {
           </View>
 
           <View style={ButtonWrapper}>
-            <Button style={ButtonStyle} text="Next" />
+            <Button style={ButtonStyle} text="Next" onPress={goToLogin} />
           </View>
         </View>
       </ImageBackground>

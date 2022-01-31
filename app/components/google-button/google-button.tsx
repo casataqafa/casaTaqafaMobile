@@ -72,6 +72,7 @@ export const GoogleButton = observer(function GoogleButton(props: GoogleButtonPr
 
   React.useEffect(() => {
     console.tron.log(response)
+
     if (response?.type === "success") {
       const { id_token } = response.params
       const auth = getAuth()
