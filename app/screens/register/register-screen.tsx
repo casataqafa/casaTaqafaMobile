@@ -17,6 +17,7 @@ import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { goBack, NavigatorParamList } from "../../navigators"
 import { StackNavigationProp } from "@react-navigation/stack"
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -72,10 +73,25 @@ export const RegisterScreen = observer(function RegisterScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
 
   const goToPersonalization = () => navigation.navigate("personalization")
+
+  const SignUp = () => {
+    const auth = getAuth()
+    console.tron.log(password)
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.tron.log(userCredential.user)
+      })
+      .catch((error) => {
+        console.tron.log(error.message)
+      })
+  }
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -83,10 +99,23 @@ export const RegisterScreen = observer(function RegisterScreen() {
         <View>
           <View>
             <TextField style={TEXTFIELDSTYLE} placeholder="Name" />
-            <TextField style={TEXTFIELDSTYLE} placeholder="Email" />
-            <TextField style={TEXTFIELDSTYLE} placeholder="Password" preset="password" />
+            <TextField
+              style={TEXTFIELDSTYLE}
+              placeholder="Email"
+              onChangeText={(e) => {
+                setEmail(e.toString())
+              }}
+            />
+            <TextField
+              style={TEXTFIELDSTYLE}
+              placeholder="Password"
+              preset="password"
+              onChangeText={(e) => {
+                setPassword(e.toString())
+              }}
+            />
             <Text style={TEXTSTYLE} text="Must be at least 8 characters." />
-            <Button text="Register" onPress={goToPersonalization} />
+            <Button text="Register" onPress={SignUp} />
           </View>
           <View style={SOCIALMEDIASECTION}>
             <Devider style={DEVIDER} />

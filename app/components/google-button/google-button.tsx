@@ -71,7 +71,7 @@ export const GoogleButton = observer(function GoogleButton(props: GoogleButtonPr
   })
 
   React.useEffect(() => {
-    console.tron.log(response)
+    // console.tron.log(response)
 
     if (response?.type === "success") {
       const { id_token } = response.params
@@ -81,7 +81,7 @@ export const GoogleButton = observer(function GoogleButton(props: GoogleButtonPr
 
       const user = jwt_decode(id_token)
 
-      console.tron.log("The User", user)
+      // console.tron.log("The User", user)
 
       signInWithCredential(auth, credentials)
     }

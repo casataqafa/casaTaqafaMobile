@@ -18,6 +18,7 @@ import { HomeScreen } from "../screens/home/home-screen"
 import { EventsScreen } from "../screens/events/events-screen"
 
 import { initializeApp } from "firebase/app"
+import { getAuth, onAuthStateChanged, User } from "firebase/auth"
 // import { getAuth, onAuthStateChanged, User } from "firebase/auth"
 
 const firebaseConfig = {
@@ -83,11 +84,49 @@ const AppStack = () => {
   )
 }
 
+const AppStack2 = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="events"
+    >
+      <Stack.Screen name="events" component={EventsScreen} />
+      <Stack.Screen name="welcome" component={WelcomeScreen} />
+      <Stack.Screen name="demo" component={DemoScreen} />
+      <Stack.Screen name="demoList" component={DemoListScreen} />
+    </Stack.Navigator>
+  )
+}
+
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = (props: NavigationProps) => {
+  const [user, setUser] = React.useState<User>()
+
+  // React.useEffect(() => {
+  //   const auth = getAuth()
+  //   const unsubscribeFromAuthStatuChanged = onAuthStateChanged(auth, (user) => {
+  //     console.tron.log(user)
+  //     if (user) {
+  //       // User is signed in, see docs for a list of available properties
+  //       // https://firebase.google.com/docs/reference/js/firebase.User
+  //       // console.tron.log("hj", user)
+  //       setUser(user)
+  //       // ...
+  //     } else {
+  //       setUser(undefined)
+  //       // User is signed out
+  //       // ...
+  //     }
+  //   })
+  //   return unsubscribeFromAuthStatuChanged
+  // }, [])
+
   const colorScheme = useColorScheme()
   useBackButtonHandler(canExit)
+
   return (
     <NavigationContainer
       ref={navigationRef}

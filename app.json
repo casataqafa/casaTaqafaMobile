@@ -16,12 +16,18 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.loriette.casaTaqafaMobile"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "android": {
+      "package": "com.loriette.casaTaqafaMobile"
     }
   }
 }
