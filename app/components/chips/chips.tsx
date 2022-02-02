@@ -11,15 +11,14 @@ import { viewPresets, buttonPresets, iconPresets, textPresets } from "./chips.pr
 export const Chips = observer(function Chips(props: ChipsProps) {
   const {
     leftIcon,
-    onPress,
     text,
     preset = "primary",
     style: styleOverride,
     textStyle: textStyleOverride,
     buttonStyle: buttonStyleOverride,
     iconStyle: iconStyleOverride,
+    ...rest
   } = props
-  //const styles = flatten([btnClickContain, style])
 
   const viewStyle = viewPresets[preset] || viewPresets.primary
   const viewStyles = [viewStyle, styleOverride]
@@ -34,7 +33,7 @@ export const Chips = observer(function Chips(props: ChipsProps) {
   const iconStyles = [iconStyle, iconStyleOverride]
 
   return (
-    <Button style={viewStyles}>
+    <Button style={viewStyles} {...rest}>
       <View style={iconStyles}>{leftIcon}</View>
       <View style={buttonStyles}>
         <Text style={textStyles} text={text} />

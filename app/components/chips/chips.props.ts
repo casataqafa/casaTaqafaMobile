@@ -19,10 +19,6 @@ export interface ChipsProps extends TouchableOpacityProps {
    * An optional style override useful for padding & margin.
    */
   style?: StyleProp<ViewStyle>
-  /**
-   * An optional procedure to implement button logic.
-   */
-  onLeftPress?(): void
 
   /**
    * An optional style override useful for the button text.

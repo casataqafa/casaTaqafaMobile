@@ -1,7 +1,7 @@
 import * as React from "react"
-import { StyleProp, TextStyle, View, ViewStyle, FlatList } from "react-native"
+import { StyleProp, View, ViewStyle, FlatList } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography } from "../../theme"
+
 import { Chips } from "../chips/chips"
 import { flatten } from "ramda"
 import CinemaIcon from "../../../assets/svgs/cinema-icon"
