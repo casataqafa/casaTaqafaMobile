@@ -5,10 +5,10 @@ import { color, spacing, typography } from "../../theme"
  * All text will start off looking like this.
  */
 const BASE_VIEW: ViewStyle = {
-  borderRadius: 8,
+  borderRadius: 48,
   backgroundColor: "#ffffff",
   marginRight: spacing[3],
-  height: 40,
+
   paddingHorizontal: spacing[4],
 
   paddingVertical: spacing[3],

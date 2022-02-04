@@ -1,5 +1,5 @@
 import * as React from "react"
-import { StyleProp, View, ViewStyle, FlatList } from "react-native"
+import { StyleProp, View, ViewStyle, Animated } from "react-native"
 import { observer } from "mobx-react-lite"
 
 import { Chips } from "../chips/chips"
@@ -34,10 +34,10 @@ export const ChipsFlatList = observer(function ChipsFlatList(props: ChipsFlatLis
 
   return (
     <View style={styles}>
-      <FlatList
+      <Animated.FlatList
         keyExtractor={(item) => item.id}
         horizontal={true}
-        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({ index, item }) => (
           <Chips key={item.id} leftIcon={item.icon} text={item.text} />
