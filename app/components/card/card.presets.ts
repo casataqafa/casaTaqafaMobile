@@ -42,9 +42,10 @@ export const viewPresets: Record<string, ViewStyle> = {
 
   PlaceCard: {
     ...BASE_VIEW,
+
     flexDirection: "row",
-    width: 325,
-    height: 109,
+
+    flex: 1,
 
     borderRadius: 16,
   } as ViewStyle,
