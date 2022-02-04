@@ -1,3 +1,5 @@
+import { doc, getFirestore, updateDoc } from "firebase/firestore"
+
 const baseInterests = [
   { name: "Bibliothèque", id: 1, selected: false },
   { name: "Bon dessiné", id: 2, selected: false },
@@ -22,6 +24,8 @@ const baseInterests = [
 ]
 
 export class InterestApi {
+  firestore = getFirestore()
+
   //   private api: Api
 
   //   constructor(api: Api) {
@@ -51,6 +55,20 @@ export class InterestApi {
     } catch (e) {
       __DEV__ && console.tron.log(e.message)
       return { kind: "bad-data" }
+    }
+  }
+
+  async submitInterest(interests: Array<string>, uid: string): Promise<any> {
+    try {
+      const userRef = await doc(this.firestore, "user", uid)
+
+      updateDoc(userRef, {
+        interests: interests,
+      })
+      return true
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return false
     }
   }
 }

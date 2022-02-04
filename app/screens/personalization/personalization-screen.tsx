@@ -2,7 +2,6 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, ButtonFlatList, Screen, Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaProvider } from "react-native-safe-area-context"
@@ -40,8 +39,13 @@ const CONTINUEBUTTON_STYLE: ViewStyle = {
 }
 
 export const PersonalizationScreen = observer(function PersonalizationScreen() {
+  // Pull in navigation via hook
+  // const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
+
   // Pull in one of our MST stores
-  const { interestsStore } = useStores()
+  const { interestsStore, userStore } = useStores()
+
+  const { user } = userStore
 
   const { interests } = interestsStore
 
@@ -49,8 +53,11 @@ export const PersonalizationScreen = observer(function PersonalizationScreen() {
 
   const value = filteredInterests.length !== 0 ? "default" : "disabled"
 
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const submitInterests = () => {
+    interestsStore.submitInterests(user.uid)
+    user.toogleInterests()
+  }
+
   return (
     <Screen style={ROOT} preset="fixed">
       <View style={HEADER_CONTAINER}>
@@ -59,7 +66,12 @@ export const PersonalizationScreen = observer(function PersonalizationScreen() {
       </View>
       <SafeAreaProvider style={LISTVIEW_STYLE}>
         <ButtonFlatList />
-        <Button style={CONTINUEBUTTON_STYLE} preset={value} text="Continue" />
+        <Button
+          style={CONTINUEBUTTON_STYLE}
+          preset={value}
+          text="Continue"
+          onPress={submitInterests}
+        />
       </SafeAreaProvider>
     </Screen>
   )

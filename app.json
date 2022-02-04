@@ -2,6 +2,7 @@
   "name": "casaTaqafaMobile",
   "displayName": "casaTaqafaMobile",
   "expo": {
+    "scheme": "casataqafamobile",
     "name": "casaTaqafaMobile",
     "slug": "casaTaqafaMobile",
     "version": "1.0.0",
@@ -19,10 +20,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.loriette.casaTaqafaMobile"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "android": {
+      "package": "com.loriette.casaTaqafaMobile"
     }
   }
 }

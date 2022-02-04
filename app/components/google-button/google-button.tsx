@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react"
 import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
@@ -7,6 +8,12 @@ import { Text } from "../text/text"
 import { flatten } from "ramda"
 import GoogleIcon from "../../../assets/svgs/social/google-icon"
 import { Button } from ".."
+
+import * as Google from "expo-auth-session/providers/google"
+import { getAuth, GoogleAuthProvider, signInWithCredential } from "firebase/auth"
+
+import { useStores } from "../../models"
+import { User } from "../../models/user/user"
 
 const btnClickContain: ViewStyle = {
   borderRadius: 48,
@@ -55,12 +62,58 @@ export interface GoogleButtonProps {
 /**
  * Describe your component here
  */
+
 export const GoogleButton = observer(function GoogleButton(props: GoogleButtonProps) {
+  // Pull in one of our MST stores
+  const { userStore } = useStores()
+
   const { style } = props
   const styles = flatten([btnClickContain, style])
 
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    // clientId: "840194792446-1rn8gcgpn513ekuacffgd2huco0hq276.apps.googleusercontent.com",
+    clientId: "989341446856-6ba70t0h29k1rpiurbboqmq09dfrs1fh.apps.googleusercontent.com",
+  })
+
+  const handleUserAuth = async (user) => {
+    const userExists = await userStore.doesUserExists(user)
+    const usr: User = { ...user, hasInterests: userExists !== false }
+
+    userStore.setUser(usr)
+  }
+
+  React.useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token } = response.params
+      const auth = getAuth()
+      // eslint-disable-next-line new-cap
+      const credentials = GoogleAuthProvider.credential(id_token)
+
+      signInWithCredential(auth, credentials).then(() => {
+        const user = {
+          uid: auth.currentUser.uid,
+          name: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+          profilePicture: auth.currentUser.photoURL,
+          hasInterests: false,
+          isFirstTime: false,
+        }
+
+        handleUserAuth(user)
+        // userStore.doesUserExists(user)
+        // userStore.setUser(user)
+      })
+    }
+  }, [response])
+
   return (
-    <Button style={styles}>
+    <Button
+      disabled={!request}
+      style={styles}
+      onPress={() => {
+        promptAsync()
+      }}
+    >
       <View style={iconWrapper}>
         <GoogleIcon />
       </View>
