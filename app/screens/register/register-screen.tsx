@@ -11,13 +11,15 @@ import {
   Text,
   TextField,
 } from "../../components"
-import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+// import { useNavigation } from "@react-navigation/native"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { goBack, NavigatorParamList } from "../../navigators"
-import { StackNavigationProp } from "@react-navigation/stack"
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
+import { User } from "../../models/user/user"
+import { UnAuthenticatedNavigatorParamList } from "../../navigators/unauthenticated-nagivator"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { useNavigation } from "@react-navigation/native"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -71,22 +73,31 @@ const AGREEMENT_STYLE: TextStyle = {
 const FULL: ViewStyle = { backgroundColor: color.transparent, flex: 1 }
 export const RegisterScreen = observer(function RegisterScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { userStore } = useStores()
 
+  const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
 
   // Pull in navigation via hook
-  const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
+  const navigation = useNavigation<StackNavigationProp<UnAuthenticatedNavigatorParamList>>()
 
-  const goToPersonalization = () => navigation.navigate("personalization")
+  const goback = () => navigation.goBack()
 
   const SignUp = () => {
     const auth = getAuth()
-    console.tron.log(password)
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.tron.log(userCredential.user)
+      .then((userCredentials) => {
+        const user: User = {
+          uid: userCredentials.user.uid,
+          name,
+          email: userCredentials.user.email,
+          profilePicture: "https://ui-avatars.com/api/?name=John+Doe",
+          isFirstTime: false,
+          hasInterests: false,
+        }
+        userStore.setUserFireStore(user)
+        userStore.setUser(user)
       })
       .catch((error) => {
         console.tron.log(error.message)
@@ -95,10 +106,16 @@ export const RegisterScreen = observer(function RegisterScreen() {
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
-        <Header leftIcon="back" headerText="Register" onLeftPress={goBack} />
+        <Header leftIcon="back" headerText="Register" onLeftPress={goback} />
         <View>
           <View>
-            <TextField style={TEXTFIELDSTYLE} placeholder="Name" />
+            <TextField
+              style={TEXTFIELDSTYLE}
+              placeholder="Name"
+              onChangeText={(e) => {
+                setName(e.toString())
+              }}
+            />
             <TextField
               style={TEXTFIELDSTYLE}
               placeholder="Email"

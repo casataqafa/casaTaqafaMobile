@@ -17,6 +17,9 @@ import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { User } from "../../models/user/user"
+import { useStores } from "../../models"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -65,7 +68,10 @@ const FULL: ViewStyle = { backgroundColor: color.transparent, flex: 1 }
 
 export const LoginScreen = observer(function LoginScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { userStore } = useStores()
+
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
@@ -73,15 +79,50 @@ export const LoginScreen = observer(function LoginScreen() {
   const goToRegistration = () => navigation.navigate("register")
   const goToForgotPassword = () => navigation.navigate("forgotPassword")
 
+  const SignIn = () => {
+    const auth = getAuth()
+    signInWithEmailAndPassword(auth, email, password)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .then((userCredentials) => {
+        userStore.getUser(auth.currentUser.uid).then((userData) => {
+          const user: User = {
+            uid: auth.currentUser.uid,
+            name: userData.name,
+            email: userData.email,
+            profilePicture: userData.profilePicture,
+            isFirstTime: false,
+            hasInterests: true,
+          }
+          userStore.setUser(user)
+        })
+      })
+      .catch((error) => {
+        console.tron.log(error.message)
+      })
+  }
+
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
         <Header headerText="Login" />
         <View>
           <View>
-            <TextField style={TEXTFIELDSTYLE} placeholder="Email" />
-            <TextField style={TEXTFIELDSTYLE} placeholder="Password" preset="password" />
-            <Button text="Login" />
+            <TextField
+              style={TEXTFIELDSTYLE}
+              placeholder="Email"
+              onChangeText={(e) => {
+                setEmail(e.toString())
+              }}
+            />
+            <TextField
+              style={TEXTFIELDSTYLE}
+              placeholder="Password"
+              preset="password"
+              onChangeText={(e) => {
+                setPassword(e.toString())
+              }}
+            />
+            <Button text="Login" onPress={SignIn} />
             <Text style={TEXTSTYLE} text="Forgot Password?" onPress={goToForgotPassword} />
           </View>
           <View style={SOCIALMEDIASECTION}>

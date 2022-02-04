@@ -24,6 +24,21 @@ import { ErrorBoundary } from "./screens/error/error-boundary"
 // stack navigation, use `createNativeStackNavigator` in place of `createStackNavigator`:
 // https://github.com/kmagiera/react-native-screens#using-native-stack-navigator
 
+import { initializeApp } from "firebase/app"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDsp7jDAG_Pp2wulplj1Ci3Nlswrd6aNN8",
+  authDomain: "casataqafa-d235c.firebaseapp.com",
+  projectId: "casataqafa-d235c",
+  storageBucket: "casataqafa-d235c.appspot.com",
+  messagingSenderId: "989341446856",
+  appId: "1:989341446856:web:f531cca289ed0625b7ebfd",
+  measurementId: "G-BVXGGBN5BG",
+}
+
+// Initialize Firebase
+initializeApp(firebaseConfig)
+
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
 /**

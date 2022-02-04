@@ -6,6 +6,7 @@ import { spacing, color } from "../../theme"
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
+import { UnAuthenticatedNavigatorParamList } from "../../navigators/unauthenticated-nagivator"
 // import { useStores } from "../../models"
 
 const ROOT: ViewStyle = {
@@ -73,7 +74,7 @@ export const LaunchScreen = observer(function LaunchScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
+  const navigation = useNavigation<StackNavigationProp<UnAuthenticatedNavigatorParamList>>()
 
   const goToLogin = () => navigation.navigate("login")
   return (

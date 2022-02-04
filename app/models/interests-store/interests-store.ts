@@ -29,6 +29,16 @@ export const InterestsStoreModel = types
       }
     },
   }))
+  .actions((self) => ({
+    submitInterests: async (uid) => {
+      const interestsApi = new InterestApi()
+      const filteredInterests = self.interests.filter((interest) => interest.selected !== false)
+      const interests = filteredInterests.map((interest) => interest.name)
+      const result = await interestsApi.submitInterest(interests, uid)
+
+      return result
+    },
+  }))
 
 type InterestsStoreType = Instance<typeof InterestsStoreModel>
 export interface InterestsStore extends InterestsStoreType {}

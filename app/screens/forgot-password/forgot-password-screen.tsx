@@ -2,11 +2,11 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, Header, Screen, Text, TextField } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-
-import { goBack } from "../../navigators"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { UnAuthenticatedNavigatorParamList } from "../../navigators/unauthenticated-nagivator"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -36,7 +36,9 @@ export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<UnAuthenticatedNavigatorParamList>>()
+  const goBack = () => navigation.goBack()
+
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
