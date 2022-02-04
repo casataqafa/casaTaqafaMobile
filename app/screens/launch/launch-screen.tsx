@@ -5,7 +5,6 @@ import { Text, Button } from "../../components"
 import { spacing, color } from "../../theme"
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { NavigatorParamList } from "../../navigators"
 import { UnAuthenticatedNavigatorParamList } from "../../navigators/unauthenticated-nagivator"
 // import { useStores } from "../../models"
 
