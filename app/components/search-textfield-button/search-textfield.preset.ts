@@ -5,14 +5,17 @@ import { color, spacing, typography } from "../../theme"
  * All text will start off looking like this.
  */
 const BASE_VIEW: ViewStyle = {
-  borderRadius: 8,
+  //borderRadius: 8,
   backgroundColor: "#ffffff",
 
-  height: 36,
-  paddingHorizontal: spacing[3],
+  // height: 36,
+  // paddingHorizontal: spacing[3],
 
-  paddingVertical: spacing[3],
-
+  // paddingVertical: spacing[3],
+  height: 48,
+  paddingVertical: spacing[4],
+  paddingHorizontal: spacing[5],
+  borderRadius: 48,
   flexDirection: "row",
 }
 
@@ -20,7 +23,8 @@ const BUTTON_CONTAINER: ViewStyle = {
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
-  marginRight: "75%",
+  // marginRight: "70%",
+  marginRight: "70%",
 }
 
 const ICON_CONTAINER: ViewStyle = {
@@ -33,7 +37,7 @@ const BASE_TEXT: TextStyle = {
   fontSize: 16,
   fontWeight: "normal",
   fontStyle: "normal",
-  lineHeight: 16,
+  lineHeight: 18,
   letterSpacing: 0,
   textAlign: "left",
   color: color.palette.lightGrey,

@@ -17,6 +17,7 @@ import { LaunchScreen } from "../screens/launch/launch-screen"
 import { HomeScreen } from "../screens/home/home-screen"
 import { EventsScreen } from "../screens/events/events-screen"
 import { EventProgramScreen } from "../screens"
+import { MapScreen } from "../screens"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -42,6 +43,7 @@ export type NavigatorParamList = {
   launch: undefined
   events: undefined
   eventprogramscreen: undefined
+  mapscreen: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -53,8 +55,9 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="eventprogramscreen"
+      initialRouteName="mapscreen"
     >
+      <Stack.Screen name="mapscreen" component={MapScreen} />
       <Stack.Screen name="eventprogramscreen" component={EventProgramScreen} />
       <Stack.Screen name="launch" component={LaunchScreen} />
       <Stack.Screen name="login" component={LoginScreen} />
