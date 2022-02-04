@@ -12,7 +12,7 @@ export const UserStoreModel = types
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
-    setUser(user: User) {
+    setUser(user) {
       self.user.email = user.email
       self.user.uid = user.uid
       self.user.name = user.name

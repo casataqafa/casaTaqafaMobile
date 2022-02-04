@@ -16,10 +16,9 @@ import { useNavigation } from "@react-navigation/native"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { StackNavigationProp } from "@react-navigation/stack"
-import { NavigatorParamList } from "../../navigators"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-import { User } from "../../models/user/user"
 import { useStores } from "../../models"
+import { UnAuthenticatedNavigatorParamList } from "../../navigators/unauthenticated-nagivator"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -74,7 +73,7 @@ export const LoginScreen = observer(function LoginScreen() {
   const [password, setPassword] = React.useState("")
 
   // Pull in navigation via hook
-  const navigation = useNavigation<StackNavigationProp<NavigatorParamList>>()
+  const navigation = useNavigation<StackNavigationProp<UnAuthenticatedNavigatorParamList>>()
 
   const goToRegistration = () => navigation.navigate("register")
   const goToForgotPassword = () => navigation.navigate("forgotPassword")
@@ -85,7 +84,7 @@ export const LoginScreen = observer(function LoginScreen() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((userCredentials) => {
         userStore.getUser(auth.currentUser.uid).then((userData) => {
-          const user: User = {
+          const user = {
             uid: auth.currentUser.uid,
             name: userData.name,
             email: userData.email,

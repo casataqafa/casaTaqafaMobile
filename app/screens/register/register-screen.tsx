@@ -16,7 +16,6 @@ import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
-import { User } from "../../models/user/user"
 import { UnAuthenticatedNavigatorParamList } from "../../navigators/unauthenticated-nagivator"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { useNavigation } from "@react-navigation/native"
@@ -88,7 +87,7 @@ export const RegisterScreen = observer(function RegisterScreen() {
     const auth = getAuth()
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        const user: User = {
+        const user = {
           uid: userCredentials.user.uid,
           name,
           email: userCredentials.user.email,
