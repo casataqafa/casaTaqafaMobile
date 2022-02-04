@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite"
 // import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { LoginScreen, RegisterScreen } from ".."
 import { AuthenticatedNavigator } from "../../navigators/authenticated-navigator"
 import { UnAuthenticatedNavigator } from "../../navigators/unauthenticated-nagivator"
 

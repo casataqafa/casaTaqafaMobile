@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import React from "react"
-import { observer } from "mobx-react-lite"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { color } from "../theme"
 import { FavoritesScreen, HomeScreen, MapScreen, ProfileScreen } from "../screens"
