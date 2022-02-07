@@ -20,7 +20,6 @@ const MAP_STYLE: ViewStyle = {
   width: Dimensions.get("window").width,
   height: Dimensions.get("window").height,
   flex: 1,
-  backgroundColor: "green",
 }
 
 const SEARCH_STYLE: ViewStyle = {
