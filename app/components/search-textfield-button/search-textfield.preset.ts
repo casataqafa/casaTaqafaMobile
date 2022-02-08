@@ -1,5 +1,5 @@
 import { ViewStyle, TextStyle } from "react-native"
-import { color, spacing, typography } from "../../theme"
+import { color, spacing } from "../../theme"
 
 /**
  * All text will start off looking like this.
@@ -14,7 +14,7 @@ const BASE_VIEW: ViewStyle = {
   // paddingVertical: spacing[3],
   height: 48,
   paddingVertical: spacing[4],
-  paddingHorizontal: spacing[5],
+  paddingHorizontal: spacing[3],
   borderRadius: 48,
   flexDirection: "row",
 }
@@ -23,8 +23,8 @@ const BUTTON_CONTAINER: ViewStyle = {
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
-  // marginRight: "70%",
-  marginRight: "70%",
+
+  marginRight: "75%",
 }
 
 const ICON_CONTAINER: ViewStyle = {
