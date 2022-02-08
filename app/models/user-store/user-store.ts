@@ -1,6 +1,6 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { UserApi } from "../../services/api/user-firestore-api"
-import { User, UserModel } from "../user/user"
+import { UserModel } from "../user/user"
 
 /**
  * Model description here for TypeScript hints.

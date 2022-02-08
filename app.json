@@ -1,10 +1,10 @@
 {
-  "name": "casaTaqafaMobile",
-  "displayName": "casaTaqafaMobile",
+  "name": "CasaTaqafa",
+  "displayName": "CasaTaqafa",
   "expo": {
-    "scheme": "casataqafamobile",
-    "name": "casaTaqafaMobile",
-    "slug": "casaTaqafaMobile",
+    "scheme": "casataqafa",
+    "name": "CasaTaqafa",
+    "slug": "CasaTaqafa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,15 +19,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.loriette.casaTaqafaMobile"
-    },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
     "android": {
-      "package": "com.loriette.casaTaqafaMobile"
+      "package": "com.casataqafa.CasaTaqafa"
+    },
+    "ios": {
+      "bundleIdentifier": "com.casataqafa.CasaTaqafa"
     }
   }
 }

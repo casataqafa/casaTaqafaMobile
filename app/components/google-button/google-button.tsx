@@ -71,8 +71,9 @@ export const GoogleButton = observer(function GoogleButton(props: GoogleButtonPr
   const styles = flatten([btnClickContain, style])
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    // clientId: "840194792446-1rn8gcgpn513ekuacffgd2huco0hq276.apps.googleusercontent.com",
-    clientId: "989341446856-6ba70t0h29k1rpiurbboqmq09dfrs1fh.apps.googleusercontent.com",
+    expoClientId: "989341446856-6ba70t0h29k1rpiurbboqmq09dfrs1fh.apps.googleusercontent.com",
+    androidClientId: "989341446856-db57dcaoc3pfqnbar7h3u24sctg3k144.apps.googleusercontent.com",
+    iosClientId: "989341446856-1pv7s04gajqovvlunkq0kt8lrkm3tfbk.apps.googleusercontent.com",
   })
 
   const handleUserAuth = async (user) => {
