@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useStores } from "../models"
 import { BottomNavigationBar } from "./bottom-navigator"
-import { PersonalizationScreen } from "../screens"
+import { EventScreen, PersonalizationScreen } from "../screens"
 
 export type AuthenticatedNavigatorParamList = {
   personalization: undefined
@@ -17,6 +17,8 @@ export type AuthenticatedNavigatorParamList = {
   favorite: undefined
   profile: undefined
   bottomTab: undefined
+  liked: undefined
+  map: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -38,6 +40,7 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
         <Stack.Screen name="personalization" component={PersonalizationScreen} />
       ) : null}
       <Stack.Screen name="bottomTab" component={BottomNavigationBar} />
+      <Stack.Screen name="event" component={EventScreen} />
     </Stack.Navigator>
   )
 })

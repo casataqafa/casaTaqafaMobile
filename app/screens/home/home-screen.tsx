@@ -2,11 +2,13 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View, FlatList, Image, TextStyle, ImageStyle } from "react-native"
 import { Screen, Text, Card } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 
 import ChevronsRightIcon from "../../../assets/svgs/chevrons-right-icon"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
 
 const ROOT: ViewStyle = {
   // marginHorizontal: spacing[5],
@@ -272,7 +274,8 @@ export const HomeScreen = observer(function HomeScreen() {
   const { user } = userStore
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
+  const goToEvent = () => navigation.navigate("event")
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -292,7 +295,7 @@ export const HomeScreen = observer(function HomeScreen() {
         </View>
 
         <View style={EVENT_SPACER}>
-          <Text style={TEXT_HEADER} text="Les événements" />
+          <Text style={TEXT_HEADER} text="Les événements" onPress={goToEvent} />
           <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
         </View>
         <View style={SECTION_SPACE}>
