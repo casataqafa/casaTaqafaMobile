@@ -1,5 +1,5 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-
+import { LG_FR, LG_EN, LG_AR } from "../constants/language-constants"
 /**
  * Model description here for TypeScript hints.
  */
@@ -15,6 +15,7 @@ export const EventModel = types
     longitude: types.optional(types.number, 0),
     geoHash: types.optional(types.string, ""),
     imageUri: types.optional(types.string, ""),
+    language: types.enumeration("lg", [LG_FR, LG_EN, LG_AR]),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
