@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useStores } from "../models"
 import { BottomNavigationBar } from "./bottom-navigator"
 import { EventScreen, PersonalizationScreen } from "../screens"
+import { MapFullscreenModal } from "../components"
 
 export type AuthenticatedNavigatorParamList = {
   personalization: undefined
@@ -19,6 +20,7 @@ export type AuthenticatedNavigatorParamList = {
   bottomTab: undefined
   liked: undefined
   map: undefined
+  mapfullscreenModal: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -36,11 +38,18 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
         headerShown: false,
       }}
     >
-      {!user.hasInterests ? (
-        <Stack.Screen name="personalization" component={PersonalizationScreen} />
-      ) : null}
-      <Stack.Screen name="bottomTab" component={BottomNavigationBar} />
-      <Stack.Screen name="event" component={EventScreen} />
+
+      <Stack.Group>
+        {!user.hasInterests ? (
+          <Stack.Screen name="personalization" component={PersonalizationScreen} />
+        ) : null}
+        <Stack.Screen name="bottomTab" component={BottomNavigationBar} />
+         <Stack.Screen name="event" component={EventScreen} />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "card", animation: "fade" }}>
+        <Stack.Screen name="mapfullscreenModal" component={MapFullscreenModal} />
+      </Stack.Group>
+      
     </Stack.Navigator>
   )
 })
