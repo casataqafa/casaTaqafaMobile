@@ -1,13 +1,13 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ImageBackground, View, ViewStyle, ImageStyle, TextStyle } from "react-native"
+import { ImageBackground, View, ViewStyle, ImageStyle, TextStyle, Share } from "react-native"
 import { Button, Header, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"
-import MapIcon from "../../../assets/svgs/map-icon"
+import { SafeAreaProvider } from "react-native-safe-area-context"
 import MapPinIcon from "../../../assets/svgs/map-pin-icon"
+import LinkIcon from "../../../assets/svgs/link-icon"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -15,15 +15,15 @@ const ROOT: ViewStyle = {
 }
 
 const IMAGE_STYLE: ImageStyle = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  bottom: 0,
-  right: 0,
+  flex: 2,
 }
 
 const HEADER_STYLE: ViewStyle = {
   marginHorizontal: spacing[5],
+}
+
+const HEADER: ViewStyle = {
+  marginTop: spacing[5],
 }
 
 const TEXT_ROOT: ViewStyle = {
@@ -64,6 +64,17 @@ const ACTIONS_ROOT: ViewStyle = {
   marginTop: spacing[6],
   justifyContent: "space-between",
   paddingHorizontal: spacing[5],
+  paddingTop: spacing[4],
+  paddingBottom: spacing[7],
+}
+
+const BUTTON_STYLE: ViewStyle = {
+  borderRadius: 100,
+  height: 48,
+  width: 48,
+  backgroundColor: color.palette.white,
+  borderColor: color.line,
+  borderWidth: 1,
 }
 export const EventScreen = observer(function EventScreen() {
   // Pull in one of our MST stores
@@ -71,23 +82,35 @@ export const EventScreen = observer(function EventScreen() {
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: "React Native | A framework for building native apps using React",
+        title: "share title",
+        url:
+          "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
   return (
     <SafeAreaProvider style={ROOT}>
-      <SafeAreaView style={ROOT}>
-        <ImageBackground
-          source={{
-            uri:
-              "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-          }}
-          style={IMAGE_STYLE}
-        />
-
+      <ImageBackground
+        source={{
+          uri:
+            "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+        }}
+        style={IMAGE_STYLE}
+      >
         <View style={HEADER_STYLE}>
-          <Header leftIcon="back" rightIcon="share" />
+          <Header style={HEADER} leftIcon="back" rightIcon="share" onRightPress={onShare} />
         </View>
-      </SafeAreaView>
+      </ImageBackground>
 
-      <SafeAreaProvider>
+      <View>
         <View style={TEXT_ROOT}>
           <Text preset="header" text="Casamouja" style={TEXT_HEADER} />
           <Text
@@ -106,36 +129,17 @@ export const EventScreen = observer(function EventScreen() {
             <Text style={TEXT_DETAILS} text="Temps" />
           </View>
         </View>
+
         <View style={ACTIONS_ROOT}>
-          <Button
-            style={{
-              borderRadius: 100,
-              height: 48,
-              width: 48,
-              backgroundColor: color.palette.white,
-              borderColor: color.line,
-              borderWidth: 1,
-            }}
-          ></Button>
+          <Button style={BUTTON_STYLE}>
+            <LinkIcon stroke={color.primary} size={20} />
+          </Button>
           <Button text="Consulter le programme" />
-          <Button
-            style={{
-              borderRadius: 100,
-              height: 48,
-              width: 48,
-              backgroundColor: color.palette.white,
-              borderColor: color.line,
-              borderWidth: 1,
-            }}
-          >
-            <MapPinIcon
-              style={{ marginTop: spacing[1], marginLeft: spacing[1] }}
-              stroke="black"
-              size={25}
-            />
+          <Button style={BUTTON_STYLE}>
+            <MapPinIcon stroke={color.primary} size={20} />
           </Button>
         </View>
-      </SafeAreaProvider>
+      </View>
     </SafeAreaProvider>
   )
 })

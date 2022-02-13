@@ -13,10 +13,12 @@ const ROOT: ViewStyle = {
 }
 
 const HEADER_STYLE: TextStyle = {
+  textAlign: "center",
   fontSize: 18,
 }
 
 const SUBHEADER_STYLE: TextStyle = {
+  textAlign: "center",
   fontSize: 14,
 }
 
