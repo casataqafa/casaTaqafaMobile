@@ -7,8 +7,9 @@ import HomeIcon from "../../assets/svgs/home-icon"
 import HeartIcon from "../../assets/svgs/heart-icon"
 import MapIcon from "../../assets/svgs/map-icon"
 import ProfileIcon from "../../assets/svgs/profile-icon"
+import { AuthenticatedNavigatorParamList } from "./authenticated-navigator"
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator<AuthenticatedNavigatorParamList>()
 export const BottomNavigationBar = () => {
   return (
     <Tab.Navigator
