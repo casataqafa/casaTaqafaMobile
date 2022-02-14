@@ -29,7 +29,7 @@ export const BottomNavigationBar = () => {
         }}
       />
       <Tab.Screen
-        name={"liked"}
+        name={"favorite"}
         component={FavoritesScreen}
         options={{
           tabBarActiveTintColor: color.primary,
