@@ -1,3 +1,5 @@
-export const LG_FR = "LG_FR"
-export const LG_EN = "LG_EN"
-export const LG_AR = "LG_AR"
+export enum language {
+  fr = "fr",
+  en = "en",
+  ar = "ar",
+}
