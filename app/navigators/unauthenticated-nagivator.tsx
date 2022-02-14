@@ -31,6 +31,7 @@ export const UnAuthenticatedNavigator = observer(function AuthenticatedNavigator
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        animation: "slide_from_right",
       }}
     >
       {user.isFirstTime ? <Stack.Screen name="launch" component={LaunchScreen} /> : null}

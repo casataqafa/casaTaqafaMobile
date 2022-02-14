@@ -9,6 +9,7 @@ import { color, spacing } from "../../theme"
 import ChevronsRightIcon from "../../../assets/svgs/chevrons-right-icon"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 const ROOT: ViewStyle = {
   // marginHorizontal: spacing[5],
@@ -275,7 +276,7 @@ export const HomeScreen = observer(function HomeScreen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
-  const goToEvent = () => navigation.navigate("event")
+  const goToEvents = () => navigation.navigate("events")
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -294,10 +295,13 @@ export const HomeScreen = observer(function HomeScreen() {
           />
         </View>
 
-        <View style={EVENT_SPACER}>
-          <Text style={TEXT_HEADER} text="Les événements" onPress={goToEvent} />
-          <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
-        </View>
+        <TouchableOpacity onPress={goToEvents}>
+          <View style={EVENT_SPACER}>
+            <Text style={TEXT_HEADER} text="Les événements" />
+
+            <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
+          </View>
+        </TouchableOpacity>
         <View style={SECTION_SPACE}>
           <FlatList
             showsHorizontalScrollIndicator={false}

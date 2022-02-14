@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useStores } from "../models"
 import { BottomNavigationBar } from "./bottom-navigator"
-import { EventScreen, PersonalizationScreen } from "../screens"
+import { EventScreen, EventsScreen, PersonalizationScreen } from "../screens"
 import { MapFullscreenModal } from "../components"
 
 export type AuthenticatedNavigatorParamList = {
@@ -18,7 +18,6 @@ export type AuthenticatedNavigatorParamList = {
   favorite: undefined
   profile: undefined
   bottomTab: undefined
-  liked: undefined
   map: undefined
   mapfullscreenModal: undefined
 }
@@ -38,18 +37,17 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
         headerShown: false,
       }}
     >
-
-      <Stack.Group>
+      <Stack.Group screenOptions={{ animation: "slide_from_right" }}>
         {!user.hasInterests ? (
           <Stack.Screen name="personalization" component={PersonalizationScreen} />
         ) : null}
         <Stack.Screen name="bottomTab" component={BottomNavigationBar} />
-         <Stack.Screen name="event" component={EventScreen} />
+        <Stack.Screen name="event" component={EventScreen} />
+        <Stack.Screen name="events" component={EventsScreen} />
       </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "card", animation: "fade" }}>
+      <Stack.Group screenOptions={{ presentation: "card", animation: "fade_from_bottom" }}>
         <Stack.Screen name="mapfullscreenModal" component={MapFullscreenModal} />
       </Stack.Group>
-      
     </Stack.Navigator>
   )
 })
