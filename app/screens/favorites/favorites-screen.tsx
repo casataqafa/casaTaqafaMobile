@@ -13,12 +13,15 @@ const ROOT: ViewStyle = {
 }
 
 const HEADER_STYLE: TextStyle = {
+  marginBottom: spacing[3],
   textAlign: "center",
+  lineHeight: 24,
   fontSize: 18,
 }
 
 const SUBHEADER_STYLE: TextStyle = {
   textAlign: "center",
+  lineHeight: 20,
   fontSize: 14,
 }
 

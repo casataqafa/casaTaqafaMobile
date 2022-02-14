@@ -1,7 +1,7 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, Animated, Image, StatusBar, TextStyle } from "react-native"
-import { ChipsFlatList, Screen, Text, Card } from "../../components"
+import { ViewStyle, View, Animated, Image, StatusBar, TextStyle, ImageStyle } from "react-native"
+import { ChipsFlatList, Text, Card } from "../../components"
 import MapView from "react-native-maps"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -9,7 +9,6 @@ import { color, spacing } from "../../theme"
 import { SearchTextfieldButton } from "../../components/search-textfield-button/search-textfield-button"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
-import { ImageStyle } from "react-native"
 
 const ROOT: ViewStyle = {
   flex: 1,

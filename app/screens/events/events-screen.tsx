@@ -2,12 +2,13 @@ import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View, Image, FlatList, TextStyle, ImageStyle } from "react-native"
 import { Text, Card, Header, Screen } from "../../components"
-import { goBack } from "../../navigators"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 
 import { color, spacing } from "../../theme"
 import { SafeAreaProvider } from "react-native-safe-area-context"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.transparent,
@@ -131,7 +132,10 @@ export const EventsScreen = observer(function EventsScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
+
+  const goBack = () => navigation.goBack()
+
   return (
     <View style={FULL}>
       <Screen preset="fixed" style={ROOT}>
