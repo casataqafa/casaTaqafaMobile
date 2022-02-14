@@ -30,7 +30,7 @@ export const presets = {
   /**
    * Large headers.
    */
-  header: { ...BASE, fontSize: 32, fontWeight: "bold" } as TextStyle,
+  header: { ...BASE, fontSize: 32, fontWeight: "bold", lineHeight: 36 } as TextStyle,
 
   /**
    * text under Large headers.

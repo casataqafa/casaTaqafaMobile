@@ -18,6 +18,17 @@ export const BottomNavigationBar = () => {
         headerShown: false,
         tabBarActiveTintColor: color.primary,
         tabBarShowLabel: false,
+        tabBarStyle: {
+          elevation: 1,
+          borderTopWidth: 0,
+          shadowColor: "grey",
+          shadowOpacity: 0.9,
+          shadowRadius: 2,
+          shadowOffset: {
+            height: 1,
+            width: 1,
+          },
+        },
       }}
     >
       <Tab.Screen

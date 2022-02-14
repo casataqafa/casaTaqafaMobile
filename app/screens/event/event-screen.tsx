@@ -1,13 +1,22 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ImageBackground, View, ViewStyle, ImageStyle, TextStyle, Share } from "react-native"
+import {
+  ImageBackground,
+  View,
+  ViewStyle,
+  ImageStyle,
+  TextStyle,
+  Share,
+  StatusBar,
+} from "react-native"
 import { Button, Header, Text } from "../../components"
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import { SafeAreaProvider } from "react-native-safe-area-context"
 import MapPinIcon from "../../../assets/svgs/map-pin-icon"
 import LinkIcon from "../../../assets/svgs/link-icon"
+import { StackNavigationProp } from "@react-navigation/stack"
+import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -81,7 +90,7 @@ export const EventScreen = observer(function EventScreen() {
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
   const onShare = async () => {
     try {
@@ -96,8 +105,11 @@ export const EventScreen = observer(function EventScreen() {
     }
   }
 
+  const goBack = () => navigation.goBack()
+
   return (
-    <SafeAreaProvider style={ROOT}>
+    <View style={ROOT}>
+      <StatusBar backgroundColor="transparent" translucent={true} />
       <ImageBackground
         source={{
           uri:
@@ -106,7 +118,13 @@ export const EventScreen = observer(function EventScreen() {
         style={IMAGE_STYLE}
       >
         <View style={HEADER_STYLE}>
-          <Header style={HEADER} leftIcon="back" rightIcon="share" onRightPress={onShare} />
+          <Header
+            style={HEADER}
+            leftIcon="back"
+            rightIcon="share"
+            onLeftPress={goBack}
+            onRightPress={onShare}
+          />
         </View>
       </ImageBackground>
 
@@ -140,6 +158,6 @@ export const EventScreen = observer(function EventScreen() {
           </Button>
         </View>
       </View>
-    </SafeAreaProvider>
+    </View>
   )
 })

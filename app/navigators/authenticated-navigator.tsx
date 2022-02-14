@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useStores } from "../models"
 import { BottomNavigationBar } from "./bottom-navigator"
-import { EventScreen, EventsScreen, PersonalizationScreen } from "../screens"
+import { ArtistScreen, EventScreen, EventsScreen, PersonalizationScreen } from "../screens"
 import { MapFullscreenModal } from "../components"
 
 export type AuthenticatedNavigatorParamList = {
@@ -42,8 +42,9 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
           <Stack.Screen name="personalization" component={PersonalizationScreen} />
         ) : null}
         <Stack.Screen name="bottomTab" component={BottomNavigationBar} />
-        <Stack.Screen name="event" component={EventScreen} />
         <Stack.Screen name="events" component={EventsScreen} />
+        <Stack.Screen name="event" component={EventScreen} />
+        <Stack.Screen name="artist" component={ArtistScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "card", animation: "fade_from_bottom" }}>
         <Stack.Screen name="mapfullscreenModal" component={MapFullscreenModal} />
