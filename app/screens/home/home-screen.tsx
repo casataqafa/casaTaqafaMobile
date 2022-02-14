@@ -1,7 +1,7 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View, FlatList, Image, TextStyle, ImageStyle } from "react-native"
-import { Screen, Text, Card } from "../../components"
+import { Screen, Text, Card, HomeCard } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
@@ -307,7 +307,7 @@ export const HomeScreen = observer(function HomeScreen() {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={dataEvents}
-            renderItem={cardEvents}
+            renderItem={({ index, item }) => <HomeCard key={item.id} item={item} />}
           />
         </View>
 
@@ -320,7 +320,7 @@ export const HomeScreen = observer(function HomeScreen() {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={dataRecommendation}
-            renderItem={cardRecommendation}
+            renderItem={({ index, item }) => <HomeCard key={item.id} item={item} />}
           />
         </View>
       </Screen>
