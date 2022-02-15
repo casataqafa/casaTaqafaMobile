@@ -276,7 +276,7 @@ export const HomeScreen = observer(function HomeScreen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
-  const goToEvents = () => navigation.navigate("events")
+  const goToEvents = () => navigation.navigate("artist")
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">

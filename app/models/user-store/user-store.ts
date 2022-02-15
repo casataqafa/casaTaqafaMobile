@@ -21,6 +21,16 @@ export const UserStoreModel = types
       self.user.isFirstTime = user.isFirstTime
     },
   }))
+  .actions((self) => ({
+    logout() {
+      self.user.email = ""
+      self.user.uid = ""
+      self.user.name = ""
+      self.user.profilePicture = ""
+      self.user.hasInterests = true
+      self.user.isFirstTime = false
+    },
+  }))
   .actions(() => ({
     async setUserFireStore(user) {
       const userApi = new UserApi()
