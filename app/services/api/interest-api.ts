@@ -9,11 +9,11 @@ const baseInterests = [
       "https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3390&q=80",
   },
   {
-    name: "Bon dessiné",
+    name: "Bande dessiné",
     id: 2,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1535340582796-799448c62e08?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80",
   },
   {
     name: "Centre culturel",
@@ -48,14 +48,14 @@ const baseInterests = [
     id: 7,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3570&q=80",
   },
   {
-    name: "Conference",
+    name: "Conférence",
     id: 8,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2746&q=80",
   },
   {
     name: "Conservatoire",
@@ -83,7 +83,7 @@ const baseInterests = [
     id: 12,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1454908027598-28c44b1716c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80",
   },
   {
     name: "Livre",
@@ -118,21 +118,21 @@ const baseInterests = [
     id: 17,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1549140600-78c9b8275e9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
   },
   {
     name: "Salon",
     id: 18,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2952&q=80",
   },
   {
     name: "Street art",
     id: 19,
     selected: false,
     uri:
-      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2445&q=80",
   },
   {
     name: "Théâtre",
