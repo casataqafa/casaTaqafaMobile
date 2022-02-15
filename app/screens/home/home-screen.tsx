@@ -10,35 +10,13 @@ import ChevronsRightIcon from "../../../assets/svgs/chevrons-right-icon"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { InterestCard } from "../../components/interest-card/interest-card"
 
 const ROOT: ViewStyle = {
   // marginHorizontal: spacing[5],
   // paddingHorizontal: spacing[5],
 }
 const FULL: ViewStyle = { backgroundColor: color.transparent, flex: 1 }
-
-const data = [
-  {
-    id: "1",
-    name: "Cinema",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "2",
-    name: "Cinema",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "3",
-    name: "Cinema",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "4",
-    name: "Cinema",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-]
 
 const dataEvents = [
   {
@@ -143,23 +121,6 @@ const HEADER_IMAGE: ImageStyle = {
   alignSelf: "center",
 }
 
-const CARD_PLACE_IMAGE: ImageStyle = {
-  width: 88,
-  height: 88,
-  borderRadius: 16,
-  aspectRatio: 1,
-  marginBottom: spacing[3],
-}
-
-const CARD_PLACE_TEXT: TextStyle = {
-  fontWeight: "bold",
-  color: color.palette.black,
-  marginBottom: spacing[2],
-  lineHeight: 16,
-  textAlign: "left",
-  letterSpacing: 0,
-}
-
 const CARD_EVENTS_IMAGE: ImageStyle = {
   width: 141,
   height: 141,
@@ -216,21 +177,6 @@ const CARD_RECOMMENDATION_SUB_HEADER_TEXT: TextStyle = {
   letterSpacing: 0,
 }
 
-const cardPlaces = ({ item }) => (
-  <Card preset="HomeCard">
-    <Image
-      style={CARD_PLACE_IMAGE}
-      source={{
-        uri: item.uri,
-      }}
-    />
-
-    <View>
-      <Text style={CARD_PLACE_TEXT}>{item.name}</Text>
-    </View>
-  </Card>
-)
-
 const cardEvents = ({ item }) => (
   <Card preset="HomeCard">
     <Image
@@ -271,8 +217,18 @@ const cardRecommendation = ({ item }) => (
 
 export const HomeScreen = observer(function HomeScreen() {
   // Pull in one of our MST stores
-  const { userStore } = useStores()
+  const { userStore, interestsStore } = useStores()
   const { user } = userStore
+
+  const { interests } = interestsStore
+
+  React.useEffect(() => {
+    async function fetchData() {
+      await interestsStore.getInterests()
+    }
+
+    fetchData()
+  }, [])
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
@@ -289,9 +245,10 @@ export const HomeScreen = observer(function HomeScreen() {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={data}
-            keyExtractor={(item) => item.id}
-            renderItem={cardPlaces}
+            data={[...interests]}
+            renderItem={({ item }) => (
+              <InterestCard key={item.id} name={item.name} uri={item.uri} />
+            )}
           />
         </View>
 
