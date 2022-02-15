@@ -1,26 +1,146 @@
 import { doc, getFirestore, updateDoc } from "firebase/firestore"
 
 const baseInterests = [
-  { name: "Bibliothèque", id: 1, selected: false },
-  { name: "Bon dessiné", id: 2, selected: false },
-  { name: "Centre culturel", id: 3, selected: false },
-  { name: "Cinéma", id: 4, selected: false },
-  { name: "Cirque", id: 5, selected: false },
-  { name: "Comédie club", id: 6, selected: false },
-  { name: "Concert", id: 7, selected: false },
-  { name: "Conference", id: 8, selected: false },
-  { name: "Conservatoire", id: 9, selected: false },
-  { name: "Ecole d’art", id: 10, selected: false },
-  { name: "Exposition", id: 11, selected: false },
-  { name: "Festival", id: 12, selected: false },
-  { name: "Livre", id: 13, selected: false },
-  { name: "Maison de jeune", id: 14, selected: false },
-  { name: "Musée", id: 15, selected: false },
-  { name: "Opéra", id: 16, selected: false },
-  { name: "Patrimoine", id: 17, selected: false },
-  { name: "Salon", id: 18, selected: false },
-  { name: "Street art", id: 19, selected: false },
-  { name: "Théâtre", id: 20, selected: false },
+  {
+    name: "Bibliothèque",
+    id: 1,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3390&q=80",
+  },
+  {
+    name: "Bon dessiné",
+    id: 2,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Centre culturel",
+    id: 3,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1594470490309-64a03ff626c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80",
+  },
+  {
+    name: "Cinéma",
+    id: 4,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1596445836561-991bcd39a86d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Cirque",
+    id: 5,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1572252698222-3ce9dcc32888?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Comédie club",
+    id: 6,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1557619402-8b75ab9a429c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1430&q=80",
+  },
+  {
+    name: "Concert",
+    id: 7,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Conference",
+    id: 8,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Conservatoire",
+    id: 9,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Ecole d’art",
+    id: 10,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1528396518501-b53b655eb9b3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Exposition",
+    id: 11,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1566131929856-21b5077cd4fb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Festival",
+    id: 12,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Livre",
+    id: 13,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2952&q=80",
+  },
+  {
+    name: "Maison de jeune",
+    id: 14,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1485182708500-e8f1f318ba72?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3010&q=80",
+  },
+  {
+    name: "Musée",
+    id: 15,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1565060169194-19fabf63012c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Opéra",
+    id: 16,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1607998803461-4e9aef3be418?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+  },
+  {
+    name: "Patrimoine",
+    id: 17,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Salon",
+    id: 18,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Street art",
+    id: 19,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1586974722828-4a75a60c57b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+  },
+  {
+    name: "Théâtre",
+    id: 20,
+    selected: false,
+    uri:
+      "https://images.unsplash.com/photo-1514306191717-452ec28c7814?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2938&q=80",
+  },
 ]
 
 export class InterestApi {

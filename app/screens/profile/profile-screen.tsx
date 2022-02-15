@@ -5,7 +5,6 @@ import { Button, Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
-import ChevronsLeftIcon from "../../../assets/svgs/chevrons-left-icon"
 import ChevronsRightIcon from "../../../assets/svgs/chevrons-right-icon"
 import { getAuth } from "firebase/auth"
 

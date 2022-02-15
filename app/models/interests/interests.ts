@@ -9,6 +9,7 @@ export const InterestsModel = types
     id: types.identifierNumber,
     name: types.string,
     selected: types.boolean,
+    uri: types.string,
   })
   .actions((self) => ({
     toggleSelection: () => {
