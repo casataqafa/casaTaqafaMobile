@@ -82,6 +82,7 @@ export const RegisterScreen = observer(function RegisterScreen() {
   const navigation = useNavigation<StackNavigationProp<UnAuthenticatedNavigatorParamList>>()
 
   const goback = () => navigation.goBack()
+  const goToTermsOfUse = () => navigation.navigate("termsofuse")
 
   const SignUp = () => {
     const auth = getAuth()
@@ -142,9 +143,9 @@ export const RegisterScreen = observer(function RegisterScreen() {
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
             <Text style={AGREEMENT_STYLE} text="By continuing, you agree to our " />
-            <Text style={FOOTERTEXTSTYLE} text="Terms of service " />
+            <Text onPress={goToTermsOfUse} style={FOOTERTEXTSTYLE} text="Terms of service " />
             <Text style={AGREEMENT_STYLE} text="and  " />
-            <Text style={FOOTERTEXTSTYLE} text="Privacy Policy." />
+            <Text onPress={goToTermsOfUse} style={FOOTERTEXTSTYLE} text="Privacy Policy." />
           </View>
           <View></View>
         </SafeAreaView>

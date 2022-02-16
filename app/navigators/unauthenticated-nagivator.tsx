@@ -8,6 +8,7 @@ import {
   RegisterScreen,
   LoginScreen,
   VerificationScreen,
+  TermsOfUseScreen,
 } from "../screens"
 
 export type UnAuthenticatedNavigatorParamList = {
@@ -16,6 +17,7 @@ export type UnAuthenticatedNavigatorParamList = {
   register: undefined
   forgotPassword: undefined
   verification: undefined
+  termsofuse: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -39,6 +41,7 @@ export const UnAuthenticatedNavigator = observer(function AuthenticatedNavigator
       <Stack.Screen name="register" component={RegisterScreen} />
       <Stack.Screen name="forgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="verification" component={VerificationScreen} />
+      <Stack.Screen name="termsofuse" component={TermsOfUseScreen} />
     </Stack.Navigator>
   )
 })
