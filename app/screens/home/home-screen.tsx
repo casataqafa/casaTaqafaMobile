@@ -232,7 +232,7 @@ export const HomeScreen = observer(function HomeScreen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
-  const goToEvents = () => navigation.navigate("artist")
+  const goToEvents = () => navigation.navigate("place")
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -264,7 +264,7 @@ export const HomeScreen = observer(function HomeScreen() {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={dataEvents}
-            renderItem={({ index, item }) => <HomeCard key={item.id} item={item} />}
+            renderItem={({ item }) => <HomeCard key={item.id} item={item} />}
           />
         </View>
 
@@ -277,7 +277,7 @@ export const HomeScreen = observer(function HomeScreen() {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={dataRecommendation}
-            renderItem={({ index, item }) => <HomeCard key={item.id} item={item} />}
+            renderItem={({ item }) => <HomeCard key={item.id} item={item} />}
           />
         </View>
       </Screen>

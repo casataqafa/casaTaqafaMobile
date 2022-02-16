@@ -4,7 +4,13 @@ import { observer } from "mobx-react-lite"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { useStores } from "../models"
 import { BottomNavigationBar } from "./bottom-navigator"
-import { ArtistScreen, EventScreen, EventsScreen, PersonalizationScreen } from "../screens"
+import {
+  ArtistScreen,
+  EventScreen,
+  EventsScreen,
+  LocationScreen,
+  PersonalizationScreen,
+} from "../screens"
 import { MapFullscreenModal } from "../components"
 
 export type AuthenticatedNavigatorParamList = {
@@ -43,6 +49,7 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
         ) : null}
         <Stack.Screen name="bottomTab" component={BottomNavigationBar} />
         <Stack.Screen name="events" component={EventsScreen} />
+        <Stack.Screen name="place" component={LocationScreen} />
         <Stack.Screen name="event" component={EventScreen} />
         <Stack.Screen name="artist" component={ArtistScreen} />
       </Stack.Group>

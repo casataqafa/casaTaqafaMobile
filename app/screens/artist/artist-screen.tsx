@@ -24,6 +24,11 @@ const ROOT: ViewStyle = {
   flex: 1,
 }
 
+const TEXT_CONTAINER: ViewStyle = {
+  marginHorizontal: spacing[5],
+  paddingBottom: spacing[5],
+}
+
 const IMAGE_STYLE: ImageStyle = {
   resizeMode: "contain",
   height: Dimensions.get("window").width / 1,
@@ -34,7 +39,7 @@ const HEADER_STYLE: ViewStyle = {
 }
 
 const HEADER: ViewStyle = {
-  marginTop: spacing[5],
+  marginTop: spacing[6],
 }
 
 const SUB_HEADER_TEXT: TextStyle = {
@@ -46,6 +51,7 @@ const SUB_HEADER_TEXT: TextStyle = {
 }
 
 const DESCRIPTION_STYLE: TextStyle = {
+  textAlign: "justify",
   lineHeight: 24,
   marginVertical: spacing[6],
 }
@@ -79,6 +85,7 @@ const FOOTER_HEADER: TextStyle = { color: color.palette.lightGrey }
 const FOOTER_TEXT: TextStyle = { lineHeight: 20, fontWeight: "bold" }
 
 export const ArtistScreen = observer(function ArtistScreen() {
+  const [yPosition, setYPosition] = React.useState(0)
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
@@ -88,10 +95,18 @@ export const ArtistScreen = observer(function ArtistScreen() {
   const goBack = () => navigation.goBack()
 
   const openWebsite = () => Linking.openURL("https://wecasablanca.ma")
+
+  const handleScroll = (e) => {
+    setYPosition(e.nativeEvent.contentOffset.y)
+  }
   return (
     <View style={ROOT}>
-      <StatusBar backgroundColor="transparent" translucent={true} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <StatusBar backgroundColor={yPosition <= 60 ? "transparent" : "white"} translucent={true} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+      >
         <ImageBackground
           source={{
             uri:
@@ -105,7 +120,7 @@ export const ArtistScreen = observer(function ArtistScreen() {
         </ImageBackground>
 
         <SafeAreaView>
-          <View style={{ marginHorizontal: spacing[5] }}>
+          <View style={TEXT_CONTAINER}>
             <Text preset="header" text="Michael casablanca" />
             <Text
               style={SUB_HEADER_TEXT}
@@ -118,7 +133,7 @@ export const ArtistScreen = observer(function ArtistScreen() {
               text="A day after the Centers for Disease Control and Prevention urged Americans to stay home for Thanksgiving, more than one million people in the United States got on planes, marking the second day that more than a million people have flown since March. Nearly three million additional people have flown in the days since."
             />
 
-            <Text style={INFORMATION_HEADER} text="Plus d’information:" />
+            <Text style={INFORMATION_HEADER} text="Plus d’information" />
             <Button preset="link" onPress={openWebsite}>
               <Text style={INFORMATION_URL} text="https://wecasablanca.ma" />
             </Button>

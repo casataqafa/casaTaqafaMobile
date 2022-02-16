@@ -32,7 +32,7 @@ const HEADER_STYLE: ViewStyle = {
 }
 
 const HEADER: ViewStyle = {
-  marginTop: spacing[5],
+  marginTop: spacing[6],
 }
 
 const TEXT_ROOT: ViewStyle = {
