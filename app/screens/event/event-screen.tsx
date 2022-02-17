@@ -8,6 +8,7 @@ import {
   TextStyle,
   Share,
   StatusBar,
+  Platform,
 } from "react-native"
 import { Button, Header, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
@@ -107,9 +108,15 @@ export const EventScreen = observer(function EventScreen() {
 
   const goBack = () => navigation.goBack()
 
+  React.useEffect(() => {
+    if (Platform.OS === "android") {
+      StatusBar.setTranslucent(true)
+    }
+  }, [])
+
   return (
     <View style={ROOT}>
-      <StatusBar backgroundColor="transparent" translucent={true} />
+      <StatusBar backgroundColor="transparent" />
       <ImageBackground
         source={{
           uri:

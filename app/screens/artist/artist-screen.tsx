@@ -8,6 +8,7 @@ import {
   ViewStyle,
   Dimensions,
   TextStyle,
+  Platform,
 } from "react-native"
 import { Button, Header, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
@@ -99,9 +100,15 @@ export const ArtistScreen = observer(function ArtistScreen() {
   const handleScroll = (e) => {
     setYPosition(e.nativeEvent.contentOffset.y)
   }
+
+  React.useEffect(() => {
+    if (Platform.OS === "android") {
+      StatusBar.setTranslucent(true)
+    }
+  }, [])
   return (
     <View style={ROOT}>
-      <StatusBar backgroundColor={yPosition <= 60 ? "transparent" : "white"} translucent={true} />
+      <StatusBar backgroundColor={yPosition <= 60 ? "transparent" : "white"} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
