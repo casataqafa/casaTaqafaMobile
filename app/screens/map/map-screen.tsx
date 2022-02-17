@@ -1,6 +1,15 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle, View, Animated, Image, StatusBar, TextStyle, ImageStyle } from "react-native"
+import {
+  ViewStyle,
+  View,
+  Animated,
+  Image,
+  StatusBar,
+  TextStyle,
+  ImageStyle,
+  Platform,
+} from "react-native"
 import { ChipsFlatList, Text, Card } from "../../components"
 import MapView from "react-native-maps"
 import { useNavigation } from "@react-navigation/native"
@@ -148,9 +157,16 @@ export const MapScreen = observer(function MapScreen() {
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
   const goToSearchScreen = () => navigation.navigate("mapfullscreenModal")
+
+  React.useEffect(() => {
+    if (Platform.OS === "android") {
+      StatusBar.setTranslucent(true)
+    }
+  }, [])
+
   return (
     <View style={ROOT}>
-      <StatusBar backgroundColor="transparent" translucent={true} />
+      <StatusBar backgroundColor="transparent" />
       <MapView style={MAP_STYLE} />
       <View style={SEARCH_STYLE}>
         <SearchTextfieldButton onPress={goToSearchScreen} text="Search" />

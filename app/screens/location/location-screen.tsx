@@ -7,12 +7,13 @@ import {
   ImageStyle,
   Platform,
   ScrollView,
+  Share,
   StatusBar,
   TextStyle,
   View,
   ViewStyle,
 } from "react-native"
-import { Button, Header, HomeCard, Text } from "../../components"
+import { Button, HomeCard, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
@@ -22,6 +23,9 @@ import PhoneIcon from "../../../assets/svgs/phone-icon"
 import * as Linking from "expo-linking"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
+import HeartIcon from "../../../assets/svgs/heart-icon"
+import ChevronsLeftIcon from "../../../assets/svgs/chevrons-left-icon"
+import ShareIcon from "../../../assets/svgs/share-icon"
 
 const dataEvents = [
   {
@@ -76,12 +80,45 @@ const IMAGE_STYLE: ImageStyle = {
   height: Dimensions.get("window").width / 1,
 }
 
+const HEADER_RIGHT_STYLE: ViewStyle = {
+  flexDirection: "row",
+}
+
 const HEADER_STYLE: ViewStyle = {
+  marginTop: spacing[7],
+  flexDirection: "row",
+  justifyContent: "space-between",
   marginHorizontal: spacing[5],
 }
 
-const HEADER: ViewStyle = {
-  marginTop: spacing[6],
+const HEART_ICON: ViewStyle = {
+  marginTop: spacing[1],
+}
+
+const SHARE_ICON: ViewStyle = {
+  marginLeft: spacing[2],
+}
+
+const BACK_ICON: ViewStyle = {
+  marginTop: spacing[2],
+  marginLeft: spacing[3],
+}
+
+const BUTTON_HEADER_BASE_SYTLE: ViewStyle = {
+  alignItems: "center",
+  backgroundColor: "white",
+  borderRadius: 100,
+  width: 40,
+  height: 40,
+}
+
+const BUTTON_HEADER_STYLE_SHARE: ViewStyle = {
+  ...BUTTON_HEADER_BASE_SYTLE,
+}
+
+const BUTTON_HEADER_STYLE_HEART: ViewStyle = {
+  ...BUTTON_HEADER_BASE_SYTLE,
+  marginLeft: spacing[2],
 }
 
 const INFORMATION_CONTAINER: ViewStyle = {
@@ -144,6 +181,7 @@ const FOOTER: ViewStyle = {
 
 export const LocationScreen = observer(function LocationScreen() {
   const [yPosition, setYPosition] = React.useState(0)
+
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
@@ -159,18 +197,34 @@ export const LocationScreen = observer(function LocationScreen() {
   }
 
   const openMap = () => {
-    const scheme =
-      Platform.OS === "ios"
-        ? "http://maps.apple.com/maps?daddr="
-        : "http://maps.google.com/maps?daddr="
+    const scheme = Platform.OS === "ios" ? "maps:0,0?daddr=" : "http://maps.google.com/maps?daddr="
 
     const url = scheme + `33.58175437449857, -7.634435606672016`
     Linking.openURL(url)
   }
 
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: "React Native | A framework for building native apps using React",
+        title: "share title",
+        url:
+          "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  React.useEffect(() => {
+    if (Platform.OS === "android") {
+      StatusBar.setTranslucent(true)
+    }
+  }, [])
+
   return (
     <View style={ROOT}>
-      <StatusBar backgroundColor={yPosition <= 60 ? "transparent" : "white"} translucent={true} />
+      <StatusBar backgroundColor={yPosition <= 60 ? "transparent" : "white"} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
@@ -183,7 +237,17 @@ export const LocationScreen = observer(function LocationScreen() {
           style={IMAGE_STYLE}
         >
           <View style={HEADER_STYLE}>
-            <Header style={HEADER} leftIcon="back" onLeftPress={goBack} />
+            <Button style={BUTTON_HEADER_BASE_SYTLE} onPress={goBack}>
+              <ChevronsLeftIcon style={BACK_ICON} stroke={color.palette.black} />
+            </Button>
+            <View style={HEADER_RIGHT_STYLE}>
+              <Button style={BUTTON_HEADER_STYLE_SHARE} onPress={onShare}>
+                <ShareIcon style={SHARE_ICON} stroke={color.palette.black} />
+              </Button>
+              <Button style={BUTTON_HEADER_STYLE_HEART}>
+                <HeartIcon style={HEART_ICON} stroke={color.palette.black} />
+              </Button>
+            </View>
           </View>
         </ImageBackground>
 
