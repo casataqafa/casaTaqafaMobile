@@ -3,6 +3,7 @@ import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { Text } from "../text/text"
 import { color, spacing } from "../../theme"
 import { CheckboxProps } from "./checkbox.props"
+import CheckIcon from "../../../assets/svgs/check-icon"
 
 const ROOT: ViewStyle = {
   flexDirection: "row",
@@ -18,14 +19,16 @@ const OUTLINE: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
   borderWidth: 1,
-  borderColor: color.primaryDarker,
-  borderRadius: 1,
+  borderColor: color.primary,
+  borderRadius: 4,
 }
 
 const FILL: ViewStyle = {
-  width: DIMENSIONS.width - 4,
-  height: DIMENSIONS.height - 4,
+  width: DIMENSIONS.width - 0,
+  height: DIMENSIONS.height - 0,
   backgroundColor: color.primary,
+  justifyContent: "center",
+  alignItems: "center",
 }
 
 const LABEL: TextStyle = { paddingLeft: spacing[2] }
@@ -46,7 +49,13 @@ export function Checkbox(props: CheckboxProps) {
       onPress={onPress}
       style={rootStyle}
     >
-      <View style={outlineStyle}>{props.value && <View style={fillStyle} />}</View>
+      <View style={outlineStyle}>
+        {props.value && (
+          <View style={fillStyle}>
+            <CheckIcon />
+          </View>
+        )}
+      </View>
       <Text text={props.text} tx={props.tx} numberOfLines={numberOfLines} style={LABEL} />
     </TouchableOpacity>
   )
