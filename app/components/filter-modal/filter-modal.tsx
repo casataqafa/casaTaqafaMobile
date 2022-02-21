@@ -119,7 +119,7 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
   const styles = flatten([CONTAINER, style])
   // const [internalModalVisible, setModalVisible] = React.useState(true)
 
-  const [checkboxToggleAll, setcheckboxToggleAll] = React.useState(false)
+  const [checkboxToggleAll, setcheckboxToggleAll] = React.useState(true)
   const [checkboxTogglePaid, setcheckboxTogglePaid] = React.useState(false)
   const [checkboxToggleFree, setcheckboxToggleFree] = React.useState(false)
 
@@ -139,7 +139,7 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
     setcheckboxToggleAll(!checkboxToggleAll)
     setcheckboxTogglePaid(false)
     setcheckboxToggleFree(false)
-    onFilterValueChange("All")
+    //onFilterValueChange("All")
   }
 
   const setcheckboxTogglePaidFunc = () => {
@@ -147,7 +147,7 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
     setcheckboxToggleAll(false)
 
     setcheckboxToggleFree(false)
-    onFilterValueChange("Paid")
+    //onFilterValueChange("Paid")
   }
 
   const setcheckboxToggleFreeFunc = () => {
@@ -155,7 +155,18 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
     setcheckboxToggleAll(false)
     setcheckboxTogglePaid(false)
 
-    onFilterValueChange("Free")
+    //onFilterValueChange("Free")
+  }
+
+  const searchFunc = () => {
+    checkboxToggleAll === true
+      ? onFilterValueChange("All")
+      : checkboxTogglePaid === true
+      ? onFilterValueChange("Paid")
+      : checkboxToggleFree === true
+      ? onFilterValueChange("Free")
+      : false
+    canceller()
   }
 
   return (
@@ -200,6 +211,7 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
                 style={BUTTON_STYLE_SEARCH}
                 textStyle={BUTTON_STYLE_TEXTSTYLE_SEARCH}
                 text="Search"
+                onPress={searchFunc}
               />
               <Button
                 textStyle={BUTTON_STYLE_CANCEL}
