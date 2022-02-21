@@ -14,7 +14,7 @@ const ROOT: ViewStyle = {
 }
 
 const HEADER: ViewStyle = {
-  marginHorizontal: spacing[5],
+  marginHorizontal: spacing[2],
 }
 
 const TITLE: TextStyle = {
