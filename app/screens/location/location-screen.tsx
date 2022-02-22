@@ -15,7 +15,7 @@ import {
 } from "react-native"
 import { Button, HomeCard, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import ClockIcon from "../../../assets/svgs/clock-icon"
@@ -26,6 +26,7 @@ import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-
 import HeartIcon from "../../../assets/svgs/heart-icon"
 import ChevronsLeftIcon from "../../../assets/svgs/chevrons-left-icon"
 import ShareIcon from "../../../assets/svgs/share-icon"
+import { LocationScreenApi } from "../../services/api/location-screen-api"
 
 const dataEvents = [
   {
@@ -181,16 +182,20 @@ const FOOTER: ViewStyle = {
 
 export const LocationScreen = observer(function LocationScreen() {
   const [yPosition, setYPosition] = React.useState(0)
+  const [events, setEvents] = React.useState([])
 
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { navigationStore } = useStores()
+
+  const { locationScreen, eventScreen } = navigationStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
   const goBack = () => navigation.goBack()
+  const goToEvent = () => navigation.navigate("event")
 
-  const openWebsite = () => Linking.openURL("https://wecasablanca.ma")
+  const openWebsite = () => Linking.openURL(locationScreen.link)
 
   const handleScroll = (e) => {
     setYPosition(e.nativeEvent.contentOffset.y)
@@ -199,27 +204,41 @@ export const LocationScreen = observer(function LocationScreen() {
   const openMap = () => {
     const scheme = Platform.OS === "ios" ? "maps:0,0?daddr=" : "http://maps.google.com/maps?daddr="
 
-    const url = scheme + `33.58175437449857, -7.634435606672016`
+    const url = scheme + `${locationScreen.latitude}, ${locationScreen.longitude}`
     Linking.openURL(url)
   }
 
   const onShare = async () => {
     try {
       await Share.share({
-        message: "React Native | A framework for building native apps using React",
-        title: "share title",
-        url:
-          "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+        message: "CasaTaqafa",
+        title: locationScreen.name,
+        url: locationScreen.photoUri,
       })
     } catch (error) {
       alert(error.message)
     }
   }
 
+  const setEventScreen = async (event: typeof eventScreen) => {
+    const eventSetup = await navigationStore.setEventScreen(event)
+    if (eventSetup) {
+      goToEvent()
+    }
+  }
+
   React.useEffect(() => {
+    async function fetchEventsData() {
+      const locationApi = new LocationScreenApi()
+      const firestoreEvents = await locationApi.getEvents(locationScreen.id)
+      setEvents(firestoreEvents.events)
+    }
+
     if (Platform.OS === "android") {
       StatusBar.setTranslucent(true)
     }
+
+    fetchEventsData()
   }, [])
 
   return (
@@ -232,7 +251,7 @@ export const LocationScreen = observer(function LocationScreen() {
       >
         <ImageBackground
           source={{
-            uri: "https://cdn.archilovers.com/projects/9ce337e9-daae-424b-9aa4-6f798f1bd9b1.jpg",
+            uri: locationScreen.photoUri,
           }}
           style={IMAGE_STYLE}
         >
@@ -254,16 +273,16 @@ export const LocationScreen = observer(function LocationScreen() {
         <SafeAreaView>
           <View style={CONTAINER}>
             <View style={{ marginHorizontal: spacing[5] }}>
-              <Text preset="header" text="Thêatre casablanca" />
+              <Text preset="header" text={locationScreen.name} />
               <View style={SUBHEADER_CONTAINER}>
                 <View style={INFORMATION_CONTAINER}>
                   <ClockIcon size={16} stroke={color.palette.lightGrey} style={ICON_STYLING} />
-                  <Text style={ICON_TEXT_STYLEING} text="8:00 - 18:00" />
+                  <Text style={ICON_TEXT_STYLEING} text={locationScreen.openingHours} />
                 </View>
 
                 <View style={INFORMATION_CONTAINER}>
                   <PhoneIcon size={16} stroke={color.palette.lightGrey} style={ICON_STYLING} />
-                  <Text style={ICON_TEXT_STYLEING} text="0522917622" />
+                  <Text style={ICON_TEXT_STYLEING} text={locationScreen.phoneNumber} />
                 </View>
               </View>
 
@@ -274,7 +293,7 @@ export const LocationScreen = observer(function LocationScreen() {
 
               <Text style={INFORMATION_HEADER} text="Plus d’information" />
               <Button preset="link" onPress={openWebsite}>
-                <Text style={INFORMATION_URL} text="https://wecasablanca.ma" />
+                <Text style={INFORMATION_URL} text={locationScreen.link} />
               </Button>
             </View>
             <View style={EVENTS_INFORMATION_CONTAINER}>
@@ -283,8 +302,10 @@ export const LocationScreen = observer(function LocationScreen() {
                 <FlatList
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
-                  data={dataEvents}
-                  renderItem={({ item }) => <HomeCard key={item.id} item={item} />}
+                  data={events}
+                  renderItem={({ item }) => (
+                    <HomeCard onPress={() => setEventScreen(item)} key={item.id} item={item} />
+                  )}
                 />
               </View>
             </View>

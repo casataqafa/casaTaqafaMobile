@@ -34,7 +34,9 @@ export const UserStoreModel = types
   .actions(() => ({
     async setUserFireStore(user) {
       const userApi = new UserApi()
-      await userApi.createUser(user)
+      const usr = await userApi.createUser(user)
+
+      return usr
     },
   }))
   .actions((self) => ({

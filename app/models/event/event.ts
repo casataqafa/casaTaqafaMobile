@@ -13,8 +13,10 @@ export const EventModel = types
     date: types.optional(types.string, ""),
     time: types.optional(types.string, ""),
     timestamp: types.optional(types.Date, 0),
-    imageUri: types.optional(types.string, ""),
+    photoUri: types.optional(types.string, ""),
     price: types.optional(types.number, 0),
+    link: types.optional(types.string, ""),
+    placeId: types.optional(types.string, ""),
     language: types.optional(
       types.enumeration<language>([language.en, language.fr, language.ar]),
       language.fr,

@@ -12,12 +12,15 @@ import {
 } from "react-native"
 import { Button, Header, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import MapPinIcon from "../../../assets/svgs/map-pin-icon"
 import LinkIcon from "../../../assets/svgs/link-icon"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
+import { EventsScreen } from ".."
+import * as Linking from "expo-linking"
+import { EventScreenApi } from "../../services/api/event-screen-api"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -88,30 +91,42 @@ const BUTTON_STYLE: ViewStyle = {
 }
 export const EventScreen = observer(function EventScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { navigationStore } = useStores()
+
+  const { eventScreen } = navigationStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
+  const goBack = () => navigation.goBack()
+  const goToPlace = () => navigation.navigate("place")
+
+  const openWebsite = () => Linking.openURL(eventScreen.link)
+
   const onShare = async () => {
     try {
       await Share.share({
-        message: "React Native | A framework for building native apps using React",
-        title: "share title",
-        url:
-          "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+        message: "CasaTaqafa",
+        title: eventScreen.name,
+        url: eventScreen.photoUri,
       })
     } catch (error) {
       alert(error.message)
     }
   }
 
-  const goBack = () => navigation.goBack()
-
   React.useEffect(() => {
     if (Platform.OS === "android") {
       StatusBar.setTranslucent(true)
     }
+
+    async function fetchPlaceData() {
+      const eventapi = new EventScreenApi()
+      const firestorePlaces = await eventapi.getLocation(eventScreen.placeId)
+      navigationStore.setLocationScreen(firestorePlaces.place)
+    }
+
+    fetchPlaceData()
   }, [])
 
   return (
@@ -119,8 +134,7 @@ export const EventScreen = observer(function EventScreen() {
       <StatusBar backgroundColor="transparent" />
       <ImageBackground
         source={{
-          uri:
-            "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+          uri: eventScreen.photoUri,
         }}
         style={IMAGE_STYLE}
       >
@@ -137,30 +151,26 @@ export const EventScreen = observer(function EventScreen() {
 
       <View>
         <View style={TEXT_ROOT}>
-          <Text preset="header" text="Casamouja" style={TEXT_HEADER} />
-          <Text
-            preset="subheader"
-            text="CASAMOUJA « urban art wave » est une opération street art qui propose."
-            style={TEXT_SUBHEADER}
-          />
+          <Text preset="header" text={eventScreen.name} style={TEXT_HEADER} />
+          <Text preset="subheader" text={eventScreen.description} style={TEXT_SUBHEADER} />
         </View>
         <View style={DETAILS_ROOT}>
           <View>
-            <Text preset="bold" style={TEXT_DETAILS} text="21 juin 2022" />
+            <Text preset="bold" style={TEXT_DETAILS} text={eventScreen.date} />
             <Text style={TEXT_DETAILS} text="Date" />
           </View>
           <View>
-            <Text preset="bold" style={TEXT_DETAILS} text="16:00" />
+            <Text preset="bold" style={TEXT_DETAILS} text={eventScreen.time} />
             <Text style={TEXT_DETAILS} text="Temps" />
           </View>
         </View>
 
         <View style={ACTIONS_ROOT}>
-          <Button style={BUTTON_STYLE}>
+          <Button style={BUTTON_STYLE} onPress={openWebsite}>
             <LinkIcon stroke={color.primary} size={20} />
           </Button>
           <Button text="Consulter le programme" />
-          <Button style={BUTTON_STYLE}>
+          <Button style={BUTTON_STYLE} onPress={goToPlace}>
             <MapPinIcon stroke={color.primary} size={20} />
           </Button>
         </View>

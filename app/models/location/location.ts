@@ -8,9 +8,11 @@ export const LocationModel = types
   .model("Location")
   .props({
     id: types.optional(types.string, ""),
+    photoUri: types.optional(types.string, ""),
     name: types.optional(types.string, ""),
     phoneNumber: types.optional(types.string, ""),
     openingHours: types.optional(types.string, ""),
+    category: types.optional(types.string, ""),
     description: types.optional(types.string, ""),
     link: types.optional(types.string, ""),
     latitude: types.optional(types.number, 0),
