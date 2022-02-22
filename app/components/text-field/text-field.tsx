@@ -36,6 +36,16 @@ const INPUT: TextStyle = {
 const PRESETS: { [name: string]: ViewStyle } = {
   default: {},
 
+  outlined: {
+    borderColor: color.error,
+  },
+
+  outlinedPassword: {
+    ...INPUT,
+    ...CONTAINER,
+    borderColor: color.error,
+  },
+
   /**
    * A preset for text password text fields
    */
@@ -86,7 +96,7 @@ export function TextField(props: TextFieldProps) {
   } = props
 
   const containerStyles = [CONTAINER, PRESETS[preset], styleOverride]
-  const secureTextEntry = preset === "password"
+  const secureTextEntry = preset === "password" || preset === "outlinedPassword"
   const inputStyles = [INPUT, inputStyleOverride]
   const actualPlaceholder = placeholderTx ? translate(placeholderTx) : placeholder
 

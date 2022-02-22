@@ -36,7 +36,9 @@ export const InterestsStoreModel = types
       const interests = filteredInterests.map((interest) => interest.name)
       const result = await interestsApi.submitInterest(interests, uid)
 
-      return result
+      if (result) {
+        return interests
+      }
     },
   }))
 

@@ -1,19 +1,21 @@
 import * as React from "react"
-import { StyleProp, TextStyle, View, ViewStyle, Image, ImageStyle } from "react-native"
+import {
+  StyleProp,
+  TextStyle,
+  View,
+  ViewStyle,
+  Image,
+  ImageStyle,
+  TouchableOpacityProps,
+} from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, spacing, typography } from "../../theme"
+import { color, spacing } from "../../theme"
 import { Text } from "../text/text"
 import { flatten } from "ramda"
 import { Card } from "../card/card"
 
 const CONTAINER: ViewStyle = {
   justifyContent: "center",
-}
-
-const TEXT: TextStyle = {
-  fontFamily: typography.primary,
-  fontSize: 14,
-  color: color.primary,
 }
 
 const IMG_STYLE: ImageStyle = {
@@ -44,12 +46,12 @@ const SUBTITLE_TEXT: TextStyle = {
 }
 
 interface ItemdData {
-  uri?: string
+  photoUri?: string
   name?: string
-  subtitle?: string
+  description?: string
 }
 
-export interface HomeCardProps {
+export interface HomeCardProps extends TouchableOpacityProps {
   /**
    * An optional style override useful for padding & margin.
    */
@@ -61,15 +63,15 @@ export interface HomeCardProps {
  * Describe your component here
  */
 export const HomeCard = observer(function HomeCard(props: HomeCardProps) {
-  const { style, item } = props
+  const { style, item, ...rest } = props
   const styles = flatten([CONTAINER, style])
 
   return (
-    <Card style={styles} preset="HomeCard">
+    <Card style={styles} preset="HomeCard" {...rest}>
       <Image
         style={IMG_STYLE}
         source={{
-          uri: item.uri,
+          uri: item.photoUri,
         }}
       />
 
@@ -77,7 +79,7 @@ export const HomeCard = observer(function HomeCard(props: HomeCardProps) {
         <Text style={HEADER_TEXT}>{item.name}</Text>
 
         <Text style={SUBTITLE_TEXT} numberOfLines={2}>
-          {item.subtitle}
+          {item.description}
         </Text>
       </View>
     </Card>
