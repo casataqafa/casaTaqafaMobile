@@ -27,45 +27,7 @@ import HeartIcon from "../../../assets/svgs/heart-icon"
 import ChevronsLeftIcon from "../../../assets/svgs/chevrons-left-icon"
 import ShareIcon from "../../../assets/svgs/share-icon"
 import { LocationScreenApi } from "../../services/api/location-screen-api"
-
-const dataEvents = [
-  {
-    id: "1",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "2",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "3",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "4",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "5",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "6",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-]
+import { UserApi } from "../../services/api/user-firestore-api"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -185,9 +147,11 @@ export const LocationScreen = observer(function LocationScreen() {
   const [events, setEvents] = React.useState([])
 
   // Pull in one of our MST stores
-  const { navigationStore } = useStores()
+  const { navigationStore, userStore } = useStores()
 
   const { locationScreen, eventScreen } = navigationStore
+
+  const { user } = userStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
@@ -218,6 +182,11 @@ export const LocationScreen = observer(function LocationScreen() {
     } catch (error) {
       alert(error.message)
     }
+  }
+
+  const addToFavorite = async () => {
+    const userapi = new UserApi()
+    userapi.submitFavorites(locationScreen.id, user.uid)
   }
 
   const setEventScreen = async (event: typeof eventScreen) => {
@@ -263,7 +232,7 @@ export const LocationScreen = observer(function LocationScreen() {
               <Button style={BUTTON_HEADER_STYLE_SHARE} onPress={onShare}>
                 <ShareIcon style={SHARE_ICON} stroke={color.palette.black} />
               </Button>
-              <Button style={BUTTON_HEADER_STYLE_HEART}>
+              <Button style={BUTTON_HEADER_STYLE_HEART} onPress={addToFavorite}>
                 <HeartIcon style={HEART_ICON} stroke={color.palette.black} />
               </Button>
             </View>

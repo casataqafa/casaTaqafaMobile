@@ -1,4 +1,5 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { ArtistModel } from "../artist/artist"
 import { EventModel } from "../event/event"
 import { LocationModel } from "../location/location"
 
@@ -10,6 +11,8 @@ export const NavigationStoreModel = types
   .props({
     eventScreen: types.optional(EventModel, {}),
     locationScreen: types.optional(LocationModel, {}),
+    artistScreen: types.optional(ArtistModel, {}),
+    mapScreen: types.optional(types.string, "All"),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
@@ -24,7 +27,22 @@ export const NavigationStoreModel = types
       self.eventScreen.link = eventScreen.link
       self.eventScreen.placeId = eventScreen.placeId
       self.eventScreen.language = eventScreen.language
-      // self.eventScreen.eventDetails = eventScreen.eventDetails
+      self.eventScreen.eventDetails = eventScreen.eventDetails
+      return true
+    },
+  }))
+  .actions((self) => ({
+    async setArtistScreen(artistScreen) {
+      self.artistScreen.id = artistScreen.id
+      self.artistScreen.name = artistScreen.name
+      self.artistScreen.description = artistScreen.description
+      self.artistScreen.headline = artistScreen.headline
+      self.artistScreen.showDate = artistScreen.time
+      self.artistScreen.photoUri = artistScreen.photoUri
+      self.artistScreen.price = parseInt(artistScreen.price)
+      self.artistScreen.link = artistScreen.link
+      self.artistScreen.buyLink = artistScreen.buyLink
+
       return true
     },
   }))
@@ -42,6 +60,13 @@ export const NavigationStoreModel = types
       self.locationScreen.category = locationScreen.category
       self.locationScreen.geoHash = locationScreen.geoHash
       self.locationScreen.language = locationScreen.language
+      return true
+    },
+  }))
+  .actions((self) => ({
+    async setMapScreen(mapScreen) {
+      self.mapScreen = mapScreen
+
       return true
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars

@@ -12,7 +12,7 @@ import {
 } from "react-native"
 import { Button, Header, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { ScrollView } from "react-native-gesture-handler"
@@ -88,14 +88,17 @@ const FOOTER_TEXT: TextStyle = { lineHeight: 20, fontWeight: "bold" }
 export const ArtistScreen = observer(function ArtistScreen() {
   const [yPosition, setYPosition] = React.useState(0)
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { navigationStore } = useStores()
+
+  const { artistScreen } = navigationStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
   const goBack = () => navigation.goBack()
 
-  const openWebsite = () => Linking.openURL("https://wecasablanca.ma")
+  const openWebsite = () => Linking.openURL(artistScreen.link)
+  const openBuyUrl = () => Linking.openURL(artistScreen.buyLink)
 
   const handleScroll = (e) => {
     setYPosition(e.nativeEvent.contentOffset.y)
@@ -116,8 +119,7 @@ export const ArtistScreen = observer(function ArtistScreen() {
       >
         <ImageBackground
           source={{
-            uri:
-              "https://images.unsplash.com/photo-1628359355624-855775b5c9c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+            uri: artistScreen.photoUri,
           }}
           style={IMAGE_STYLE}
         >
@@ -128,21 +130,14 @@ export const ArtistScreen = observer(function ArtistScreen() {
 
         <SafeAreaView>
           <View style={TEXT_CONTAINER}>
-            <Text preset="header" text="Michael casablanca" />
-            <Text
-              style={SUB_HEADER_TEXT}
-              preset="subheader"
-              text="Du mer. 05 janv. 22 au mer. 26 janv. 22"
-            />
+            <Text preset="header" text={artistScreen.name} />
+            <Text style={SUB_HEADER_TEXT} preset="subheader" text={artistScreen.showDate} />
 
-            <Text
-              style={DESCRIPTION_STYLE}
-              text="A day after the Centers for Disease Control and Prevention urged Americans to stay home for Thanksgiving, more than one million people in the United States got on planes, marking the second day that more than a million people have flown since March. Nearly three million additional people have flown in the days since."
-            />
+            <Text style={DESCRIPTION_STYLE} text={artistScreen.description} />
 
             <Text style={INFORMATION_HEADER} text="Plus d’information" />
             <Button preset="link" onPress={openWebsite}>
-              <Text style={INFORMATION_URL} text="https://wecasablanca.ma" />
+              <Text style={INFORMATION_URL} text={artistScreen.link} />
             </Button>
           </View>
         </SafeAreaView>
@@ -150,9 +145,13 @@ export const ArtistScreen = observer(function ArtistScreen() {
       <View style={FOOTER}>
         <View style={FOOTER_TEXT_CONTAINER}>
           <Text style={FOOTER_HEADER} text="Prix ticket" />
-          <Text style={FOOTER_TEXT} text="43.00 MAD" />
+          <Text style={FOOTER_TEXT} text={`${artistScreen.price} MAD`} />
         </View>
-        <Button text="Acheter maintenant" />
+        <Button
+          onPress={openBuyUrl}
+          preset={artistScreen.price === 0 ? "disabled" : "default"}
+          text="Acheter maintenant"
+        />
       </View>
     </View>
   )
