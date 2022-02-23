@@ -55,4 +55,23 @@ export class UserApi {
       return false
     }
   }
+
+  async updateFavorites(id: string, uid: string): Promise<any> {
+    try {
+      const user = await this.checkIfUserExist(uid)
+
+      const userRef = await doc(this.firestore, "user", uid)
+
+      updateDoc(userRef, {
+        favorites: user.favorites.filter((fav) => {
+          return fav !== id
+        }),
+      })
+
+      return true
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return false
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { getFirestore, collection, query, where, getDocs, limit, orderBy } from "firebase/firestore"
+import { getFirestore, collection, query, where, getDocs, orderBy } from "firebase/firestore"
 
 export class EventsScreenApi {
   firestore = getFirestore()
@@ -12,7 +12,6 @@ export class EventsScreenApi {
           collection(this.firestore, "events"),
           orderBy("name"),
           where("language", "==", language),
-          limit(10),
         )
       } else if (type === "Paid") {
         q = query(
@@ -20,7 +19,6 @@ export class EventsScreenApi {
           orderBy("price"),
           where("language", "==", language),
           where("price", "!=", 0),
-          limit(10),
         )
       } else {
         q = query(
@@ -28,7 +26,6 @@ export class EventsScreenApi {
           orderBy("name"),
           where("language", "==", language),
           where("price", "==", 0),
-          limit(10),
         )
       }
 
