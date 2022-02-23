@@ -3,8 +3,10 @@ import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { Header, Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
+import { FavoriteScreenApi } from "../../services/api/favorite-screen-api"
+import I18n from "i18n-js"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -34,10 +36,28 @@ const EMPTY_STYLE: ViewStyle = {
 
 export const FavoritesScreen = observer(function FavoritesScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { userStore } = useStores()
+
+  // use the user.uid
+  const { user } = userStore
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
+  // to get favorites call this
+  const favoriteapi = new FavoriteScreenApi()
+
+  async function getfavs() {
+    // array of favorites
+    const favorites = await favoriteapi.getFavorites(user.uid, I18n.currentLocale())
+  }
+  async function deletfav() {
+    const isDeleted = await favoriteapi.deleteFavorites("idOfLocationToBeDELETED", user.uid)
+
+    if (isDeleted) {
+      // location was removed from favorites update the list
+    }
+  }
   return (
     <Screen style={ROOT} preset="scroll">
       <Header headerText="Saved items" />
