@@ -6,6 +6,7 @@ import { useStores } from "../models"
 import { BottomNavigationBar } from "./bottom-navigator"
 import {
   ArtistScreen,
+  EventProgramScreen,
   EventScreen,
   EventsScreen,
   LocationScreen,
@@ -51,6 +52,7 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
         <Stack.Screen name="events" component={EventsScreen} />
         <Stack.Screen name="place" component={LocationScreen} />
         <Stack.Screen name="event" component={EventScreen} />
+        <Stack.Screen name="eventProgram" component={EventProgramScreen} />
         <Stack.Screen name="artist" component={ArtistScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "card", animation: "fade_from_bottom" }}>

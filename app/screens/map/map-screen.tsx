@@ -53,6 +53,24 @@ const CARD_SPACING: ViewStyle = {
   marginRight: 210,
 }
 
+
+const placesItems = () => (
+  <Card preset="PlaceCard" style={CARD_SPACING}>
+    <Image
+      style={IMAGE_STYLING}
+      source={{
+        uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
+      }}
+    />
+
+    <View style={TEXT_WRAPPER}>
+      <Text style={TITLE_STYLING} text="Théâtre Moulay Rachid" />
+      <Text style={SUBTITLE_STYLING} numberOfLines={2} text="Salle de spectacle" />
+    </View>
+  </Card>
+)
+
+
 const dataPlaces = [
   {
     id: "1",
@@ -107,7 +125,7 @@ export const MapScreen = observer(function MapScreen() {
   return (
     <View style={ROOT}>
       <StatusBar backgroundColor="transparent" />
-      <MapView style={MAP_STYLE} />
+      <MapView style={MAP_STYLE} provider="google" />
       <View style={SEARCH_STYLE}>
         <SearchTextfieldButton onPress={goToSearchScreen} text="Search" />
       </View>

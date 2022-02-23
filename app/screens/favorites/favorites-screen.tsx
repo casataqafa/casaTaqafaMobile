@@ -3,9 +3,12 @@ import { observer } from "mobx-react-lite"
 import { TextStyle, View, ViewStyle, Vibration } from "react-native"
 import { FavoriteModal, Header, PlacesCard, Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { FlatList } from "react-native-gesture-handler"
+
+import { FavoriteScreenApi } from "../../services/api/favorite-screen-api"
+import I18n from "i18n-js"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -75,7 +78,10 @@ const FILLED_STYLE: ViewStyle = { flex: 1, width: "100%" }
 
 export const FavoritesScreen = observer(function FavoritesScreen() {
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { userStore } = useStores()
+
+  // use the user.uid
+  const { user } = userStore
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
@@ -87,6 +93,22 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
   const modalToggle = () => {
     Vibration.vibrate(10 * ONE_SECOND_IN_MS)
     setModalVisible(!modalVisible)
+  }
+
+
+  // to get favorites call this
+  const favoriteapi = new FavoriteScreenApi()
+
+  async function getfavs() {
+    // array of favorites
+    const favorites = await favoriteapi.getFavorites(user.uid, I18n.currentLocale())
+  }
+  async function deletfav() {
+    const isDeleted = await favoriteapi.deleteFavorites("idOfLocationToBeDELETED", user.uid)
+
+    if (isDeleted) {
+      // location was removed from favorites update the list
+    }
   }
 
   return (

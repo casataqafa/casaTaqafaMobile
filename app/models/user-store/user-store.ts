@@ -9,6 +9,7 @@ export const UserStoreModel = types
   .model("UserStore")
   .props({
     user: types.optional(UserModel, {}),
+    language: types.optional(types.string, ""),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
@@ -34,7 +35,9 @@ export const UserStoreModel = types
   .actions(() => ({
     async setUserFireStore(user) {
       const userApi = new UserApi()
-      await userApi.createUser(user)
+      const usr = await userApi.createUser(user)
+
+      return usr
     },
   }))
   .actions((self) => ({
@@ -55,6 +58,11 @@ export const UserStoreModel = types
       const userApi = new UserApi()
       const userData = await userApi.checkIfUserExist(uid)
       return userData
+    },
+  }))
+  .actions((self) => ({
+    async setLanguage(defaultLang: string) {
+      self.language = defaultLang
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
 

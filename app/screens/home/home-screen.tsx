@@ -1,7 +1,7 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle, View, FlatList, Image, TextStyle, ImageStyle } from "react-native"
-import { Screen, Text, Card, HomeCard } from "../../components"
+import { Screen, Text, HomeCard } from "../../components"
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
@@ -11,66 +11,14 @@ import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { InterestCard } from "../../components/interest-card/interest-card"
+import { HomeApi } from "../../services/api/home-api"
+import I18n from "i18n-js"
 
 const ROOT: ViewStyle = {
   // marginHorizontal: spacing[5],
   // paddingHorizontal: spacing[5],
 }
 const FULL: ViewStyle = { backgroundColor: color.transparent, flex: 1 }
-
-const dataEvents = [
-  {
-    id: "1",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "2",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "3",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "4",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-]
-
-const dataRecommendation = [
-  {
-    id: "1",
-    name: "Good Vibes",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    subtitle: "Tame Impala, Joji, Tyler, The Creator, 5 Second",
-  },
-  {
-    id: "2",
-    name: "Mega Hit Mix",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    subtitle: "Tame Impala, Joji, Tyler, The Creator, 5 Second",
-  },
-  {
-    id: "3",
-    name: "Young & Free",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    subtitle: "Tame Impala, Joji, Tyler, The Creator, 5 Second",
-  },
-  {
-    id: "4",
-    name: "Young & Free",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    subtitle: "Tame Impala, Joji, Tyler, The Creator, 5 Second",
-  },
-]
 
 const TEXT_HEADER: TextStyle = {
   fontSize: 18,
@@ -121,118 +69,71 @@ const HEADER_IMAGE: ImageStyle = {
   alignSelf: "center",
 }
 
-const CARD_EVENTS_IMAGE: ImageStyle = {
-  width: 141,
-  height: 141,
-  borderRadius: 16,
-  aspectRatio: 1,
-  marginBottom: spacing[3],
-}
-
-const CARD_EVENTS_HEADER_TEXT: TextStyle = {
-  fontWeight: "bold",
-  color: color.palette.black,
-  marginBottom: spacing[2],
-  lineHeight: 16,
-  textAlign: "left",
-  letterSpacing: 0,
-}
-
-const CARD_EVENTS_SUB_HEADER_TEXT: TextStyle = {
-  fontWeight: "normal",
-  marginBottom: spacing[2],
-  color: color.palette.lightGrey,
-
-  fontSize: 12,
-  lineHeight: 16,
-  textAlign: "left",
-  letterSpacing: 0,
-}
-
-const CARD_RECOMMENDATION_IMAGE: ImageStyle = {
-  width: 141,
-  height: 141,
-  borderRadius: 16,
-  aspectRatio: 1,
-  marginBottom: spacing[3],
-}
-
-const CARD_RECOMMENDATION_HEADER_TEXT: TextStyle = {
-  fontWeight: "bold",
-  color: color.palette.black,
-  marginBottom: spacing[2],
-  lineHeight: 16,
-  textAlign: "left",
-  letterSpacing: 0,
-}
-
-const CARD_RECOMMENDATION_SUB_HEADER_TEXT: TextStyle = {
-  fontWeight: "normal",
-  marginBottom: spacing[2],
-  color: color.palette.lightGrey,
-
-  fontSize: 12,
-  lineHeight: 16,
-  textAlign: "left",
-  letterSpacing: 0,
-}
-
-const cardEvents = ({ item }) => (
-  <Card preset="HomeCard">
-    <Image
-      style={CARD_EVENTS_IMAGE}
-      source={{
-        uri: item.uri,
-      }}
-    />
-
-    <View>
-      <Text style={CARD_EVENTS_HEADER_TEXT}>{item.name}</Text>
-
-      <Text style={CARD_EVENTS_SUB_HEADER_TEXT} numberOfLines={2}>
-        {item.subtitle}
-      </Text>
-    </View>
-  </Card>
-)
-
-const cardRecommendation = ({ item }) => (
-  <Card preset="HomeCard">
-    <Image
-      style={CARD_RECOMMENDATION_IMAGE}
-      source={{
-        uri: item.uri,
-      }}
-    />
-
-    <View>
-      <Text style={CARD_RECOMMENDATION_HEADER_TEXT}>{item.name}</Text>
-
-      <Text style={CARD_RECOMMENDATION_SUB_HEADER_TEXT} numberOfLines={2}>
-        {item.subtitle}
-      </Text>
-    </View>
-  </Card>
-)
-
 export const HomeScreen = observer(function HomeScreen() {
   // Pull in one of our MST stores
-  const { userStore, interestsStore } = useStores()
-  const { user } = userStore
-
-  const { interests } = interestsStore
-
-  React.useEffect(() => {
-    async function fetchData() {
-      await interestsStore.getInterests()
-    }
-
-    fetchData()
-  }, [])
+  const { userStore, interestsStore, navigationStore } = useStores()
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
   const goToEvents = () => navigation.navigate("events")
+  const goToEvent = () => navigation.navigate("event")
+  const goToLocation = () => navigation.navigate("place")
+  const goToMap = () => navigation.navigate("map")
+
+  const { user } = userStore
+  const { interests } = interestsStore
+  const { eventScreen, locationScreen } = navigationStore
+
+  const [places, setPLaces] = React.useState([])
+  const [events, setEvents] = React.useState([])
+
+  React.useEffect(() => {
+    const lang = I18n.currentLocale()
+
+    async function fetchData() {
+      await interestsStore.getInterests()
+    }
+
+    async function fetchLocationData() {
+      const homeapi = new HomeApi()
+
+      const firestorePlaces = await homeapi.getLocations(lang)
+      setPLaces(firestorePlaces.places)
+    }
+
+    async function fetchEventsData() {
+      const homeapi = new HomeApi()
+      const firestoreEvents = await homeapi.getEvents(lang)
+      setEvents(firestoreEvents.events)
+    }
+
+    fetchEventsData()
+    fetchLocationData()
+    fetchData()
+  }, [])
+
+  const setEventScreen = async (event: typeof eventScreen) => {
+    const eventSetup = await navigationStore.setEventScreen(event)
+    if (eventSetup) {
+      goToEvent()
+    }
+  }
+
+  const setLocationScreen = async (location: typeof locationScreen) => {
+    const locationSetup = await navigationStore.setLocationScreen(location)
+    if (locationSetup) {
+      goToLocation()
+    }
+  }
+
+  const setMapScreen = async (filterCategory) => {
+    console.tron.log(filterCategory)
+    const mapSetup = await navigationStore.setMapScreen(filterCategory)
+    if (mapSetup) {
+      goToMap()
+    }
+  }
+
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -247,7 +148,12 @@ export const HomeScreen = observer(function HomeScreen() {
             horizontal={true}
             data={[...interests]}
             renderItem={({ item }) => (
-              <InterestCard key={item.id} name={item.name} uri={item.uri} />
+              <InterestCard
+                onPress={() => setMapScreen(item.name)}
+                key={item.id}
+                name={item.name}
+                uri={item.uri}
+              />
             )}
           />
         </View>
@@ -263,8 +169,10 @@ export const HomeScreen = observer(function HomeScreen() {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={dataEvents}
-            renderItem={({ item }) => <HomeCard key={item.id} item={item} />}
+            data={events}
+            renderItem={({ item }) => (
+              <HomeCard onPress={() => setEventScreen(item)} key={item.id} item={item} />
+            )}
           />
         </View>
 
@@ -276,8 +184,10 @@ export const HomeScreen = observer(function HomeScreen() {
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={dataRecommendation}
-            renderItem={({ item }) => <HomeCard key={item.id} item={item} />}
+            data={places}
+            renderItem={({ item }) => (
+              <HomeCard onPress={() => setLocationScreen(item)} key={item.id} item={item} />
+            )}
           />
         </View>
       </Screen>
