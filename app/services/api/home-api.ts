@@ -5,7 +5,7 @@ import { UserApi } from "./user-firestore-api"
 export class HomeApi {
   firestore = getFirestore()
 
-  async getLocations(): Promise<any> {
+  async getLocations(language): Promise<any> {
     try {
       const auth = getAuth()
       // getting the user id
@@ -15,7 +15,7 @@ export class HomeApi {
 
       const q = query(
         collection(this.firestore, "places"),
-        where("language", "==", "fr"),
+        where("language", "==", language),
         where("category", "in", userInterests),
         limit(5),
       )
@@ -36,12 +36,12 @@ export class HomeApi {
     }
   }
 
-  async getEvents(): Promise<any> {
+  async getEvents(language): Promise<any> {
     try {
       const today = new Date()
       const q = query(
         collection(this.firestore, "events"),
-        where("language", "==", "fr"),
+        where("language", "==", language),
         where("timestamp", ">", today),
         limit(5),
       )

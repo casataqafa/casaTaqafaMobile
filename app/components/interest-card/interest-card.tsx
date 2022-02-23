@@ -25,10 +25,10 @@ const CARD_PLACE_TEXT: TextStyle = {
 }
 
 export const InterestCard = observer(function InterestCard(props: InterestCardProps) {
-  const { uri, name } = props
+  const { uri, name, ...rest } = props
 
   return (
-    <Card preset="HomeCard">
+    <Card preset="HomeCard" {...rest}>
       <Image
         style={CARD_PLACE_IMAGE}
         source={{

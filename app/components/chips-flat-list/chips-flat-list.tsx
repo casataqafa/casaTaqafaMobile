@@ -4,19 +4,11 @@ import { observer } from "mobx-react-lite"
 
 import { Chips } from "../chips/chips"
 import { flatten } from "ramda"
-import CinemaIcon from "../../../assets/svgs/cinema-icon"
+import { useStores } from "../../models"
 
 const CONTAINER: ViewStyle = {
   justifyContent: "center",
 }
-
-const data = [
-  { id: "1", text: "Cinema", icon: <CinemaIcon size={18} stroke={"#090A0A"} /> },
-  { id: "2", text: "Cinema", icon: <CinemaIcon size={18} stroke={"#090A0A"} /> },
-  { id: "3", text: "Cinema", icon: <CinemaIcon size={18} stroke={"#090A0A"} /> },
-  { id: "4", text: "Cinema", icon: <CinemaIcon size={18} stroke={"#090A0A"} /> },
-  { id: "5", text: "Cinema", icon: <CinemaIcon size={18} stroke={"#090A0A"} /> },
-]
 
 export interface ChipsFlatListProps {
   /**
@@ -29,19 +21,21 @@ export interface ChipsFlatListProps {
  * Describe your component here
  */
 export const ChipsFlatList = observer(function ChipsFlatList(props: ChipsFlatListProps) {
+  const { interestsStore } = useStores()
+
+  const { interests } = interestsStore
+
   const { style } = props
   const styles = flatten([CONTAINER, style])
 
   return (
     <View style={styles}>
       <Animated.FlatList
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        data={data}
-        renderItem={({ index, item }) => (
-          <Chips key={item.id} leftIcon={item.icon} text={item.text} />
-        )}
+        data={interests}
+        renderItem={({ item }) => <Chips key={item.id} text={item.name} />}
       />
     </View>
   )

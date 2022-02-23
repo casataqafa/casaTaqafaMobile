@@ -18,7 +18,6 @@ import MapPinIcon from "../../../assets/svgs/map-pin-icon"
 import LinkIcon from "../../../assets/svgs/link-icon"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
-import { EventsScreen } from ".."
 import * as Linking from "expo-linking"
 import { EventScreenApi } from "../../services/api/event-screen-api"
 
@@ -100,6 +99,10 @@ export const EventScreen = observer(function EventScreen() {
 
   const goBack = () => navigation.goBack()
   const goToPlace = () => navigation.navigate("place")
+  const goToProgram = () => {
+    // setting up the evetn program screen
+    navigation.navigate("eventProgram")
+  }
 
   const openWebsite = () => Linking.openURL(eventScreen.link)
 
@@ -169,7 +172,7 @@ export const EventScreen = observer(function EventScreen() {
           <Button style={BUTTON_STYLE} onPress={openWebsite}>
             <LinkIcon stroke={color.primary} size={20} />
           </Button>
-          <Button text="Consulter le programme" />
+          <Button text="Consulter le programme" onPress={goToProgram} />
           <Button style={BUTTON_STYLE} onPress={goToPlace}>
             <MapPinIcon stroke={color.primary} size={20} />
           </Button>

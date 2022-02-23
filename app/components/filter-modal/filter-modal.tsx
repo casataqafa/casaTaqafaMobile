@@ -123,15 +123,15 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
   const [checkboxTogglePaid, setcheckboxTogglePaid] = React.useState(false)
   const [checkboxToggleFree, setcheckboxToggleFree] = React.useState(false)
 
-  //const [checkboxToggler, setcheckboxToggler] = React.useState(false)
+  // const [checkboxToggler, setcheckboxToggler] = React.useState(false)
 
   const globalToggler = (val) => {
     val === "All"
-      ? setcheckboxToggleAllFunc() //setcheckboxToggleAll(!checkboxToggleAll)
+      ? setcheckboxToggleAllFunc()
       : val === "Paid"
-      ? setcheckboxTogglePaidFunc() // setcheckboxTogglePaid(!checkboxTogglePaid)
+      ? setcheckboxTogglePaidFunc()
       : val === "Free"
-      ? setcheckboxToggleFreeFunc() //setcheckboxToggleFree(!checkboxToggleFree)
+      ? setcheckboxToggleFreeFunc()
       : ""
   }
 
@@ -139,7 +139,6 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
     setcheckboxToggleAll(!checkboxToggleAll)
     setcheckboxTogglePaid(false)
     setcheckboxToggleFree(false)
-    //onFilterValueChange("All")
   }
 
   const setcheckboxTogglePaidFunc = () => {
@@ -147,15 +146,12 @@ export const FilterModal = observer(function FilterModal(props: FilterModalProps
     setcheckboxToggleAll(false)
 
     setcheckboxToggleFree(false)
-    //onFilterValueChange("Paid")
   }
 
   const setcheckboxToggleFreeFunc = () => {
     setcheckboxToggleFree(!checkboxToggleFree)
     setcheckboxToggleAll(false)
     setcheckboxTogglePaid(false)
-
-    //onFilterValueChange("Free")
   }
 
   const searchFunc = () => {

@@ -12,41 +12,13 @@ import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { InterestCard } from "../../components/interest-card/interest-card"
 import { HomeApi } from "../../services/api/home-api"
-import { EventModel } from "../../models/event/event"
-import { LocationScreen } from ".."
+import I18n from "i18n-js"
 
 const ROOT: ViewStyle = {
   // marginHorizontal: spacing[5],
   // paddingHorizontal: spacing[5],
 }
 const FULL: ViewStyle = { backgroundColor: color.transparent, flex: 1 }
-
-const dataEvents = [
-  {
-    id: "1",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "2",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "3",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "4",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-]
 
 const TEXT_HEADER: TextStyle = {
   fontSize: 18,
@@ -103,9 +75,10 @@ export const HomeScreen = observer(function HomeScreen() {
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
-  const goToEvents = () => navigation.navigate("place")
+  const goToEvents = () => navigation.navigate("events")
   const goToEvent = () => navigation.navigate("event")
   const goToLocation = () => navigation.navigate("place")
+  const goToMap = () => navigation.navigate("map")
 
   const { user } = userStore
   const { interests } = interestsStore
@@ -115,19 +88,22 @@ export const HomeScreen = observer(function HomeScreen() {
   const [events, setEvents] = React.useState([])
 
   React.useEffect(() => {
+    const lang = I18n.currentLocale()
+
     async function fetchData() {
       await interestsStore.getInterests()
     }
 
     async function fetchLocationData() {
       const homeapi = new HomeApi()
-      const firestorePlaces = await homeapi.getLocations()
+
+      const firestorePlaces = await homeapi.getLocations(lang)
       setPLaces(firestorePlaces.places)
     }
 
     async function fetchEventsData() {
       const homeapi = new HomeApi()
-      const firestoreEvents = await homeapi.getEvents()
+      const firestoreEvents = await homeapi.getEvents(lang)
       setEvents(firestoreEvents.events)
     }
 
@@ -150,6 +126,14 @@ export const HomeScreen = observer(function HomeScreen() {
     }
   }
 
+  const setMapScreen = async (filterCategory) => {
+    console.tron.log(filterCategory)
+    const mapSetup = await navigationStore.setMapScreen(filterCategory)
+    if (mapSetup) {
+      goToMap()
+    }
+  }
+
   return (
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
@@ -164,7 +148,12 @@ export const HomeScreen = observer(function HomeScreen() {
             horizontal={true}
             data={[...interests]}
             renderItem={({ item }) => (
-              <InterestCard key={item.id} name={item.name} uri={item.uri} />
+              <InterestCard
+                onPress={() => setMapScreen(item.name)}
+                key={item.id}
+                name={item.name}
+                uri={item.uri}
+              />
             )}
           />
         </View>

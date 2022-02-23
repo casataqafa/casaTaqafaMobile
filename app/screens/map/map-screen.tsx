@@ -97,7 +97,7 @@ const CARD_SPACING: ViewStyle = {
   marginRight: 180,
 }
 
-const placesItems = ({ item }) => (
+const placesItems = () => (
   <Card preset="PlaceCard" style={CARD_SPACING}>
     <Image
       style={IMAGE_STYLING}
@@ -167,7 +167,7 @@ export const MapScreen = observer(function MapScreen() {
   return (
     <View style={ROOT}>
       <StatusBar backgroundColor="transparent" />
-      <MapView style={MAP_STYLE} />
+      <MapView style={MAP_STYLE} provider="google" />
       <View style={SEARCH_STYLE}>
         <SearchTextfieldButton onPress={goToSearchScreen} text="Search" />
       </View>
