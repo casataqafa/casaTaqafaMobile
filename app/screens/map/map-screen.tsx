@@ -11,8 +11,10 @@ import {
   Platform,
   FlatList,
 } from "react-native"
-import { ChipsFlatList, Text, Card } from "../../components"
 import MapView, { Marker } from "react-native-maps"
+
+import { ChipsFlatList, Text, Card, PlacesCard } from "../../components"
+
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
@@ -53,53 +55,10 @@ const CHIPS_STYLING: ViewStyle = {
   paddingLeft: spacing[5],
 }
 
-const TEXT_WRAPPER: ViewStyle = {
-  paddingRight: spacing[3],
-  backgroundColor: "#f7f9fa",
-  borderTopRightRadius: 16,
-  borderBottomRightRadius: 16,
-}
-
-const TITLE_STYLING: TextStyle = {
-  marginTop: spacing[4],
-
-  color: color.palette.black,
-
-  marginLeft: spacing[4],
-
-  height: "50%",
-
-  fontSize: 18,
-  fontWeight: "normal",
-  fontStyle: "normal",
-  letterSpacing: 0,
-}
-
-const SUBTITLE_STYLING: TextStyle = {
-  color: color.palette.black,
-  marginLeft: spacing[4],
-
-  width: 188,
-  height: 68.2,
-  paddingVertical: spacing[2],
-  marginTop: -24,
-  fontSize: 15,
-  fontWeight: "200",
-  fontStyle: "normal",
-  letterSpacing: 0,
-}
-
-const IMAGE_STYLING: ImageStyle = {
-  borderTopLeftRadius: 16,
-  borderBottomLeftRadius: 16,
-  height: "100%",
-  aspectRatio: 1,
-  marginBottom: spacing[3],
-}
-
 const CARD_SPACING: ViewStyle = {
-  marginRight: 180,
+  marginRight: 210,
 }
+
 
 const placesItems = () => (
   <Card preset="PlaceCard" style={CARD_SPACING}>
@@ -117,29 +76,30 @@ const placesItems = () => (
   </Card>
 )
 
+
 const dataPlaces = [
   {
     id: "1",
     name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
+    subtitle: "Salle de spectacle",
     uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
   },
   {
     id: "2",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
+    name: "Théâtre Moulay Rachid",
+    subtitle: "Salle de spectacle",
     uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
   },
   {
     id: "3",
     name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
+    subtitle: "Salle de spectacle",
     uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
   },
   {
     id: "4",
     name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
+    subtitle: "Salle de spectacle",
     uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
   },
 ]
@@ -253,8 +213,10 @@ export const MapScreen = observer(function MapScreen() {
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={dataPlaces}
+        renderItem={({ item }) => <PlacesCard style={CARD_SPACING} key={item.id} item={item} />}
         renderItem={placesItems}
       />
+
     </View>
   )
 })
