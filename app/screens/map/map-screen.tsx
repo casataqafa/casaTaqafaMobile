@@ -9,15 +9,21 @@ import {
   TextStyle,
   ImageStyle,
   Platform,
+  FlatList,
 } from "react-native"
+import MapView, { Marker } from "react-native-maps"
+
 import { ChipsFlatList, Text, Card, PlacesCard } from "../../components"
-import MapView from "react-native-maps"
+
 import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../../models"
+import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import { SearchTextfieldButton } from "../../components/search-textfield-button/search-textfield-button"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
+import * as Location from "expo-location"
+import { MapScreenApi } from "../../services/api/map-screen-api"
+import I18n from "i18n-js"
 
 const ROOT: ViewStyle = {
   flex: 1,
@@ -108,35 +114,109 @@ const ANIMATED_STYLES: ViewStyle = {
 }
 
 export const MapScreen = observer(function MapScreen() {
+  const [location, setLocation] = React.useState({
+    latitude: 33.59498270423478,
+    longitude: -7.618721485534569,
+    latitudeDelta: 0.0522,
+    longitudeDelta: 0.03421,
+  })
+  const [places, setPlaces] = React.useState([])
+  const [flatListRef, setFlatListRef] = React.useState(null)
+
   // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+  const { navigationStore } = useStores()
+
+  const { mapScreen } = navigationStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
   const goToSearchScreen = () => navigation.navigate("mapfullscreenModal")
 
+  const getPlaces = async (category) => {
+    if (location !== null) {
+      // sending the user location to get places near the user
+      const mapscreenapi = new MapScreenApi()
+      const firestoreplaces = await mapscreenapi.getLocations(
+        location,
+        I18n.currentLocale(),
+        category,
+      )
+
+      if (firestoreplaces) {
+        setPlaces(firestoreplaces.places)
+      }
+    }
+  }
+
   React.useEffect(() => {
     if (Platform.OS === "android") {
       StatusBar.setTranslucent(true)
     }
-  }, [])
+
+    async function getCoordinates() {
+      const { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== "granted") {
+        getPlaces(mapScreen)
+        return
+      }
+
+      const userLocation = await Location.getCurrentPositionAsync({})
+
+      if (userLocation) {
+        setLocation({
+          latitude: userLocation.coords.latitude,
+          longitude: userLocation.coords.longitude,
+          latitudeDelta: 0.0522,
+          longitudeDelta: 0.03421,
+        })
+
+        getPlaces(mapScreen)
+      }
+    }
+
+    getCoordinates()
+  }, [mapScreen])
 
   return (
     <View style={ROOT}>
       <StatusBar backgroundColor="transparent" />
-      <MapView style={MAP_STYLE} provider="google" />
+      <MapView
+        style={MAP_STYLE}
+        provider="google"
+        initialRegion={location}
+        loadingEnabled={true}
+        loadingIndicatorColor={color.primary}
+        showsUserLocation={true}
+        showsCompass={false}
+      >
+        {places
+          ? places.map((place, index) => (
+              <Marker
+                flat={true}
+                pinColor={color.primary}
+                key={index}
+                coordinate={{ latitude: place.latitude, longitude: place.longitude }}
+                title={place.name}
+                description={place.description}
+              />
+            ))
+          : null}
+      </MapView>
       <View style={SEARCH_STYLE}>
         <SearchTextfieldButton onPress={goToSearchScreen} text="Search" />
       </View>
       <ChipsFlatList style={CHIPS_STYLING} />
       <Animated.FlatList
+        ref={flatListRef}
         style={ANIMATED_STYLES}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
         data={dataPlaces}
         renderItem={({ item }) => <PlacesCard style={CARD_SPACING} key={item.id} item={item} />}
-      ></Animated.FlatList>
+        renderItem={placesItems}
+      />
+
     </View>
   )
 })
