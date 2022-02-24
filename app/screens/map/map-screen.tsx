@@ -1,19 +1,9 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import {
-  ViewStyle,
-  View,
-  Animated,
-  Image,
-  StatusBar,
-  TextStyle,
-  ImageStyle,
-  Platform,
-  FlatList,
-} from "react-native"
+import { ViewStyle, View, Animated, StatusBar, Platform } from "react-native"
 import MapView, { Marker } from "react-native-maps"
 
-import { ChipsFlatList, Text, Card, PlacesCard } from "../../components"
+import { ChipsFlatList, PlacesCard } from "../../components"
 
 import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
@@ -59,51 +49,6 @@ const CARD_SPACING: ViewStyle = {
   marginRight: 210,
 }
 
-
-const placesItems = () => (
-  <Card preset="PlaceCard" style={CARD_SPACING}>
-    <Image
-      style={IMAGE_STYLING}
-      source={{
-        uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-      }}
-    />
-
-    <View style={TEXT_WRAPPER}>
-      <Text style={TITLE_STYLING} text="Théâtre Moulay Rachid" />
-      <Text style={SUBTITLE_STYLING} numberOfLines={2} text="Salle de spectacle" />
-    </View>
-  </Card>
-)
-
-
-const dataPlaces = [
-  {
-    id: "1",
-    name: "Cinema",
-    subtitle: "Salle de spectacle",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "2",
-    name: "Théâtre Moulay Rachid",
-    subtitle: "Salle de spectacle",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "3",
-    name: "Cinema",
-    subtitle: "Salle de spectacle",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-  {
-    id: "4",
-    name: "Cinema",
-    subtitle: "Salle de spectacle",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-  },
-]
-
 const ANIMATED_STYLES: ViewStyle = {
   position: "absolute",
   bottom: 0,
@@ -120,18 +65,26 @@ export const MapScreen = observer(function MapScreen() {
     latitudeDelta: 0.0522,
     longitudeDelta: 0.03421,
   })
-  const [places, setPlaces] = React.useState([])
-  const [flatListRef, setFlatListRef] = React.useState(null)
+  const [places, setPlaces] = React.useState(null)
+  const flatListRef = React.useRef(null)
 
   // Pull in one of our MST stores
   const { navigationStore } = useStores()
 
-  const { mapScreen } = navigationStore
+  const { mapScreen, locationScreen } = navigationStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
 
   const goToSearchScreen = () => navigation.navigate("mapfullscreenModal")
+  const goToLocation = () => navigation.navigate("place")
+
+  const setLocationScreen = async (location: typeof locationScreen) => {
+    const locationSetup = await navigationStore.setLocationScreen(location)
+    if (locationSetup) {
+      goToLocation()
+    }
+  }
 
   const getPlaces = async (category) => {
     if (location !== null) {
@@ -146,6 +99,12 @@ export const MapScreen = observer(function MapScreen() {
       if (firestoreplaces) {
         setPlaces(firestoreplaces.places)
       }
+    }
+  }
+
+  const scrollToCard = (index) => {
+    if (flatListRef.current) {
+      flatListRef.current.scrollToIndex({ animated: true, index: index })
     }
   }
 
@@ -193,6 +152,7 @@ export const MapScreen = observer(function MapScreen() {
         {places
           ? places.map((place, index) => (
               <Marker
+                onPress={() => scrollToCard(index)}
                 flat={true}
                 pinColor={color.primary}
                 key={index}
@@ -212,11 +172,16 @@ export const MapScreen = observer(function MapScreen() {
         style={ANIMATED_STYLES}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
-        data={dataPlaces}
-        renderItem={({ item }) => <PlacesCard style={CARD_SPACING} key={item.id} item={item} />}
-        renderItem={placesItems}
+        data={places}
+        renderItem={({ item }) => (
+          <PlacesCard
+            onPress={() => setLocationScreen(item)}
+            style={CARD_SPACING}
+            key={item}
+            item={item}
+          />
+        )}
       />
-
     </View>
   )
 })

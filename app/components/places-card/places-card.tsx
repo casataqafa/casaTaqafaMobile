@@ -59,9 +59,9 @@ const CONTENT: ViewStyle = {
 }
 
 interface ItemdData {
-  uri?: string
+  photoUri?: string
   name?: string
-  subtitle?: string
+  description?: string
 }
 
 export interface PlacesCardProps extends TouchableOpacityProps {
@@ -84,13 +84,13 @@ export const PlacesCard = observer(function PlacesCard(props: PlacesCardProps) {
       <Image
         style={IMAGE_STYLING}
         source={{
-          uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
+          uri: item.photoUri,
         }}
       />
       <View style={CONTENT}>
         <View>
           <Text style={TITLE_STYLING} text={item.name} />
-          <Text style={SUBTITLE_STYLING} numberOfLines={2} text={item.subtitle} />
+          <Text style={SUBTITLE_STYLING} numberOfLines={2} text={item.description} />
         </View>
       </View>
     </Card>
