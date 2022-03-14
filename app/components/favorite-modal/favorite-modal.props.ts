@@ -13,5 +13,7 @@ export interface FavoriteModalProps {
 
   canceller?(): void
 
-  onFilterValueChange?: (val: string) => void
+  deletePlace?(): void
+
+  photoUri?(): string
 }
