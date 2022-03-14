@@ -155,11 +155,14 @@ export const LoginScreen = observer(function LoginScreen() {
         })
       })
       .catch((error) => {
+        console.tron.log(error.code)
         if (error.code === "auth/wrong-password") {
-          setActivity(!activity)
+          setActivity(false)
+          Alert.alert("Erreur", `Mot de passe incorrect `, [{ text: "OK" }])
           // wrong password
         } else if (error.code === "auth/user-not-found") {
-          setActivity(!activity)
+          setActivity(false)
+          Alert.alert("Erreur", `E-mail incorrect `, [{ text: "OK" }])
           // no user with this email
         }
       })
