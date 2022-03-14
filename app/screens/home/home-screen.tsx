@@ -26,15 +26,14 @@ const TEXT_HEADER: TextStyle = {
   color: color.palette.black,
 }
 
-
-const WELCOME_TEXT_CONTAINER : ViewStyle = {
+const WELCOME_TEXT_CONTAINER: ViewStyle = {
   flex: 1,
-  flexDirection: 'row'
+  flexDirection: "row",
 }
 const WELCOME_TEXT_GREY: TextStyle = {
   fontSize: 24,
   fontWeight: "bold",
-  color: '#646464',
+  color: "#646464",
   alignSelf: "center",
 }
 const WELCOME_TEXT_PRIMARY: TextStyle = {
@@ -150,12 +149,15 @@ export const HomeScreen = observer(function HomeScreen() {
       <Screen style={ROOT} preset="scroll">
         <View style={WELCOME_SPACER}>
           <View style={WELCOME_TEXT_CONTAINER}>
-          <Text style={WELCOME_TEXT_GREY} text="Casa" /> 
-          <Text style={WELCOME_TEXT_PRIMARY} text="taqafa" /> 
+            <Text style={WELCOME_TEXT_GREY} text="Casa" />
+            <Text style={WELCOME_TEXT_PRIMARY} text="taqafa" />
           </View>
           <Image style={HEADER_IMAGE} source={{ uri: user.profilePicture }} />
         </View>
 
+        <View style={RECOMENDED_SPACER}>
+          <Text style={TEXT_HEADER} text="Trouver un lieu" />
+        </View>
         <View style={SECTION_SPACE}>
           <FlatList
             showsHorizontalScrollIndicator={false}
