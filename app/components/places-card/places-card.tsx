@@ -61,7 +61,9 @@ const CONTENT: ViewStyle = {
 interface ItemdData {
   photoUri?: string
   name?: string
+  category?: string
   description?: string
+
 }
 
 export interface PlacesCardProps extends TouchableOpacityProps {
@@ -90,6 +92,8 @@ export const PlacesCard = observer(function PlacesCard(props: PlacesCardProps) {
       <View style={CONTENT}>
         <View>
           <Text style={TITLE_STYLING} text={item.name} />
+
+          <Text style={SUBTITLE_STYLING} numberOfLines={2} text={item.category} />
           <Text style={SUBTITLE_STYLING} numberOfLines={2} text={item.description} />
         </View>
       </View>

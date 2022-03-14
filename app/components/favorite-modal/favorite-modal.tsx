@@ -6,7 +6,6 @@ import { Text } from "../text/text"
 import { flatten } from "ramda"
 import { FavoriteModalProps } from "./favorite-modal.props"
 import { Button } from "../button/button"
-import { Checkbox } from "../checkbox/checkbox"
 
 const CONTAINER: ViewStyle = {
   justifyContent: "center",
@@ -102,59 +101,8 @@ const TEXT_SUBTITLE: TextStyle = {
  * The following is a modal, built specifically for a single screen use-case.
  */
 export const FavoriteModal = observer(function FavoriteModal(props: FavoriteModalProps) {
-  const { style, canceller, toggler, onFilterValueChange } = props
+  const { style, canceller, toggler, deletePlace, photoUri } = props
   const styles = flatten([CONTAINER, style])
-  // const [internalModalVisible, setModalVisible] = React.useState(true)
-
-  const [checkboxToggleAll, setcheckboxToggleAll] = React.useState(true)
-  const [checkboxTogglePaid, setcheckboxTogglePaid] = React.useState(false)
-  const [checkboxToggleFree, setcheckboxToggleFree] = React.useState(false)
-
-  //const [checkboxToggler, setcheckboxToggler] = React.useState(false)
-
-  const globalToggler = (val) => {
-    val === "All"
-      ? setcheckboxToggleAllFunc() //setcheckboxToggleAll(!checkboxToggleAll)
-      : val === "Paid"
-      ? setcheckboxTogglePaidFunc() // setcheckboxTogglePaid(!checkboxTogglePaid)
-      : val === "Free"
-      ? setcheckboxToggleFreeFunc() //setcheckboxToggleFree(!checkboxToggleFree)
-      : ""
-  }
-
-  const setcheckboxToggleAllFunc = () => {
-    setcheckboxToggleAll(!checkboxToggleAll)
-    setcheckboxTogglePaid(false)
-    setcheckboxToggleFree(false)
-    //onFilterValueChange("All")
-  }
-
-  const setcheckboxTogglePaidFunc = () => {
-    setcheckboxTogglePaid(!checkboxTogglePaid)
-    setcheckboxToggleAll(false)
-
-    setcheckboxToggleFree(false)
-    //onFilterValueChange("Paid")
-  }
-
-  const setcheckboxToggleFreeFunc = () => {
-    setcheckboxToggleFree(!checkboxToggleFree)
-    setcheckboxToggleAll(false)
-    setcheckboxTogglePaid(false)
-
-    //onFilterValueChange("Free")
-  }
-
-  const searchFunc = () => {
-    checkboxToggleAll === true
-      ? onFilterValueChange("All")
-      : checkboxTogglePaid === true
-      ? onFilterValueChange("Paid")
-      : checkboxToggleFree === true
-      ? onFilterValueChange("Free")
-      : false
-    canceller()
-  }
 
   return (
     <View style={styles}>
@@ -166,8 +114,7 @@ export const FavoriteModal = observer(function FavoriteModal(props: FavoriteModa
                 <Image
                   style={{ width: 120, height: 120, borderRadius: 16, alignSelf: "center" }}
                   source={{
-                    uri:
-                      "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
+                    uri: photoUri,
                   }}
                 />
 
@@ -182,7 +129,7 @@ export const FavoriteModal = observer(function FavoriteModal(props: FavoriteModa
                   style={BUTTON_STYLE_SEARCH}
                   textStyle={BUTTON_STYLE_TEXTSTYLE_SEARCH}
                   text="Oui"
-                  onPress={searchFunc}
+                  onPress={deletePlace}
                 />
                 <Button
                   textStyle={BUTTON_STYLE_CANCEL}

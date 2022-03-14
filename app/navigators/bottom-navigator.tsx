@@ -45,6 +45,7 @@ export const BottomNavigationBar = () => {
         options={{
           tabBarActiveTintColor: color.primary,
           tabBarIcon: ({ color }) => <HeartIcon size={25} stroke={color} />,
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
