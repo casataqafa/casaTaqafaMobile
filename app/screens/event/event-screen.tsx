@@ -57,7 +57,15 @@ const TEXT_SUBHEADER: TextStyle = {
 
 const DETAILS_ROOT: ViewStyle = {
   flexDirection: "row",
-  justifyContent: "space-between",
+  justifyContent: "center",
+  // marginHorizontal: spacing[5],
+  // marginTop: spacing[5],
+  // paddingHorizontal: spacing[6],
+}
+
+const DETAILS_SECTION: ViewStyle = {
+  flexDirection: "column",
+  justifyContent: "center",
   marginHorizontal: spacing[5],
   marginTop: spacing[5],
   paddingHorizontal: spacing[6],
@@ -92,7 +100,7 @@ export const EventScreen = observer(function EventScreen() {
   // Pull in one of our MST stores
   const { navigationStore } = useStores()
 
-  const { eventScreen } = navigationStore
+  const { eventScreen, locationScreen } = navigationStore
 
   // Pull in navigation via hook
   const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
@@ -157,15 +165,17 @@ export const EventScreen = observer(function EventScreen() {
           <Text preset="header" text={eventScreen.name} style={TEXT_HEADER} />
           <Text preset="subheader" text={eventScreen.description} style={TEXT_SUBHEADER} />
         </View>
-        <View style={DETAILS_ROOT}>
-          <View>
-            <Text preset="bold" style={TEXT_DETAILS} text={eventScreen.date} />
-            <Text style={TEXT_DETAILS} text="Date" />
+        <View style={DETAILS_SECTION}>
+          <View style={DETAILS_ROOT}>
+            <View>
+              <Text preset="bold" style={TEXT_DETAILS} text={eventScreen.date + " "} />
+            </View>
+            <View>
+              <Text preset="bold" style={TEXT_DETAILS} text={eventScreen.time} />
+            </View>
           </View>
-          <View>
-            <Text preset="bold" style={TEXT_DETAILS} text={eventScreen.time} />
-            <Text style={TEXT_DETAILS} text="Temps" />
-          </View>
+
+          <Text style={TEXT_DETAILS} text={locationScreen.name} />
         </View>
 
         <View style={ACTIONS_ROOT}>
