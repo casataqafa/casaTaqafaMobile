@@ -1,12 +1,15 @@
 import React from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Image, ImageStyle, TextStyle } from "react-native"
+import { View, ViewStyle, Image, ImageStyle, TextStyle, Share } from "react-native"
 import { Button, Screen, Text } from "../../components"
 // import { useNavigation } from "@react-navigation/native"
 import { useStores } from "../../models"
 import { color, spacing } from "../../theme"
 import ChevronsRightIcon from "../../../assets/svgs/chevrons-right-icon"
 import { getAuth } from "firebase/auth"
+import { useNavigation } from "@react-navigation/native"
+import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
+import { StackNavigationProp } from "@react-navigation/stack"
 
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.white,
@@ -60,7 +63,18 @@ export const ProfileScreen = observer(function ProfileScreen() {
   const { user } = userStore
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
+  const goToLocation = () => navigation.navigate("termsofuse")
+
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: "CasaTaqafa",
+      })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
 
   const logout = () => {
     const auth = getAuth()
@@ -93,6 +107,18 @@ export const ProfileScreen = observer(function ProfileScreen() {
               <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Rate & review" />
               <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
             </View>
+            <Button preset="link" onPress={onShare} style={PREFERENCES_SUB_CONTAINER}>
+              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Invite your friends" />
+              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
+            </Button>
+          </View>
+
+          <View style={PREFERENCES_COTNAINER}>
+            <Text style={PREFERENCES_HEADER} text="Confidentialité et modalités" />
+            <Button preset="link" onPress={goToLocation} style={PREFERENCES_SUB_CONTAINER}>
+              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Politique de confidentialités " />
+              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
+            </Button>
           </View>
         </View>
       </View>
