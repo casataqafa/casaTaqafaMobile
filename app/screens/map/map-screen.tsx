@@ -46,7 +46,7 @@ const CHIPS_STYLING: ViewStyle = {
 }
 
 const CARD_SPACING: ViewStyle = {
-  marginRight: 210,
+  marginRight: 240,
 }
 
 const ANIMATED_STYLES: ViewStyle = {
