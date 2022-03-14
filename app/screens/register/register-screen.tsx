@@ -156,7 +156,7 @@ export const RegisterScreen = observer(function RegisterScreen() {
           uid: userCredentials.user.uid,
           name,
           email: userCredentials.user.email,
-          profilePicture: "https://ui-avatars.com/api/?name=John+Doe",
+          profilePicture: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y",
           isFirstTime: false,
           hasInterests: false,
         }
