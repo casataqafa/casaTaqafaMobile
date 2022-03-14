@@ -26,10 +26,21 @@ const TEXT_HEADER: TextStyle = {
   color: color.palette.black,
 }
 
-const WELCOME_TEXT: TextStyle = {
+
+const WELCOME_TEXT_CONTAINER : ViewStyle = {
+  flex: 1,
+  flexDirection: 'row'
+}
+const WELCOME_TEXT_GREY: TextStyle = {
   fontSize: 24,
   fontWeight: "bold",
-  color: color.palette.black,
+  color: '#646464',
+  alignSelf: "center",
+}
+const WELCOME_TEXT_PRIMARY: TextStyle = {
+  fontSize: 24,
+  fontWeight: "bold",
+  color: color.primary,
   alignSelf: "center",
 }
 
@@ -138,7 +149,10 @@ export const HomeScreen = observer(function HomeScreen() {
     <View style={FULL}>
       <Screen style={ROOT} preset="scroll">
         <View style={WELCOME_SPACER}>
-          <Text style={WELCOME_TEXT} text="Bienvenue" />
+          <View style={WELCOME_TEXT_CONTAINER}>
+          <Text style={WELCOME_TEXT_GREY} text="Casa" /> 
+          <Text style={WELCOME_TEXT_PRIMARY} text="taqafa" /> 
+          </View>
           <Image style={HEADER_IMAGE} source={{ uri: user.profilePicture }} />
         </View>
 
