@@ -11,6 +11,7 @@ import {
   EventsScreen,
   LocationScreen,
   PersonalizationScreen,
+  TermsOfUseScreen,
 } from "../screens"
 import { MapFullscreenModal } from "../components"
 
@@ -27,6 +28,7 @@ export type AuthenticatedNavigatorParamList = {
   bottomTab: undefined
   map: undefined
   mapfullscreenModal: undefined
+  termsofuse: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -54,6 +56,7 @@ export const AuthenticatedNavigator = observer(function AuthenticatedNavigator()
         <Stack.Screen name="event" component={EventScreen} />
         <Stack.Screen name="eventProgram" component={EventProgramScreen} />
         <Stack.Screen name="artist" component={ArtistScreen} />
+        <Stack.Screen name="termsofuse" component={TermsOfUseScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "card", animation: "fade_from_bottom" }}>
         <Stack.Screen name="mapfullscreenModal" component={MapFullscreenModal} />
