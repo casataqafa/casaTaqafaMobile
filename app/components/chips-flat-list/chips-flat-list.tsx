@@ -21,7 +21,7 @@ export interface ChipsFlatListProps {
  * Describe your component here
  */
 export const ChipsFlatList = observer(function ChipsFlatList(props: ChipsFlatListProps) {
-  const { interestsStore } = useStores()
+  const { interestsStore, navigationStore } = useStores()
 
   const { interests } = interestsStore
 
@@ -35,7 +35,13 @@ export const ChipsFlatList = observer(function ChipsFlatList(props: ChipsFlatLis
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={interests}
-        renderItem={({ item }) => <Chips key={item.id} text={item.name} />}
+        renderItem={({ item }) => (
+          <Chips
+            onPress={() => navigationStore.setMapScreen(item.name)}
+            key={item.id}
+            text={item.name}
+          />
+        )}
       />
     </View>
   )

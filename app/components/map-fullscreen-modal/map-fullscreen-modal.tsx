@@ -1,25 +1,22 @@
 import * as React from "react"
-import {
-  StyleProp,
-  TextStyle,
-  View,
-  ViewStyle,
-  TextInput,
-  Animated,
-  Image,
-  ImageStyle,
-} from "react-native"
+import { StyleProp, View, ViewStyle, TextInput, Animated } from "react-native"
 import { observer } from "mobx-react-lite"
-import { color, typography, spacing } from "../../theme"
+import { color, spacing } from "../../theme"
 import { Text } from "../text/text"
 
 import { Screen } from "../screen/screen"
 import { Button } from "../button/button"
-import { Card } from "../card/card"
+
 import SearchIcon from "../../../assets/svgs/search-icon"
 
 import { useNavigation } from "@react-navigation/native"
 import { useEffect, useState } from "react"
+import { MapScreenApi } from "../../services/api/map-screen-api"
+import I18n from "i18n-js"
+import { SearchCard } from ".."
+import { useStores } from "../../models"
+import { AuthenticatedNavigatorParamList } from "../../navigators/authenticated-navigator"
+import { StackNavigationProp } from "@react-navigation/stack"
 
 const CONTAINER: ViewStyle = {
   flex: 1,
@@ -55,8 +52,6 @@ const BUTTON_STYLE: ViewStyle = {
   flex: 1,
   justifyContent: "center",
   width: "100%",
-  // alignItems: "center",
-  //backgroundColor: "green",
 }
 
 const INPUT_WRAPPER: ViewStyle = {
@@ -71,169 +66,6 @@ const BUTTON_SPACING: ViewStyle = {
 
 const SEARCH_RESULT: ViewStyle = { marginTop: spacing[5] }
 
-const SearchInput = () => (
-  <Button style={VIEW_STYLES}>
-    <View style={ICON_STYLE}>
-      <SearchIcon size={18} stroke={"#090A0A"} />
-    </View>
-    <View style={INPUT_WRAPPER}>
-      <TextInput
-        autoFocus={true}
-        placeholder={"Search"}
-        placeholderTextColor={color.palette.lightGrey}
-        underlineColorAndroid={color.transparent}
-        style={BUTTON_STYLE}
-      />
-    </View>
-  </Button>
-)
-
-const TITLE_STYLING: TextStyle = {
-  fontSize: 16,
-  fontWeight: "normal",
-  fontStyle: "normal",
-  lineHeight: 20,
-  letterSpacing: 0,
-  textAlign: "left",
-
-  color: color.palette.black,
-
-  marginLeft: spacing[4],
-}
-
-const SUBTITLE_STYLING: TextStyle = {
-  color: color.palette.lightGrey,
-  marginLeft: spacing[4],
-
-  marginTop: spacing[1],
-  width: 174,
-  height: 20,
-
-  fontSize: 14,
-  fontWeight: "normal",
-  fontStyle: "normal",
-  lineHeight: 16,
-  letterSpacing: 0,
-  textAlign: "left",
-}
-
-const IMG_STYLING: ImageStyle = {
-  borderRadius: 40,
-  width: "30%",
-  height: "30%",
-  aspectRatio: 1,
-  marginBottom: spacing[3],
-}
-
-const TEXT_WRAPPER: ViewStyle = {
-  paddingRight: spacing[3],
-
-  borderTopRightRadius: spacing[4],
-  borderBottomRightRadius: spacing[4],
-}
-const placesItems = ({ item }) => (
-  <Card preset="PlaceCard">
-    <Image
-      style={IMG_STYLING}
-      source={{
-        uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-      }}
-    />
-
-    <View style={TEXT_WRAPPER}>
-      <Text style={TITLE_STYLING} text="Théâtre Moulay Rachid" />
-      <Text style={SUBTITLE_STYLING} text="Salle de spectacle" numberOfLines={2} />
-    </View>
-  </Card>
-)
-
-const dataPlaces = [
-  {
-    id: "1",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-  {
-    id: "2",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-  {
-    id: "3",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-  {
-    id: "4",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-  {
-    id: "5",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-  {
-    id: "6",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-  {
-    id: "7",
-    name: "Cinema",
-    subtitle: "CASAMOUJA est une opération street art",
-    uri: "https://aujourdhui.ma/wp-content/uploads/2019/12/Casamouja-street-art-.jpg",
-    region: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-  },
-]
-
 export interface MapFullscreenModalProps {
   /**
    * An optional style override useful for padding & margin.
@@ -244,37 +76,70 @@ export interface MapFullscreenModalProps {
 /**
  * Describe your component here
  */
-export const MapFullscreenModal = observer(function MapFullscreenModal(
-  props: MapFullscreenModalProps,
-) {
-  const [loaded, setLoaded] = useState(true)
-  const [regions, setRegions] = useState([])
-  const [filteredRegions, setFilteredRegions] = useState([])
-  const [selectedValue, setSelectedValue] = useState({})
-  const navigation = useNavigation()
+export const MapFullscreenModal = observer(function MapFullscreenModal() {
+  const [places, setPlaces] = useState([])
+  const [searchValue, setSearchValue] = useState({})
+  // Pull in navigation via hook
+  const navigation = useNavigation<StackNavigationProp<AuthenticatedNavigatorParamList>>()
+
+  const goToLocation = () => navigation.navigate("place")
+
+  // Pull in one of our MST stores
+  const { navigationStore } = useStores()
+  const { locationScreen } = navigationStore
+
+  const setLocationScreen = async (location: typeof locationScreen) => {
+    const locationSetup = await navigationStore.setLocationScreen(location)
+    if (locationSetup) {
+      goToLocation()
+    }
+  }
 
   useEffect(() => {
-    setRegions(dataPlaces)
-  }, [])
+    async function getPlaces() {
+      const mapscreenapi = new MapScreenApi()
+      const firebaseplaces = await mapscreenapi.searchLocations(searchValue, I18n.currentLocale())
+
+      if (firebaseplaces) {
+        console.tron.log(firebaseplaces.places)
+
+        setPlaces(firebaseplaces.places)
+      }
+    }
+
+    getPlaces()
+  }, [searchValue])
 
   return (
     <Screen style={CONTAINER}>
       <View style={SEARCH_HEADER_STYLE}>
-        <SearchInput />
+        <Button style={VIEW_STYLES}>
+          <View style={ICON_STYLE}>
+            <SearchIcon size={18} stroke={"#090A0A"} />
+          </View>
+          <View style={INPUT_WRAPPER}>
+            <TextInput
+              autoFocus={true}
+              placeholder={"Search"}
+              placeholderTextColor={color.palette.lightGrey}
+              underlineColorAndroid={color.transparent}
+              style={BUTTON_STYLE}
+              onChangeText={(e) => setSearchValue(e.toString())}
+            />
+          </View>
+        </Button>
         <Button style={BUTTON_SPACING} preset="link" onPress={() => navigation.goBack()}>
           <Text text="Cancel" />
         </Button>
       </View>
       <View style={SEARCH_RESULT}>
-        {loaded ? (
-          <Animated.FlatList
-            showsVerticalScrollIndicator={false}
-            data={dataPlaces}
-            renderItem={placesItems}
-          ></Animated.FlatList>
-        ) : (
-          <Text text="No data" />
-        )}
+        <Animated.FlatList
+          showsVerticalScrollIndicator={false}
+          data={places}
+          renderItem={({ item }) => (
+            <SearchCard onPress={() => setLocationScreen(item)} key={item} item={item} />
+          )}
+        />
       </View>
     </Screen>
   )
