@@ -20,6 +20,7 @@ const HEADER_CONTAINER: ViewStyle = {
 const HEADER_STYLE: TextStyle = {
   marginBottom: spacing[1],
   lineHeight: 36,
+  textAlign: 'center'
 }
 
 const SUBHEADER_STYLE: TextStyle = {
@@ -61,8 +62,8 @@ export const PersonalizationScreen = observer(function PersonalizationScreen() {
   return (
     <Screen style={ROOT} preset="fixed">
       <View style={HEADER_CONTAINER}>
-        <Text style={HEADER_STYLE} preset="header" text="Tell us your interest" />
-        <Text style={SUBHEADER_STYLE} preset="subheader" text="So we can recommend you places" />
+        <Text style={HEADER_STYLE} preset="header" text="Faites-nous part       de votre intérêt" />
+        <Text style={SUBHEADER_STYLE} preset="subheader" text="Vous allez vous régaler " />
       </View>
       <SafeAreaProvider style={LISTVIEW_STYLE}>
         <ButtonFlatList />

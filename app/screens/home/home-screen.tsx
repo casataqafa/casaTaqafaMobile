@@ -187,7 +187,12 @@ export const HomeScreen = observer(function HomeScreen() {
             horizontal={true}
             data={events}
             renderItem={({ item }) => (
-              <HomeCard onPress={() => setEventScreen(item)} key={item.id} item={item} />
+              <HomeCard
+                onPress={() => setEventScreen(item)}
+                key={item.id}
+                item={item}
+                desc={false}
+              />
             )}
           />
         </View>

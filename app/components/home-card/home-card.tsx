@@ -49,6 +49,8 @@ interface ItemdData {
   photoUri?: string
   name?: string
   description?: string
+  date?: string
+  time?: string
 }
 
 export interface HomeCardProps extends TouchableOpacityProps {
@@ -57,13 +59,14 @@ export interface HomeCardProps extends TouchableOpacityProps {
    */
   style?: StyleProp<ViewStyle>
   item?: ItemdData
+  desc?: boolean
 }
 
 /**
  * Describe your component here
  */
 export const HomeCard = observer(function HomeCard(props: HomeCardProps) {
-  const { style, item, ...rest } = props
+  const { style, item, desc = true, ...rest } = props
   const styles = flatten([CONTAINER, style])
 
   return (
@@ -78,9 +81,11 @@ export const HomeCard = observer(function HomeCard(props: HomeCardProps) {
       <View>
         <Text style={HEADER_TEXT}>{item.name}</Text>
 
-        <Text style={SUBTITLE_TEXT} numberOfLines={2}>
-          {item.description}
-        </Text>
+        {desc ? (
+          <Text style={SUBTITLE_TEXT} numberOfLines={2} text={item.description} />
+        ) : (
+          <Text style={SUBTITLE_TEXT} numberOfLines={2} text={item.date + " " + item.time} />
+        )}
       </View>
     </Card>
   )

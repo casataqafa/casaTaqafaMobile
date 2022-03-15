@@ -94,36 +94,45 @@ export const ProfileScreen = observer(function ProfileScreen() {
           </View>
         </View>
         <View style={PREFERENCES_COTNAINER}>
-          <Text style={PREFERENCES_HEADER} text="International Preferences" />
+          <Text style={PREFERENCES_HEADER} text="Paramètres" />
           <View style={PREFERENCES_SUB_CONTAINER}>
             <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Language" />
             <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
           </View>
-
-          <View style={PREFERENCES_COTNAINER}>
-            <Text style={PREFERENCES_HEADER} text="More" />
-
-            <View style={PREFERENCES_SUB_CONTAINER}>
-              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Rate & review" />
-              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
-            </View>
-            <Button preset="link" onPress={onShare} style={PREFERENCES_SUB_CONTAINER}>
-              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Invite your friends" />
-              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
-            </Button>
-          </View>
-
           <View style={PREFERENCES_COTNAINER}>
             <Text style={PREFERENCES_HEADER} text="Confidentialité et modalités" />
             <Button preset="link" onPress={goToLocation} style={PREFERENCES_SUB_CONTAINER}>
-              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Politique de confidentialités " />
+              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Politique de confidentialité" />
+
+              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
+            </Button>
+
+            {/* <Button preset="link" onPress={goToLocation} style={PREFERENCES_SUB_CONTAINER}>
+              <Text
+                style={PREFERENCES_OPTION_TEXT_STYLE}
+                text="Conditions générales d'utilisation"
+              />
+              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
+            </Button> */}
+          </View>
+          <View style={PREFERENCES_COTNAINER}>
+            <Text style={PREFERENCES_HEADER} text="Autres" />
+
+            <View style={PREFERENCES_SUB_CONTAINER}>
+              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Evaluez votre application" />
+              <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
+            </View>
+            <Button preset="link" onPress={onShare} style={PREFERENCES_SUB_CONTAINER}>
+              <Text style={PREFERENCES_OPTION_TEXT_STYLE} text="Invitez des amis" />
               <ChevronsRightIcon size={14} style={ICON_STYLING} stroke="#090A0A" />
             </Button>
           </View>
+
+         
         </View>
       </View>
       <View style={LOGOUT_CONTAINER}>
-        <Button text="Logout" onPress={logout} />
+        <Button text="Déconnexion" onPress={logout} />
       </View>
     </Screen>
   )
