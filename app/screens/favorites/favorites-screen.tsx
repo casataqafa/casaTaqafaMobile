@@ -42,7 +42,7 @@ const EMPTY_STYLE: ViewStyle = {
 const FILLED_STYLE: ViewStyle = { flex: 1, width: "100%" }
 
 export const FavoritesScreen = observer(function FavoritesScreen() {
-  const ONE_SECOND_IN_MS = 1000
+  const VIBRATION_IN_MS = 400
   // Pull in one of our MST stores
   const { userStore, navigationStore } = useStores()
 
@@ -68,8 +68,9 @@ export const FavoritesScreen = observer(function FavoritesScreen() {
   const [photoUri, setPhotoUri] = React.useState(null)
 
   const modalToggle = (id?: number, photoUri?: string) => {
-    Vibration.vibrate(10 * ONE_SECOND_IN_MS)
+    Vibration.vibrate(VIBRATION_IN_MS)
     setModalVisible(!modalVisible)
+    Vibration.cancel()
     setPlaceId(id)
     setPhotoUri(photoUri)
   }
