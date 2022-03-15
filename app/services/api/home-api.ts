@@ -5,11 +5,10 @@ import { UserApi } from "./user-firestore-api"
 export class HomeApi {
   firestore = getFirestore()
 
-  async getLocations(language): Promise<any> {
+  async getLocations(language, uid): Promise<any> {
     try {
-      const auth = getAuth()
       // getting the user id
-      const user = await new UserApi().checkIfUserExist(auth.currentUser.uid)
+      const user = await new UserApi().checkIfUserExist(uid)
 
       const userInterests = user.interests
 

@@ -107,7 +107,7 @@ export const HomeScreen = observer(function HomeScreen() {
     async function fetchLocationData() {
       const homeapi = new HomeApi()
 
-      const firestorePlaces = await homeapi.getLocations(lang)
+      const firestorePlaces = await homeapi.getLocations(lang, user.uid)
       setPLaces(firestorePlaces.places)
     }
 
