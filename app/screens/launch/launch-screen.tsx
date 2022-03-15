@@ -50,7 +50,7 @@ const TextWrapper: ViewStyle = {
 }
 
 const subTextWrapper: ViewStyle = {
-  marginTop: spacing[8],
+  marginTop: 160,
 }
 
 const firstTextWrapper: ViewStyle = {
@@ -66,7 +66,7 @@ const ButtonStyle: ViewStyle = {
   marginHorizontal: spacing[5],
 }
 
-const imageSource = require("../../../assets/images/launch.png")
+const imageSource = require("../../../assets/images/onboarding.png")
 
 export const LaunchScreen = observer(function LaunchScreen() {
   // Pull in one of our MST stores

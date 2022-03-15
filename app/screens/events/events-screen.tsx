@@ -100,6 +100,7 @@ export const EventsScreen = observer(function EventsScreen() {
             data={events}
             renderItem={({ item }) => (
               <HomeCard
+                desc={false}
                 onPress={() => setEventScreen(item)}
                 style={CARD_STYLE}
                 key={item.id}
