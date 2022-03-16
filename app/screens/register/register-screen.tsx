@@ -156,7 +156,8 @@ export const RegisterScreen = observer(function RegisterScreen() {
           uid: userCredentials.user.uid,
           name,
           email: userCredentials.user.email,
-          profilePicture: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y",
+          profilePicture:
+            "https://firebasestorage.googleapis.com/v0/b/casataqafa-d235c.appspot.com/o/profile.png?alt=media&token=42e26a54-4fad-411d-b8e8-1fa25a6ecea1",
           isFirstTime: false,
           hasInterests: false,
         }
